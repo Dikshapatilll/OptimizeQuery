@@ -46,8 +46,8 @@ OptimizeQL implements a closed-loop optimization and verification pipeline:
 ```
 
 1. **ML Latency Prediction**: Before executing queries, SQL queries are parsed into AST representations (`sqlglot`), extracting 35 structural features (joins, predicates, groupings, aggregations, sort keys). Random Forest and XGBoost regressors estimate pre-execution latency.
-2. **Operations Research Optimization**: Evaluates candidate optimizations (indexes, rewrites) across four independent, non-overlapping objectives (execution time, planner cost, buffer reads, buffer hits) using min-max normalization. Under storage constraints, a 0/1 knapsack dynamic program selects optimal index configurations.
-3. **Controlled Database Execution**: Applies approved optimizations inside isolated PostgreSQL transactions using `EXPLAIN (ANALYZE, BUFFERS)` to collect exact root-level performance telemetry without risking production state.
+2. **Operations Research Optimization**: Evaluates candidate optimizations (indexes, rewrites) across four weighted measurable objectives (execution time, planner cost, buffer reads, buffer hits) using min-max normalization. While execution time, planner cost, and total buffer touches may exhibit empirical correlation in database workloads, shared buffer reads (OS/disk page requests) and shared buffer hits (memory cache hits) represent distinct access categories. Under storage constraints, a binary integer linear program (0-1 Knapsack) formulated using PuLP and solved via the CBC solver selects optimal index configurations.
+3. **Controlled Database Execution**: Applies approved optimizations inside isolated PostgreSQL transactions using `EXPLAIN (ANALYZE, BUFFERS)` to collect exact root-level performance telemetry. Transactional rollback ensures zero persistent schema modifications; however, benchmark execution still consumes database CPU, memory, and I/O resources during execution. Running benchmarks against a dedicated, isolated experimental database is strongly recommended.
 4. **Empirical Benchmark Validation**: Executes multi-trial warm repetitions, validates result-set equivalence (bounded row count, column types, checksums), cross-checks ML predictions against measured latencies, and exports verifiable reports.
 
 ---
@@ -57,14 +57,14 @@ OptimizeQL implements a closed-loop optimization and verification pipeline:
 - 🔬 **SQL Query & Plan Introspection** — Connects to PostgreSQL or MySQL, runs `EXPLAIN (ANALYZE, BUFFERS)`, and inspects relational operators, join types, filter predicates, and memory buffer usage.
 - 🤖 **ML Execution-Time Prediction** — Random Forest and XGBoost gradient-boosted regressors predict execution latency in milliseconds before query execution.
 - 📐 **Pre-Execution SQL AST Feature Extraction** — Parses SQL queries via `sqlglot` to extract 35 structural complexity features in $O(N)$ token time without database locks.
-- ⚖️ **Multi-Objective Operations Research Scoring** — Evaluates optimization alternatives across four independent objectives:
+- ⚖️ **Multi-Objective Operations Research Scoring** — Evaluates optimization alternatives across four weighted measurable objectives (metrics may be correlated across workloads, though shared buffer reads and shared buffer hits represent distinct access categories):
   - **Execution Time** (40% weight, minimize)
   - **Planner Cost** (30% weight, minimize)
   - **Shared Buffer Reads** (20% weight, minimize)
   - **Shared Buffer Hits** (10% weight, minimize)
-- 🎒 **0/1 Knapsack Index Budgeting** — Selects optimal sets of index recommendations under strict storage budgets (in MB) using linear programming (`PuLP`) and dynamic programming.
+- 🎒 **0/1 Knapsack Index Budgeting** — Formulates a binary integer linear program (0-1 Knapsack) via `PuLP` and solves it using the CBC solver to select optimal sets of index recommendations under strict storage budgets (in MB).
 - 💡 **Automated Recommendations** — Generates dialect-aware `CREATE INDEX` recommendations, subquery rewrites, join restructurings, and configuration tuning.
-- ⏱️ **PostgreSQL Multi-Trial Benchmarking** — Executes controlled 5-trial and 15-trial benchmarks in isolated transactions, reporting initial-run latency, warm median, mean, standard deviation, and Student's $t$ confidence intervals.
+- ⏱️ **PostgreSQL Multi-Trial Benchmarking** — Executes controlled 5-trial and 15-trial benchmarks in rollback transactions (preventing persistent index changes while isolating execution resource consumption), reporting initial-run latency, warm median, mean, standard deviation, and Student's $t$ confidence intervals.
 - 🔍 **Strict Provenance Tagging** — Distinguishes all metrics with verifiable provenance badges:
   - `[MEASURED]`: Engine telemetry from `EXPLAIN (ANALYZE, BUFFERS)`
   - `[ESTIMATED]`: PostgreSQL optimizer cost planner metrics
@@ -98,7 +98,7 @@ OptimizeQL/
 │   ├── or_engine/                # Operations Research Subsystem
 │   │   ├── objectives.py         # 4-objective extraction from PostgreSQL plans
 │   │   ├── scoring.py            # Min-max normalization & weighted penalty scoring
-│   │   ├── index_selector.py     # 0/1 Knapsack index selection under storage budget
+│   │   ├── index_selector.py     # 0/1 Knapsack binary integer linear program (PuLP/CBC)
 │   │   └── optimizer.py          # Unified optimization orchestrator
 │   ├── benchmarking/             # Empirical Benchmarking Engine
 │   │   ├── runner.py             # Multi-trial execution runner & root-level buffer extractor
@@ -120,7 +120,7 @@ OptimizeQL/
 ## 🛠️ Tech Stack
 
 ### Backend Dependencies (`backend/requirements.txt`)
-| Component | Package | Exact Version | Purpose |
+| Component | Package | Version / Constraint | Purpose |
 | :--- | :--- | :--- | :--- |
 | **API Framework** | `fastapi` | `0.115.5` | High-performance asynchronous REST API |
 | **ASGI Server** | `uvicorn` | `0.32.1` | ASGI web server |
@@ -131,13 +131,13 @@ OptimizeQL/
 | **ML Models** | `scikit-learn` | `>=1.5.0` | Random Forest Regressor & StandardScaler |
 | **Gradient Boosting**| `xgboost` | `>=2.1.0` | XGBoost Regressor |
 | **Model Persistence**| `joblib` | `>=1.4.0` | Model artifact serialization |
-| **Linear Program** | `PuLP` | `>=2.8.0,<3.0.0`| 0/1 Knapsack index budgeting solver |
+| **Linear Program** | `PuLP` | `>=2.8.0,<3.0.0`| 0/1 Knapsack binary integer linear programming solver (CBC) |
 | **Data Processing** | `pandas`, `numpy`| `>=2.2.0`, `>=1.26.0` | Feature matrices and array operations |
 | **Encryption** | `cryptography` | `43.0.3` | Fernet symmetric credential encryption |
 | **Testing** | `pytest`, `httpx` | `8.3.4`, `0.28.1` | Automated test suite and async client |
 
 ### Frontend Dependencies (`frontend/package.json`)
-| Component | Package | Exact Version | Purpose |
+| Component | Package | Version / Constraint | Purpose |
 | :--- | :--- | :--- | :--- |
 | **Framework** | `next` | `16.1.6` | Next.js with Turbopack App Router |
 | **UI Library** | `react`, `react-dom`| `19.2.3` | User interface rendering |
