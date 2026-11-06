@@ -46,7 +46,7 @@ OptimizeQL implements a closed-loop optimization and verification pipeline:
 ```
 
 1. **ML Latency Prediction**: Before executing queries, SQL queries are parsed into AST representations (`sqlglot`), extracting 35 structural features (joins, predicates, groupings, aggregations, sort keys). Random Forest and XGBoost regressors estimate pre-execution latency.
-2. **Operations Research Optimization**: Evaluates candidate optimizations (indexes, rewrites) across four weighted measurable objectives (execution time, planner cost, buffer reads, buffer hits) using min-max normalization. While execution time, planner cost, and total buffer touches may exhibit empirical correlation in database workloads, shared buffer reads (OS/disk page requests) and shared buffer hits (memory cache hits) represent distinct access categories. Under storage constraints, a binary integer linear program (0-1 Knapsack) formulated using PuLP and solved via the CBC solver selects optimal index configurations.
+2. **Operations Research Optimization**: Evaluates candidate optimizations (indexes, rewrites) across four weighted measurable objectives (execution time, planner cost, buffer reads, buffer hits) using min-max normalization. While execution time, planner cost, and total buffer touches may exhibit empirical correlation in database workloads, shared buffer reads (requests for 8 KiB blocks not currently in PostgreSQL shared buffers, which may be served either by the operating system's page cache or by physical storage reads) and shared buffer hits (blocks already resident in PostgreSQL shared memory) represent distinct access categories. Under storage constraints, a binary integer linear program (0-1 Knapsack) formulated using PuLP and solved via the CBC solver selects optimal index configurations.
 3. **Controlled Database Execution**: Applies approved optimizations inside isolated PostgreSQL transactions using `EXPLAIN (ANALYZE, BUFFERS)` to collect exact root-level performance telemetry. Transactional rollback ensures zero persistent schema modifications; however, benchmark execution still consumes database CPU, memory, and I/O resources during execution. Running benchmarks against a dedicated, isolated experimental database is strongly recommended.
 4. **Empirical Benchmark Validation**: Executes multi-trial warm repetitions, validates result-set equivalence (bounded row count, column types, checksums), cross-checks ML predictions against measured latencies, and exports verifiable reports.
 
@@ -60,8 +60,8 @@ OptimizeQL implements a closed-loop optimization and verification pipeline:
 - ⚖️ **Multi-Objective Operations Research Scoring** — Evaluates optimization alternatives across four weighted measurable objectives (metrics may be correlated across workloads, though shared buffer reads and shared buffer hits represent distinct access categories):
   - **Execution Time** (40% weight, minimize)
   - **Planner Cost** (30% weight, minimize)
-  - **Shared Buffer Reads** (20% weight, minimize)
-  - **Shared Buffer Hits** (10% weight, minimize)
+  - **Shared Buffer Reads** (20% weight, minimize) — Measures blocks fetched into PostgreSQL shared memory buffers (which may be served from the operating system page cache or physical storage).
+  - **Shared Buffer Hits** (10% weight, minimize) — Measures blocks already resident in PostgreSQL shared memory buffers.
 - 🎒 **0/1 Knapsack Index Budgeting** — Formulates a binary integer linear program (0-1 Knapsack) via `PuLP` and solves it using the CBC solver to select optimal sets of index recommendations under strict storage budgets (in MB).
 - 💡 **Automated Recommendations** — Generates dialect-aware `CREATE INDEX` recommendations, subquery rewrites, join restructurings, and configuration tuning.
 - ⏱️ **PostgreSQL Multi-Trial Benchmarking** — Executes controlled 5-trial and 15-trial benchmarks in rollback transactions (preventing persistent index changes while isolating execution resource consumption), reporting initial-run latency, warm median, mean, standard deviation, and Student's $t$ confidence intervals.
@@ -106,7 +106,7 @@ OptimizeQL/
 │   │   └── validator.py          # Bounded result-set equivalence validator
 │   ├── connectors/               # PostgreSQL (psycopg2) and MySQL database drivers
 │   ├── core/                     # Configuration, SQLAlchemy ORM, Fernet encryption
-│   └── tests/                    # 164 unit and integration tests (pytest)
+│   └── tests/                    # 165 unit and integration tests (pytest)
 └── 📁 data/                      # Research datasets and experimental benchmarks
     ├── benchmark_dataset.json    # 500 synthetic queries with measured SQLite execution times
     ├── benchmark_seeded.db       # Synthetic benchmark SQLite database (3.5 MB)
@@ -217,16 +217,19 @@ All buffer metrics strictly report **authoritative root-level aggregates** direc
 
 The framework maintains an automated test suite across backend and frontend:
 
-- **Backend Pytest Suite**: **164 passed** in 3.10s
+- **Backend Pytest Suite**: **165 passed** in 3.30s
   - API endpoint integration tests
   - ML feature extraction & regression tests
   - OR multi-objective scoring & root-level buffer penalty tests
   - 0/1 knapsack index selection budget tests
   - PostgreSQL transaction isolation & rollback runner tests
-- **Frontend Unit Tests**: **3 passed** in 48ms
+  - SQLite sandbox pre-existing index recreation safety tests
+- **Frontend Unit Tests**: **5 passed** in 52ms
   - CSV export formatting & header validation
   - Provenance badge classification (`[MEASURED]`, `[ESTIMATED]`, `[PREDICTED]`)
   - Speedup and percentage improvement math validation
+  - Analysis payload resilience (safe handling of empty join tables & cost factors)
+  - Knapsack storage-budget MILP validator & integer programming integrity
 - **TypeScript Compilation**: **0 errors** (`npx tsc --noEmit`)
 - **Next.js Production Build**: Clean static and dynamic compilation of all 10 application pages via Turbopack.
 
