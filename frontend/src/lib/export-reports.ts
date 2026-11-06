@@ -76,7 +76,7 @@ export function exportBenchmarkCSV(benchmark: BenchmarkComparisonResult): void {
         : "N/A",
     ],
     [
-      "Shared Buffer Reads (blocks)",
+      "Shared Buffer Read Blocks (Root Aggregate)",
       "[MEASURED]",
       orig.shared_buffer_reads != null ? String(orig.shared_buffer_reads) : "0",
       opt?.shared_buffer_reads != null ? String(opt.shared_buffer_reads) : "0",
@@ -85,7 +85,7 @@ export function exportBenchmarkCSV(benchmark: BenchmarkComparisonResult): void {
         : "N/A",
     ],
     [
-      "Shared Buffer Hits (Root Aggregate, blocks)",
+      "Shared Buffer Hit Blocks (Root Aggregate)",
       "[MEASURED]",
       orig.shared_buffer_hits != null ? String(orig.shared_buffer_hits) : "0",
       opt?.shared_buffer_hits != null ? String(opt.shared_buffer_hits) : "0",
@@ -270,14 +270,14 @@ export function exportBenchmarkPDF(benchmark: BenchmarkComparisonResult): void {
       costImp != null ? `${costImp.toFixed(1)}%` : "N/A",
     ],
     [
-      "Shared Buffer Reads",
+      "Shared Buffer Read Blocks",
       "[MEASURED]",
       orig.shared_buffer_reads != null ? `${orig.shared_buffer_reads} blocks` : "0",
       opt?.shared_buffer_reads != null ? `${opt.shared_buffer_reads} blocks` : "0",
       readsImp != null ? `${readsImp.toFixed(1)}%` : "N/A",
     ],
     [
-      "Shared Buffer Hits (Root Aggregate)",
+      "Shared Buffer Hit Blocks (Root Aggregate)",
       "[MEASURED]",
       orig.shared_buffer_hits != null ? `${orig.shared_buffer_hits} blocks` : "0",
       opt?.shared_buffer_hits != null ? `${opt.shared_buffer_hits} blocks` : "0",

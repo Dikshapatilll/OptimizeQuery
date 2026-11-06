@@ -128,7 +128,7 @@ export default function BenchmarkPage() {
             <ProvenanceBadge type="measured" />
           </div>
           <p className="text-xs text-(--color-text-muted) mt-1">
-            Empirical multi-trial execution, cold/warm cache separation, transactional rollback index isolation, and ML validation.
+            Empirical multi-trial execution, initial run vs warm trial separation, transactional rollback index isolation, and ML validation.
           </p>
         </div>
 
@@ -325,7 +325,7 @@ export default function BenchmarkPage() {
                   <div className="text-xs">
                     <span className="font-semibold text-(--color-foreground) block">Number of Multi-Trial Repetitions:</span>
                     <span className="text-[11px] text-(--color-text-faint)">
-                      Trial 1 measures cold execution; Trials 2..{numRuns} calculate warm median and Student&apos;s t confidence interval.
+                      Trial 1 measures initial execution; Trials 2..{numRuns} calculate warm median and Student&apos;s t confidence interval.
                     </span>
                   </div>
                   <div className="flex items-center gap-3">

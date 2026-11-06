@@ -113,12 +113,12 @@ export function PlannerCostChart({ original, optimized }: CostAndBufferChartProp
 export function SharedBufferBlocksChart({ original, optimized }: CostAndBufferChartProps) {
   const data = [
     {
-      category: "Buffer Reads (Disk I/O)",
+      category: "Shared Buffer Read Blocks",
       Original: original.shared_buffer_reads ?? 0,
       Optimized: optimized ? (optimized.shared_buffer_reads ?? 0) : 0,
     },
     {
-      category: "Buffer Hits (Cache Touches)",
+      category: "Shared Buffer Hit Blocks",
       Original: original.shared_buffer_hits ?? 0,
       Optimized: optimized ? (optimized.shared_buffer_hits ?? 0) : 0,
     },
@@ -146,7 +146,7 @@ export function SharedBufferBlocksChart({ original, optimized }: CostAndBufferCh
         </ResponsiveContainer>
       </div>
       <div className="text-xs text-(--color-text-muted) px-1">
-        <span>📦 Shared buffer blocks accessed (each block is 8 KiB). Lower total accesses minimize memory churn and buffer lock contention.</span>
+        <span>📦 Authoritative root-level shared buffer blocks accessed (8 KiB/block). True query consumption is measured at the plan root, clearly distinguished from recursive node diagnostic sums.</span>
       </div>
     </div>
   );

@@ -249,7 +249,7 @@ export function BenchmarkDetail({ benchmark, onBack }: BenchmarkDetailProps) {
                   </td>
                 </tr>
                 <tr className="hover:bg-gray-50/50 dark:hover:bg-white/5">
-                  <td className="py-3 px-4 font-medium text-(--color-foreground)">Shared Buffer Reads</td>
+                  <td className="py-3 px-4 font-medium text-(--color-foreground)">Shared Buffer Read Blocks (Root Aggregate)</td>
                   <td className="py-3 px-4"><ProvenanceBadge type="measured" /></td>
                   <td className="py-3 px-4 font-mono">{orig.shared_buffer_reads ?? 0} blocks</td>
                   <td className="py-3 px-4 font-mono">{opt ? `${opt.shared_buffer_reads ?? 0} blocks` : "—"}</td>
@@ -258,7 +258,7 @@ export function BenchmarkDetail({ benchmark, onBack }: BenchmarkDetailProps) {
                   </td>
                 </tr>
                 <tr className="hover:bg-gray-50/50 dark:hover:bg-white/5">
-                  <td className="py-3 px-4 font-medium text-(--color-foreground)">Shared Buffer Hits</td>
+                  <td className="py-3 px-4 font-medium text-(--color-foreground)">Shared Buffer Hit Blocks (Root Aggregate)</td>
                   <td className="py-3 px-4"><ProvenanceBadge type="measured" /></td>
                   <td className="py-3 px-4 font-mono">{orig.shared_buffer_hits ?? 0} blocks</td>
                   <td className="py-3 px-4 font-mono">{opt ? `${opt.shared_buffer_hits ?? 0} blocks` : "—"}</td>
@@ -273,6 +273,10 @@ export function BenchmarkDetail({ benchmark, onBack }: BenchmarkDetailProps) {
                 </tr>
               </tbody>
             </table>
+            <div className="px-4 py-2.5 bg-(--color-surface-muted) border-t border-(--color-border) text-[11px] text-(--color-text-muted) flex items-center gap-1.5">
+              <span>ℹ️</span>
+              <span>Buffer metrics reflect authoritative root plan-node accesses (8 KiB per block), distinguishing true query resource consumption from recursive diagnostic node sums that double-count nested plan operations.</span>
+            </div>
           </div>
 
           {/* Equivalence and Caching details */}
