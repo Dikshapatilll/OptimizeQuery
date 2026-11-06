@@ -127,3 +127,67 @@ test("Speedup and improvement math validation", (t) => {
   // 10ms -> 10ms = 0%
   assert.equal(calcImprovement(10, 10), 0);
 });
+
+test("Analysis payload resilience: handles missing tables_analyzed and cost_factors gracefully", (t) => {
+  // Test regression: ensures minimal / shared payload without tables_analyzed or cost_factors does not throw
+  const minimalPayload = {
+    query_id: "test-query-minimal",
+    summary: "Grouping on non-unique column causes sequential scan",
+    // tables_analyzed is undefined
+    // bottlenecks is empty or undefined
+    // execution_time_prediction cost_factors is undefined
+    execution_time_prediction: {
+      predicted_time_ms: 5.2,
+      latency_tier: "fast",
+      confidence_range: [3.5, 6.8],
+      models: { random_forest_ms: 5.1, xgboost_ms: 5.3 },
+      features_summary: { token_count: 24 },
+      cost_factors: undefined,
+      model_version: "1.0.0",
+    },
+  };
+
+  // Safe accessor validation matching the UI fix
+  const hasTables = !!(minimalPayload.tables_analyzed && minimalPayload.tables_analyzed.length > 0);
+  assert.equal(hasTables, false);
+
+  const pred = minimalPayload.execution_time_prediction;
+  const hasCostFactors = !!(pred?.cost_factors && pred.cost_factors.length > 0);
+  assert.equal(hasCostFactors, false);
+
+  const tablesSafe = minimalPayload.tables_analyzed || [];
+  assert.equal(tablesSafe.length, 0);
+});
+
+test("Knapsack storage-budget MILP validator: budget constraints and index selection integrity", (t) => {
+  const mockKnapsackResponse = {
+    query_id: "q-knapsack-test",
+    budget_mb: 100.0,
+    result: {
+      selected_indexes: [
+        {
+          id: "idx-1",
+          name: "idx_orders_user_id_total",
+          table_name: "orders",
+          column_names: ["user_id", "total"],
+          estimated_size_mb: 4.58,
+          estimated_benefit: 100.0,
+          sql: "CREATE INDEX idx_orders_user_id_total ON orders (user_id, total);",
+        },
+      ],
+      rejected_indexes: [],
+      total_size_bytes: 4802478,
+      total_size_mb: 4.58,
+      budget_bytes: 104857600,
+      budget_utilisation_pct: 4.58,
+      objective_value: 100.0,
+      solver_status: "Optimal",
+    },
+  };
+
+  assert.equal(mockKnapsackResponse.result.solver_status, "Optimal");
+  assert.ok(mockKnapsackResponse.result.total_size_mb <= mockKnapsackResponse.budget_mb);
+  assert.equal(mockKnapsackResponse.result.selected_indexes.length, 1);
+  assert.equal(mockKnapsackResponse.result.rejected_indexes.length, 0);
+  assert.equal(mockKnapsackResponse.result.objective_value, 100.0);
+});

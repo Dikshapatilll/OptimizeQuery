@@ -14,6 +14,7 @@ SQLite:
 from __future__ import annotations
 
 import logging
+import re
 import sqlite3
 from pathlib import Path
 from typing import Any
@@ -131,6 +132,17 @@ class IsolatedIndexBenchmarker:
             disk_conn.close()
 
         try:
+            # If an index with this name already exists in the clone, drop it first so recreation succeeds
+            m = re.search(
+                r"CREATE\s+(?:UNIQUE\s+)?INDEX\s+(?:IF\s+NOT\s+EXISTS\s+)?([`\"'\[]?\w+[`\"'\]]?)",
+                index_sql,
+                re.IGNORECASE,
+            )
+            if m:
+                idx_name = m.group(1).strip("`\"'[]")
+                cur = mem_conn.cursor()
+                cur.execute(f'DROP INDEX IF EXISTS "{idx_name}"')
+
             # Create the index in the in-memory clone
             logger.info("Applying index in memory clone: %s", index_sql)
             cur = mem_conn.cursor()

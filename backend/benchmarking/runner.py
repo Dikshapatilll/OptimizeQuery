@@ -26,6 +26,10 @@ from benchmarking.validator import validate_select_query
 logger = logging.getLogger(__name__)
 
 BENCHMARK_DB_PATH = Path("data/benchmark_seeded.db")
+if not BENCHMARK_DB_PATH.exists():
+    _fallback_db = Path(__file__).resolve().parent.parent.parent / "data" / "benchmark_seeded.db"
+    if _fallback_db.exists():
+        BENCHMARK_DB_PATH = _fallback_db
 
 
 class BenchmarkRunner:

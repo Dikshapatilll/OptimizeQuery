@@ -25,6 +25,19 @@ class TestIsolatedIndexBenchmarker:
         assert metrics.runs_count == 3
         assert metrics.warm_median_execution_time_ms > 0
 
+    def test_benchmark_with_preexisting_index_sqlite(self):
+        """Regression test: Benchmarking an index whose name already exists in the cloned DB drops and recreates it cleanly."""
+        # idx_orders_user_id already exists in benchmark_seeded.db
+        metrics, env = IsolatedIndexBenchmarker.benchmark_with_index_sqlite(
+            index_sql="CREATE INDEX idx_orders_user_id ON orders(user_id)",
+            query_sql="SELECT * FROM orders WHERE user_id = 42 LIMIT 10",
+            num_runs=3,
+        )
+
+        assert env == "controlled_sqlite_sandbox"
+        assert metrics.runs_count == 3
+        assert metrics.warm_median_execution_time_ms > 0
+
     def test_benchmark_with_index_pg_rolls_back(self):
         """PostgreSQL index benchmarking must execute in a transaction and ALWAYS ROLLBACK."""
         mock_conn = MagicMock()

@@ -77,12 +77,12 @@ export function HistoryList({ items }: HistoryListProps) {
 
       <div className="rounded-xl border border-(--color-border) overflow-hidden bg-(--color-surface) shadow-2xs">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-xs table-fixed">
             <thead className="bg-(--color-surface-muted) text-(--color-text-faint) uppercase font-mono text-[10px] tracking-wider border-b border-(--color-border)">
               <tr>
-                <th className="py-3 px-4 font-semibold">Timestamp</th>
+                <th className="w-36 py-3 px-4 font-semibold">Timestamp</th>
                 <th className="py-3 px-4 font-semibold">SQL Query</th>
-                <th className="py-3 px-4 font-semibold text-right">Actions</th>
+                <th className="w-32 py-3 px-4 font-semibold text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-(--color-border)">

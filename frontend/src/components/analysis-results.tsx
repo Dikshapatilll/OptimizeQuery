@@ -104,7 +104,7 @@ function ExecutionTimeSection({ prediction }: { prediction: ExecutionTimePredict
       </div>
 
       {/* Key Cost Drivers */}
-      {prediction.cost_factors.length > 0 && (
+      {prediction.cost_factors && prediction.cost_factors.length > 0 && (
         <div>
           <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-(--color-text-faint) block mb-2">
             Identified Latency Drivers (AST Analysis):
@@ -255,7 +255,7 @@ export function AnalysisResults({
           <p className="text-sm leading-relaxed text-(--color-foreground)">
             {result.summary}
           </p>
-          {result.tables_analyzed.length > 0 && (
+          {result.tables_analyzed && result.tables_analyzed.length > 0 && (
             <div className="flex flex-wrap items-center gap-2 mt-3 pt-3 border-t border-teal-500/10">
               <span className="text-xs font-mono text-(--color-text-faint)">Tables:</span>
               {result.tables_analyzed.map((t) => (

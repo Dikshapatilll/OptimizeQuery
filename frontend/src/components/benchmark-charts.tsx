@@ -40,8 +40,8 @@ export function LatencyComparisonChart({ original, optimized }: LatencyCompariso
   ];
 
   return (
-    <div className="w-full h-64">
-      <ResponsiveContainer width="100%" height="100%">
+    <div className="w-full">
+      <ResponsiveContainer width="100%" height={240} minWidth={0}>
         <BarChart data={data} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
           <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
           <XAxis dataKey="name" tick={{ fontSize: 11 }} />
@@ -79,8 +79,8 @@ export function PlannerCostChart({ original, optimized }: CostAndBufferChartProp
 
   return (
     <div className="space-y-2">
-      <div className="w-full h-56">
-        <ResponsiveContainer width="100%" height="100%">
+      <div className="w-full">
+        <ResponsiveContainer width="100%" height={220} minWidth={0}>
           <BarChart data={data} margin={{ top: 10, right: 20, left: 10, bottom: 20 }}>
             <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
             <XAxis dataKey="name" tick={{ fontSize: 11 }} />
@@ -126,8 +126,8 @@ export function SharedBufferBlocksChart({ original, optimized }: CostAndBufferCh
 
   return (
     <div className="space-y-2">
-      <div className="w-full h-56">
-        <ResponsiveContainer width="100%" height="100%">
+      <div className="w-full">
+        <ResponsiveContainer width="100%" height={220} minWidth={0}>
           <BarChart data={data} margin={{ top: 10, right: 20, left: 10, bottom: 20 }}>
             <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
             <XAxis dataKey="category" tick={{ fontSize: 11 }} />
@@ -187,8 +187,8 @@ export function TrialRunVarianceChart({ original, optimized }: TrialRunVarianceP
   }
 
   return (
-    <div className="w-full h-64">
-      <ResponsiveContainer width="100%" height="100%">
+    <div className="w-full">
+      <ResponsiveContainer width="100%" height={240} minWidth={0}>
         <LineChart data={data} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
           <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
           <XAxis dataKey="trial" tick={{ fontSize: 11 }} />
@@ -228,8 +228,8 @@ export function MLAccuracyChart({ benchmark }: MLAccuracyChartProps) {
   ];
 
   return (
-    <div className="w-full h-52">
-      <ResponsiveContainer width="100%" height="100%">
+    <div className="w-full">
+      <ResponsiveContainer width="100%" height={200} minWidth={0}>
         <BarChart data={data} margin={{ top: 10, right: 20, left: 10, bottom: 20 }}>
           <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
           <XAxis dataKey="name" tick={{ fontSize: 11 }} />
@@ -264,8 +264,8 @@ export function HistoricalTrendChart({ history }: HistoricalTrendChartProps) {
     }));
 
   return (
-    <div className="w-full h-64">
-      <ResponsiveContainer width="100%" height="100%">
+    <div className="w-full">
+      <ResponsiveContainer width="100%" height={240} minWidth={0}>
         <LineChart data={data} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
           <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
           <XAxis dataKey="index" tick={{ fontSize: 11 }} />

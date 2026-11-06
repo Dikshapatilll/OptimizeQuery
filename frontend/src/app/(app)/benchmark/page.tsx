@@ -20,7 +20,7 @@ const PRESET_QUERIES = [
   {
     label: "W1: Join & Aggregation (orders + users)",
     original: "SELECT u.name, count(o.id) as total_orders FROM users u JOIN orders o ON u.id = o.user_id GROUP BY u.name HAVING count(o.id) > 2 ORDER BY total_orders DESC LIMIT 20",
-    index: "CREATE INDEX idx_orders_user_id ON orders(user_id)",
+    index: "CREATE INDEX idx_orders_user_id_total ON orders(user_id, total)",
   },
   {
     label: "W2: Range Filter & Multi-Column Sort",

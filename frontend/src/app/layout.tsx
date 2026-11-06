@@ -1,14 +1,6 @@
 import type { Metadata } from "next";
-import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-  preload: false,
-});
 
 export const metadata: Metadata = {
   title: "OptimizeQL — Intelligent Query Optimization Framework",
@@ -34,7 +26,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistMono.variable} antialiased bg-(--color-background) text-(--color-foreground) min-h-screen`}
+        className="antialiased bg-(--color-background) text-(--color-foreground) min-h-screen"
       >
         <Providers>
           {children}

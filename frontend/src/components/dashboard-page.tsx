@@ -287,7 +287,7 @@ export default function DashboardPage() {
           </div>
 
           {stats.queries_by_date.length > 0 ? (
-            <ResponsiveContainer width="100%" height={240}>
+            <ResponsiveContainer width="100%" height={240} minWidth={0}>
               <BarChart data={stats.queries_by_date} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="barTealGradient" x1="0" y1="0" x2="0" y2="1">
@@ -438,8 +438,8 @@ export default function DashboardPage() {
                   href={`/benchmark`}
                   className="block p-3 rounded-lg border border-(--color-border) bg-(--color-surface-muted) hover:border-(--color-border-hover) transition-all"
                 >
-                  <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <code className="text-xs font-mono text-(--color-foreground) truncate flex-1 font-semibold">
+                  <div className="flex items-center justify-between gap-2 mb-1.5 min-w-0">
+                    <code className="text-xs font-mono text-(--color-foreground) truncate flex-1 block min-w-0 font-semibold">
                       {item.original_sql}
                     </code>
                     {item.results_match != null && (
@@ -500,8 +500,8 @@ export default function DashboardPage() {
                   onClick={() => handleRecentClick(item)}
                   className="w-full text-left p-3 rounded-lg border border-(--color-border) bg-(--color-surface-muted) hover:border-(--color-border-hover) hover:bg-(--color-surface) transition-all cursor-pointer"
                 >
-                  <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <code className="text-xs font-mono text-(--color-foreground) truncate flex-1">
+                  <div className="flex items-center justify-between gap-2 mb-1.5 min-w-0">
+                    <code className="text-xs font-mono text-(--color-foreground) truncate flex-1 block min-w-0">
                       {item.sql_query}
                     </code>
                     <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 font-semibold shrink-0">

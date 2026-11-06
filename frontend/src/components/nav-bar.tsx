@@ -182,7 +182,7 @@ export function NavBar() {
   return (
     <aside
       className={`shrink-0 min-h-screen bg-(--color-surface) border-r border-(--color-border) flex flex-col transition-all duration-200 z-30 select-none ${
-        collapsed ? "w-[72px]" : "w-[260px]"
+        collapsed ? "w-[72px]" : "w-[72px] lg:w-[260px]"
       }`}
     >
       {/* Brand Header */}
@@ -197,7 +197,14 @@ export function NavBar() {
               <LogoMark size={32} />
             </div>
           ) : (
-            <OptimizeQLLogo variant="full" size="md" />
+            <>
+              <div className="lg:hidden w-10 h-10 flex items-center justify-center">
+                <LogoMark size={32} />
+              </div>
+              <div className="hidden lg:block">
+                <OptimizeQLLogo variant="full" size="md" />
+              </div>
+            </>
           )}
         </Link>
       </div>
@@ -207,7 +214,7 @@ export function NavBar() {
         {navSections.map((sec) => (
           <div key={sec.title} className="space-y-1">
             {!collapsed && (
-              <p className="px-3 text-[10px] font-mono font-bold uppercase tracking-wider text-(--color-text-faint)">
+              <p className="hidden lg:block px-3 text-[10px] font-mono font-bold uppercase tracking-wider text-(--color-text-faint)">
                 {sec.title}
               </p>
             )}
@@ -223,7 +230,7 @@ export function NavBar() {
                       active
                         ? "bg-teal-500/10 text-teal-700 dark:text-teal-300 font-semibold"
                         : "text-(--color-text-muted) hover:bg-(--color-surface-muted) hover:text-(--color-foreground)"
-                    } ${collapsed ? "justify-center px-0 py-2.5" : ""}`}
+                    } ${collapsed ? "justify-center px-0 py-2.5" : "max-lg:justify-center max-lg:px-0 max-lg:py-2.5"}`}
                   >
                     {/* Active left indicator line */}
                     {active && (
@@ -236,9 +243,9 @@ export function NavBar() {
 
                     {!collapsed && (
                       <>
-                        <span className="truncate flex-1">{item.label}</span>
+                        <span className="hidden lg:inline truncate flex-1">{item.label}</span>
                         {item.badge && (
-                          <span className={`text-[10px] font-mono font-semibold px-1.5 py-0.2 rounded ${item.badgeColor || "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300"}`}>
+                          <span className={`hidden lg:inline text-[10px] font-mono font-semibold px-1.5 py-0.2 rounded ${item.badgeColor || "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300"}`}>
                             {item.badge}
                           </span>
                         )}
@@ -254,7 +261,7 @@ export function NavBar() {
 
       {/* Database Engine Status Pill */}
       {!collapsed && (
-        <div className="px-3 py-2 mx-3 mb-2 rounded-lg bg-(--color-surface-muted) border border-(--color-border)">
+        <div className="hidden lg:block px-3 py-2 mx-3 mb-2 rounded-lg bg-(--color-surface-muted) border border-(--color-border)">
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -285,7 +292,7 @@ export function NavBar() {
           }`}
         >
           <DocsIcon className="w-4 h-4 shrink-0 text-(--color-text-faint)" />
-          {!collapsed && <span>API Docs</span>}
+          {!collapsed && <span className="hidden lg:inline">API Docs</span>}
         </a>
 
         {/* Theme Toggle */}
@@ -293,14 +300,14 @@ export function NavBar() {
           onClick={toggleTheme}
           title={collapsed ? (theme === "dark" ? "Light Mode" : "Dark Mode") : undefined}
           className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-(--color-text-muted) hover:bg-(--color-surface-muted) hover:text-(--color-foreground) transition-colors cursor-pointer ${
-            collapsed ? "justify-center px-0" : ""
+            collapsed ? "justify-center px-0" : "max-lg:justify-center max-lg:px-0"
           }`}
         >
           <span className="w-4 h-4 shrink-0 text-(--color-text-faint)">
             {theme === "dark" ? <SunIcon /> : <MoonIcon />}
           </span>
           {!collapsed && (
-            <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
+            <span className="hidden lg:inline">{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
           )}
         </button>
 
@@ -309,11 +316,11 @@ export function NavBar() {
           onClick={toggleCollapsed}
           title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
           className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-(--color-text-muted) hover:bg-(--color-surface-muted) hover:text-(--color-foreground) transition-colors cursor-pointer ${
-            collapsed ? "justify-center px-0" : ""
+            collapsed ? "justify-center px-0" : "max-lg:justify-center max-lg:px-0"
           }`}
         >
           <CollapseIcon className="w-4 h-4 shrink-0 text-(--color-text-faint)" collapsed={collapsed} />
-          {!collapsed && <span>Collapse Sidebar</span>}
+          {!collapsed && <span className="hidden lg:inline">Collapse Sidebar</span>}
         </button>
       </div>
     </aside>
