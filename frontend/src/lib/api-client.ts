@@ -7,8 +7,19 @@ import type {
   ConnectionResponse,
   ConnectionTestResult,
   DashboardStats,
+  ExecutionTimePrediction,
   LLMConfigCreate,
   LLMConfigResponse,
+  MLModelInfo,
+  ORConfigResponse,
+  OROptimizeRequest,
+  OROptimizeResponse,
+  IndexSelectionRequest,
+  IndexSelectionResponse,
+  BenchmarkComparisonResult,
+  BenchmarkHistoryItem,
+  BenchmarkRunRequest,
+  PredictTimeRequest,
   ProviderInfo,
   QueryHistoryItem,
   ShareLinkCreate,
@@ -121,3 +132,42 @@ export const getShareLink = (id: string) =>
 // Dashboard
 export const getDashboardStats = () =>
   apiFetch<DashboardStats>("/api/v1/analyze/stats");
+
+// Machine Learning
+export const predictExecutionTime = (data: PredictTimeRequest) =>
+  apiFetch<ExecutionTimePrediction>("/api/v1/ml/predict-time", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+
+export const getMLModelInfo = () =>
+  apiFetch<MLModelInfo>("/api/v1/ml/model-info");
+
+// Operations Research
+export const getORConfig = () =>
+  apiFetch<ORConfigResponse>("/api/v1/or/config");
+
+export const optimizeWithOR = (data: OROptimizeRequest) =>
+  apiFetch<OROptimizeResponse>("/api/v1/or/optimize", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+
+export const selectIndexesWithOR = (data: IndexSelectionRequest) =>
+  apiFetch<IndexSelectionResponse>("/api/v1/or/select-indexes", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+
+// Benchmarking
+export const runBenchmark = (data: BenchmarkRunRequest) =>
+  apiFetch<BenchmarkComparisonResult>("/api/v1/benchmark/run", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+
+export const getBenchmarkHistory = (limit: number = 50) =>
+  apiFetch<BenchmarkHistoryItem[]>(`/api/v1/benchmark/history?limit=${limit}`);
+
+export const getBenchmarkDetail = (id: string) =>
+  apiFetch<BenchmarkComparisonResult>(`/api/v1/benchmark/${id}`);

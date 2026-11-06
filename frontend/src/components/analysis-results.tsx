@@ -1,10 +1,13 @@
 "use client";
 
-import type { AnalysisResult, ConfigurationItem } from "@/lib/types";
+import { useState } from "react";
+import type { AnalysisResult, ConfigurationItem, ExecutionTimePrediction, OROptimizationSummary } from "@/lib/types";
 import { useAnalysis } from "@/context/analysis-context";
 import { SuggestionCard } from "./suggestion-card";
 import { SqlHighlight } from "./sql-highlight";
 import { ImpactBadge } from "./impact-badge";
+import { IndexBudgetSelector } from "./index-budget-selector";
+import { ProvenanceBadge } from "./provenance-badge";
 
 const sectionMeta: Record<string, { icon: string; color: string }> = {
   Bottlenecks: { icon: "!!", color: "text-red-500" },
@@ -95,6 +98,183 @@ function ConfigurationCard({ item }: { item: ConfigurationItem }) {
   );
 }
 
+function ExecutionTimeCard({ prediction }: { prediction: ExecutionTimePrediction }) {
+  const tierBadge =
+    prediction.latency_tier === "fast"
+      ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300"
+      : prediction.latency_tier === "moderate"
+        ? "bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-300"
+        : "bg-rose-100 text-rose-800 dark:bg-rose-900/60 dark:text-rose-300";
+
+  return (
+    <div className="rounded-xl border border-(--color-border) bg-(--color-surface) p-5 mb-4 hover:shadow-xs transition-shadow">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-(--color-border) pb-4 mb-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-lg bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-sm">
+            ⚡
+          </div>
+          <div>
+            <h3 className="text-base font-semibold text-(--color-foreground) flex items-center gap-2">
+              ML Query Execution Time Prediction
+              <ProvenanceBadge type="predicted" />
+              <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full uppercase tracking-wider ${tierBadge}`}>
+                {prediction.latency_tier}
+              </span>
+            </h3>
+            <p className="text-xs text-(--color-text-muted) mt-0.5">
+              Pre-execution estimation powered by Random Forest & XGBoost models
+            </p>
+          </div>
+        </div>
+        <div className="text-left sm:text-right sm:self-center">
+          <span className="text-2xl font-bold text-(--color-foreground) tracking-tight">
+            ~{prediction.predicted_time_ms.toFixed(2)} ms
+          </span>
+          <p className="text-[11px] text-(--color-text-faint)">
+            Est. range: {prediction.confidence_range.min_ms.toFixed(1)} – {prediction.confidence_range.max_ms.toFixed(1)} ms
+          </p>
+        </div>
+      </div>
+
+      {/* Model comparison breakdown */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+        <div className="p-3 rounded-lg border border-(--color-border) bg-(--color-surface-muted) flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+            <span className="text-xs font-medium text-(--color-text-muted)">XGBoost Regressor:</span>
+          </div>
+          <span className="text-xs font-mono font-semibold text-(--color-foreground)">
+            {prediction.models.xgboost_ms.toFixed(2)} ms
+          </span>
+        </div>
+        <div className="p-3 rounded-lg border border-(--color-border) bg-(--color-surface-muted) flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span className="text-xs font-medium text-(--color-text-muted)">Random Forest Regressor:</span>
+          </div>
+          <span className="text-xs font-mono font-semibold text-(--color-foreground)">
+            {prediction.models.random_forest_ms.toFixed(2)} ms
+          </span>
+        </div>
+      </div>
+
+      {/* Cost factors identified before execution */}
+      {prediction.cost_factors.length > 0 && (
+        <div>
+          <span className="text-xs font-medium text-(--color-text-faint) uppercase tracking-wider block mb-1.5">
+            Key Execution Drivers:
+          </span>
+          <div className="flex flex-wrap gap-1.5">
+            {prediction.cost_factors.map((factor, idx) => (
+              <span
+                key={idx}
+                className="text-xs px-2.5 py-1 rounded-md bg-gray-100 dark:bg-gray-800 text-(--color-text-muted) border border-(--color-border)"
+              >
+                • {factor}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ORRankedAlternativesCard({ orOptimization }: { orOptimization: OROptimizationSummary }) {
+  const alts = orOptimization.ranked_alternatives;
+  if (!alts || alts.length === 0) return null;
+
+  return (
+    <div className="rounded-xl border border-(--color-border) bg-(--color-surface) p-5 mb-4 hover:shadow-xs transition-shadow">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-(--color-border) pb-4 mb-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm">
+            ⚖️
+          </div>
+          <div>
+            <h3 className="text-base font-semibold text-(--color-foreground) flex items-center gap-2">
+              Operations Research Multi-Objective Ranking
+              <ProvenanceBadge type="estimated" />
+              <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300">
+                {alts.length} {alts.length === 1 ? "Alternative" : "Alternatives"}
+              </span>
+            </h3>
+            <p className="text-xs text-(--color-text-muted) mt-0.5">
+              Weighted multi-objective scoring across Execution Time, Cost, and Shared Buffers
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Weights breakdown bar */}
+      <div className="flex flex-wrap gap-2 text-[11px] text-(--color-text-muted) mb-3 px-1">
+        <span className="font-medium text-(--color-text-faint)">Objective Weights:</span>
+        {Object.entries(orOptimization.weights_used).map(([k, v]) => (
+          <span key={k} className="px-2 py-0.5 rounded bg-(--color-surface-muted) border border-(--color-border) font-mono">
+            {k}: {Math.round(v * 100)}%
+          </span>
+        ))}
+      </div>
+
+      {/* Ranked alternatives list */}
+      <div className="space-y-2.5">
+        {alts.map((alt) => (
+          <div
+            key={`${alt.category}-${alt.rank}`}
+            className="p-3.5 rounded-lg border border-(--color-border) bg-(--color-surface-muted) hover:border-(--color-border-hover) transition-colors"
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${
+                  alt.rank === 1
+                    ? "bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-300 ring-2 ring-amber-400/50"
+                    : "bg-gray-100 dark:bg-gray-800 text-(--color-text-muted)"
+                }`}>
+                  #{alt.rank}
+                </span>
+                <span className="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted) px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-800">
+                  {alt.category}
+                </span>
+                <ImpactBadge impact={alt.estimated_impact} />
+                {alt.is_ml_prediction && (
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-mono">
+                    ML-Predicted Time
+                  </span>
+                )}
+              </div>
+              <div className="text-right">
+                <span className="text-xs font-mono font-semibold text-(--color-foreground)">
+                  Score: {alt.weighted_score.toFixed(4)}
+                </span>
+                <span className="block text-[10px] text-(--color-text-faint)">
+                  (lower is better)
+                </span>
+              </div>
+            </div>
+
+            <p className="text-xs text-(--color-foreground) mt-2 leading-relaxed">
+              {alt.explanation}
+            </p>
+
+            {alt.sql && (
+              <div className="mt-2 text-xs font-mono bg-black/5 dark:bg-white/5 p-2 rounded overflow-x-auto text-(--color-text-muted)">
+                {alt.sql}
+              </div>
+            )}
+
+            {/* Score breakdown & explanation */}
+            <div className="mt-2.5 pt-2 border-t border-(--color-border)/50 flex flex-col gap-1 text-[11px] text-(--color-text-muted)">
+              <div className="font-mono text-[10px] text-(--color-text-faint)">
+                {alt.score_explanation}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function highestImpact(items: AnalysisResult["indexes"]): number {
   if (items.length === 0) return 99;
   return Math.min(...items.map((i) => impactOrder[i.estimated_impact] ?? 3));
@@ -102,6 +282,7 @@ function highestImpact(items: AnalysisResult["indexes"]): number {
 
 export function AnalysisResults({ result, readOnly = false }: { result: AnalysisResult; readOnly?: boolean }) {
   const { sql, connectionId, dbType, playgroundMode } = useAnalysis();
+  const [showIndexBudgetSelector, setShowIndexBudgetSelector] = useState(false);
 
   const hasAnySuggestions =
     result.bottlenecks.length > 0 ||
@@ -144,6 +325,42 @@ export function AnalysisResults({ result, readOnly = false }: { result: Analysis
         <div className="bg-[#eef2f9] dark:bg-blue-950/30 border border-[#c8d4e8] dark:border-blue-900/50 rounded-xl p-5 mb-4">
           <h3 className="text-[14px] font-semibold text-[#1e3a5f] dark:text-blue-400 mb-1.5">Summary</h3>
           <p className="text-base leading-[1.75] text-(--color-foreground)">{result.summary}</p>
+        </div>
+      )}
+
+      {/* ML Query Execution Time Prediction */}
+      {result.execution_time_prediction && (
+        <ExecutionTimeCard prediction={result.execution_time_prediction} />
+      )}
+
+      {/* Operations Research Multi-Objective Ranking */}
+      {result.or_optimization && (
+        <ORRankedAlternativesCard orOptimization={result.or_optimization} />
+      )}
+
+      {/* Constrained Index Selection with Storage Budget */}
+      {result.indexes.length > 0 && (
+        <div className="mb-4">
+          <button
+            onClick={() => setShowIndexBudgetSelector(!showIndexBudgetSelector)}
+            className="w-full py-2.5 px-4 rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50/60 dark:bg-blue-950/40 hover:bg-blue-100/60 dark:hover:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold flex items-center justify-between transition-colors shadow-2xs cursor-pointer"
+          >
+            <span className="flex items-center gap-2">
+              <span>🎯</span> Solve Constrained Index Selection with Storage Budget Limit ({result.indexes.length} candidates)
+            </span>
+            <span>{showIndexBudgetSelector ? "▲ Hide" : "▼ Open Optimizer"}</span>
+          </button>
+
+          {showIndexBudgetSelector && (
+            <div className="mt-3">
+              <IndexBudgetSelector
+                sql={sql}
+                connectionId={connectionId}
+                indexes={result.indexes}
+                onClose={() => setShowIndexBudgetSelector(false)}
+              />
+            </div>
+          )}
         </div>
       )}
 

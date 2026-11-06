@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import type { SuggestionItem, CompareResult, SimulateIndexResult } from "@/lib/types";
-import { compareQueries, simulateIndex } from "@/lib/api-client";
+import type { SuggestionItem, CompareResult, SimulateIndexResult, BenchmarkComparisonResult } from "@/lib/types";
+import { compareQueries, simulateIndex, runBenchmark } from "@/lib/api-client";
+import { ProvenanceBadge } from "./provenance-badge";
 import { ImpactBadge } from "./impact-badge";
 import { SqlHighlight } from "./sql-highlight";
 import { CopyButton } from "./copy-button";
@@ -38,6 +39,35 @@ export function SuggestionCard({ item, originalSql, connectionId, querySql, dbTy
   const [simulating, setSimulating] = useState(false);
   const [simResult, setSimResult] = useState<SimulateIndexResult | null>(null);
   const [simError, setSimError] = useState("");
+
+  const [benchmarking, setBenchmarking] = useState(false);
+  const [benchmarkResult, setBenchmarkResult] = useState<BenchmarkComparisonResult | null>(null);
+  const [benchmarkError, setBenchmarkError] = useState("");
+
+  const isIndex = !!item.index_type || (item.sql && item.sql.toUpperCase().includes("CREATE INDEX"));
+  const canBenchmark = !!(item.sql && (originalSql || querySql));
+
+  async function handleBenchmark() {
+    const baseSql = originalSql || querySql;
+    if (!item.sql || !baseSql) return;
+    setBenchmarking(true);
+    setBenchmarkResult(null);
+    setBenchmarkError("");
+    try {
+      const resp = await runBenchmark({
+        original_sql: baseSql,
+        optimized_sql: !isIndex ? item.sql : null,
+        index_sql: isIndex ? item.sql : null,
+        connection_id: connectionId,
+        num_runs: 5,
+      });
+      setBenchmarkResult(resp);
+    } catch (err) {
+      setBenchmarkError(err instanceof Error ? err.message : "Benchmarking failed");
+    } finally {
+      setBenchmarking(false);
+    }
+  }
 
   const canCompare = !!(item.sql && originalSql && (connectionId || playgroundMode));
   const canSimulate = !!(item.sql && querySql && (connectionId || playgroundMode) && dbType === "postgresql" && item.index_type);
@@ -214,8 +244,17 @@ export function SuggestionCard({ item, originalSql, connectionId, querySql, dbTy
               <CopyButton text={item.sql} />
             </div>
           </div>
-          {(canSimulate || canCompare) && (
+          {(canSimulate || canCompare || canBenchmark) && (
             <div className="flex justify-end gap-1.5 mt-2">
+              {canBenchmark && (
+                <button
+                  onClick={handleBenchmark}
+                  disabled={benchmarking}
+                  className="px-2.5 py-1 rounded-md text-[12px] font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors disabled:opacity-50 cursor-pointer flex items-center gap-1"
+                >
+                  {benchmarking ? "Benchmarking..." : "⚡ Benchmark"}
+                </button>
+              )}
               {canSimulate && (
                 <button
                   onClick={handleSimulate}
@@ -348,6 +387,77 @@ export function SuggestionCard({ item, originalSql, connectionId, querySql, dbTy
           <div className="px-4 py-3 bg-red-50 dark:bg-red-900/20">
             <pre className="font-mono text-[13px] leading-relaxed text-red-800 dark:text-red-300 whitespace-pre-wrap">{compareError}</pre>
           </div>
+        </div>
+      )}
+
+      {/* Benchmark Result Panel */}
+      {benchmarkResult && (
+        <div className="mt-3 rounded-lg border border-(--color-border) bg-(--color-surface-muted) p-3.5 text-xs space-y-2.5">
+          <div className="flex items-center justify-between border-b border-(--color-border) pb-2">
+            <span className="font-semibold text-(--color-foreground) flex items-center gap-1.5">
+              <span>⚡</span> Benchmark Result (5 trials)
+              <ProvenanceBadge type="measured" />
+            </span>
+            <span className="font-mono text-[11px] text-(--color-text-muted)">
+              {benchmarkResult.environment}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
+            <div className="p-2 rounded bg-(--color-surface) border border-(--color-border)">
+              <span className="text-[10px] text-(--color-text-muted) block">Latency Speedup</span>
+              <span className={`font-mono font-bold ${
+                benchmarkResult.execution_time_improvement_pct && benchmarkResult.execution_time_improvement_pct > 0
+                  ? "text-emerald-600 dark:text-emerald-400"
+                  : "text-(--color-foreground)"
+              }`}>
+                {benchmarkResult.execution_time_improvement_pct != null
+                  ? `${benchmarkResult.execution_time_improvement_pct > 0 ? "+" : ""}${benchmarkResult.execution_time_improvement_pct.toFixed(1)}%`
+                  : "N/A"}
+              </span>
+            </div>
+
+            <div className="p-2 rounded bg-(--color-surface) border border-(--color-border)">
+              <span className="text-[10px] text-(--color-text-muted) block">Warm Median</span>
+              <span className="font-mono font-semibold text-(--color-foreground)">
+                {benchmarkResult.original_metrics.warm_median_execution_time_ms.toFixed(2)} ms
+                {benchmarkResult.optimized_metrics && ` → ${benchmarkResult.optimized_metrics.warm_median_execution_time_ms.toFixed(2)} ms`}
+              </span>
+            </div>
+
+            <div className="p-2 rounded bg-(--color-surface) border border-(--color-border)">
+              <span className="text-[10px] text-(--color-text-muted) block">Planner Cost</span>
+              <span className="font-mono font-semibold text-indigo-600 dark:text-indigo-400">
+                {benchmarkResult.planner_cost_improvement_pct != null
+                  ? `${benchmarkResult.planner_cost_improvement_pct.toFixed(1)}%`
+                  : "N/A"}
+              </span>
+            </div>
+
+            <div className="p-2 rounded bg-(--color-surface) border border-(--color-border)">
+              <span className="text-[10px] text-(--color-text-muted) block">Buffer Reads</span>
+              <span className="font-mono font-semibold text-teal-600 dark:text-teal-400">
+                {benchmarkResult.buffer_read_improvement_pct != null
+                  ? `${benchmarkResult.buffer_read_improvement_pct.toFixed(1)}%`
+                  : "N/A"}
+              </span>
+            </div>
+          </div>
+
+          {benchmarkResult.equivalence && (
+            <div className="text-[11px] text-(--color-text-muted) pt-1 flex items-center justify-between border-t border-(--color-border)/50">
+              <span>Equivalence: <strong>{benchmarkResult.equivalence.results_match ? "✓ 100% Identical rows" : "✕ Results differ"}</strong></span>
+              <a href="/benchmark" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                Open in Benchmarks Dashboard &rarr;
+              </a>
+            </div>
+          )}
+        </div>
+      )}
+
+      {benchmarkError && (
+        <div className="mt-2 p-2 rounded bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 text-xs text-red-600 dark:text-red-400">
+          {benchmarkError}
         </div>
       )}
     </div>

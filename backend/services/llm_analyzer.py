@@ -63,9 +63,14 @@ class LLMAnalyzer:
 
     def __new__(cls) -> "LLMAnalyzer":
         if cls._instance is None:
-            cls._instance = super().__new__(cls)
-            cls._instance._provider = get_provider()
-            cls._instance._prompt_builder = PromptBuilder()
+            instance = super().__new__(cls)
+            instance._prompt_builder = PromptBuilder()
+            try:
+                instance._provider = get_provider()
+            except Exception as exc:
+                logger.warning("Default LLM provider initialization skipped: %s", exc)
+                instance._provider = None
+            cls._instance = instance
         return cls._instance
 
     def analyze(
@@ -75,6 +80,10 @@ class LLMAnalyzer:
         provider_override: BaseLLMProvider | None = None,
     ) -> AnalysisResult:
         provider = provider_override or self._provider
+        if not provider:
+            raise ValueError(
+                "No active LLM provider configured. Please configure an LLM provider and API key in Settings or .env."
+            )
         model_label = getattr(provider, "_model", settings.llm_model)
         system_prompt, user_message = self._prompt_builder.build(introspection)
 

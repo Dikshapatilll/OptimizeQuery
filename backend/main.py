@@ -1,5 +1,6 @@
 """SQL Query Optimizer — FastAPI entry point."""
 
+from contextlib import asynccontextmanager
 import logging
 
 from fastapi import FastAPI
@@ -14,12 +15,23 @@ from api.routes.connections import router as connections_router
 from api.routes.analyze import router as analyze_router
 from api.routes.llm_settings import router as llm_settings_router
 from api.routes.share import router as share_router
+from api.routes.ml import router as ml_router
+from api.routes.or_optimization import router as or_router
+from api.routes.benchmark import router as benchmark_router
 
 logging.basicConfig(
     level=getattr(logging, settings.log_level.upper(), logging.INFO),
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
 )
 logger = logging.getLogger(__name__)
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info("Initializing database tables…")
+    init_db()
+    logger.info("Startup complete.")
+    yield
 
 
 limiter = Limiter(key_func=get_real_ip, default_limits=[])
@@ -29,6 +41,7 @@ app = FastAPI(
     version=settings.app_version,
     docs_url="/docs",
     redoc_url="/redoc",
+    lifespan=lifespan,
 )
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
@@ -48,15 +61,11 @@ app.add_middleware(
 )
 
 
-@app.on_event("startup")
-def on_startup() -> None:
-    logger.info("Initializing database tables…")
-    init_db()
-    logger.info("Startup complete.")
-
-
 app.include_router(analyze_router, prefix="/api/v1")
 app.include_router(share_router, prefix="/api/v1")
+app.include_router(ml_router, prefix="/api/v1")
+app.include_router(or_router, prefix="/api/v1")
+app.include_router(benchmark_router, prefix="/api/v1")
 
 if not settings.hosted_mode:
     app.include_router(connections_router, prefix="/api/v1")

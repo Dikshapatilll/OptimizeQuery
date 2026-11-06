@@ -159,7 +159,7 @@ def analyze_query(
                 provider_override = get_provider(
                     provider_name=active_config.provider,
                     api_key=api_key,
-                    model=body.model,  # model chosen at analysis time
+                    model=body.model or active_config.model,
                 )
             except Exception as exc:
                 logger.warning("Failed to load active LLM config %s: %s — falling back to .env", active_config.id, exc)
@@ -175,6 +175,98 @@ def analyze_query(
     # ── Attach EXPLAIN error if query execution failed ──────────────────────
     if introspection.explain_error:
         result.explain_error = introspection.explain_error
+
+    # ── ML Execution-Time Prediction ─────────────────────────────────────────
+    try:
+        from ml.predictor import ExecutionTimePredictor
+        from api.models.schemas import ExecutionTimePrediction
+
+        predictor = ExecutionTimePredictor.get_instance()
+        row_estimates = {
+            ts.table_name: ts.row_count
+            for ts in (introspection.table_schemas or [])
+            if ts.row_count > 0
+        }
+        indexed_cols = []
+        for ts in (introspection.table_schemas or []):
+            for idx in ts.indexes:
+                indexed_cols.extend(idx.columns)
+
+        ml_pred = predictor.predict(
+            sql=body.sql,
+            table_row_estimates=row_estimates if row_estimates else None,
+            indexed_columns=indexed_cols if indexed_cols else None,
+        )
+        result.execution_time_prediction = ExecutionTimePrediction(
+            predicted_time_ms=ml_pred.predicted_time_ms,
+            latency_tier=ml_pred.latency_tier,  # type: ignore[arg-type]
+            confidence_range=ml_pred.confidence_range,  # type: ignore[arg-type]
+            models=ml_pred.models,  # type: ignore[arg-type]
+            features_summary=ml_pred.features_summary,
+            cost_factors=ml_pred.cost_factors,
+            model_version=ml_pred.model_version,
+        )
+    except Exception as exc:
+        logger.warning("ML execution-time prediction skipped: %s", exc)
+
+    # ── Operations Research Multi-Objective Ranking ──────────────────────────
+    try:
+        from or_engine.models import DEFAULT_WEIGHTS
+        from or_engine.optimizer import optimize as or_optimize_func
+        from api.models.schemas import (
+            AlternativeMetricsSchema,
+            NormalisedMetricsSchema,
+            OROptimizationSummary,
+            ScoredAlternativeSchema,
+        )
+
+        ml_pred_time = (
+            result.execution_time_prediction.predicted_time_ms
+            if result.execution_time_prediction
+            else None
+        )
+        scored_alts = or_optimize_func(
+            analysis_result=result.model_dump(),
+            explain_plan_json=introspection.explain.raw_plan if introspection.explain else None,
+            explain_execution_time_ms=introspection.explain.execution_time_ms if introspection.explain else None,
+            explain_planning_time_ms=introspection.explain.planning_time_ms if introspection.explain else None,
+            ml_predicted_time_ms=ml_pred_time,
+        )
+
+        result.or_optimization = OROptimizationSummary(
+            total_alternatives=len(scored_alts),
+            weights_used=DEFAULT_WEIGHTS,
+            ranked_alternatives=[
+                ScoredAlternativeSchema(
+                    rank=sa.rank,
+                    category=sa.category,
+                    sql=sa.sql,
+                    explanation=sa.explanation,
+                    estimated_impact=sa.estimated_impact,
+                    raw_metrics=AlternativeMetricsSchema(
+                        execution_time_ms=sa.raw_metrics.execution_time_ms,
+                        planner_cost=sa.raw_metrics.planner_cost,
+                        buffer_reads=sa.raw_metrics.buffer_reads,
+                        buffer_hits=sa.raw_metrics.buffer_hits,
+                    ),
+                    normalised_metrics=NormalisedMetricsSchema(
+                        execution_time=sa.normalised_metrics.execution_time,
+                        planner_cost=sa.normalised_metrics.planner_cost,
+                        buffer_reads=sa.normalised_metrics.buffer_reads,
+                        buffer_hits=sa.normalised_metrics.buffer_hits,
+                    ),
+                    weighted_score=sa.weighted_score,
+                    score_breakdown=sa.score_breakdown,
+                    score_explanation=sa.score_explanation,
+                    ml_predicted_time_ms=sa.ml_predicted_time_ms,
+                    is_ml_prediction=sa.is_ml_prediction,
+                )
+                for sa in scored_alts
+            ],
+            algorithm="Multi-Objective Weighted Scoring (min-max normalised)",
+        )
+    except Exception as exc:
+        logger.warning("OR multi-objective ranking skipped: %s", exc)
 
     # ── Persist ────────────────────────────────────────────────────────────────
     if settings.hosted_mode:
@@ -200,6 +292,8 @@ def analyze_query(
                 connection_id=body.connection_id,
                 sql_query=body.sql,
                 explain_plan=introspection.explain.raw_plan if introspection.explain else None,
+                execution_time_ms=introspection.explain.execution_time_ms if introspection.explain else None,
+                planning_time_ms=introspection.explain.planning_time_ms if introspection.explain else None,
                 llm_response=result.model_dump_json(),
             )
             db.add(history)

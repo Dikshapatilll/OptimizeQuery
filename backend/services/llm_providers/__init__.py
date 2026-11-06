@@ -16,6 +16,20 @@ _OPENAI_COMPATIBLE_URLS: dict[str, str | None] = {
 }
 
 
+DEFAULT_MODELS: dict[str, str] = {
+    "anthropic":  "claude-sonnet-4-6",
+    "openai":     "gpt-4.1",
+    "gemini":     "gemini-3.5-flash",
+    "deepseek":   "deepseek-chat",
+    "xai":        "grok-3",
+    "qwen":       "qwen-max",
+    "meta":       "Llama-4-Maverick-17B-128E-Instruct-FP8",
+    "groq":       "llama-3.3-70b-versatile",
+    "openrouter": "meta-llama/llama-3.3-70b-instruct:free",
+    "kimi":       "kimi-k2.5",
+}
+
+
 def get_provider(
     provider_name: str | None = None,
     api_key: str | None = None,
@@ -28,7 +42,8 @@ def get_provider(
     global settings from .env.
     """
     name = (provider_name or settings.llm_provider).lower()
-    resolved_model = model or settings.llm_model
+    default_model = DEFAULT_MODELS.get(name, settings.llm_model)
+    resolved_model = model or (settings.llm_model if provider_name is None else default_model)
 
     # Anthropic — uses its own SDK
     if name == "anthropic":

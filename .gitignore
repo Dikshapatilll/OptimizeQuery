@@ -2,10 +2,21 @@
 .DS_Store
 Thumbs.db
 
-# ─── Environment / Secrets ────────────────────────────────────
+# ─── Environment / Secrets / Keys ─────────────────────────────
 .env
+.env.*
 .env.local
 .env.*.local
+*.key
+.encryption_key
+data/.encryption_key
+backend/data/.encryption_key
+
+# ─── Local Application Databases (Sensitive / Transient) ──────
+data/sql_optimizer.db
+data/optimizeql.db
+*.db-journal
+*.sqlite3
 
 # ─── Backend (Python) ────────────────────────────────────────
 backend/.venv/

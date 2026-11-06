@@ -23,6 +23,43 @@ class TestAnalyzeAPI:
         assert data["summary"] == "Test analysis"
         assert "users" in data["tables_analyzed"]
 
+    def test_analyze_includes_or_optimization(self, client):
+        """Analyze SQL response should include OR multi-objective optimization when suggestions exist."""
+        from api.models.schemas import SuggestionItem
+        mock_result = AnalysisResult(
+            query_id="test-or-id",
+            summary="Test analysis with suggestions",
+            tables_analyzed=["orders"],
+            indexes=[
+                SuggestionItem(
+                    sql="CREATE INDEX idx_test ON orders(cust_id)",
+                    explanation="Speeds up lookup",
+                    estimated_impact="high",
+                )
+            ],
+            rewrites=[
+                SuggestionItem(
+                    sql="SELECT * FROM orders WHERE cust_id = 1",
+                    explanation="Simplified query",
+                    estimated_impact="medium",
+                )
+            ],
+        )
+        with patch("api.routes.analyze.LLMAnalyzer") as MockAnalyzer:
+            instance = MockAnalyzer.return_value
+            instance.analyze.return_value = mock_result
+            resp = client.post("/api/v1/analyze", json={"sql": "SELECT * FROM orders"})
+
+        assert resp.status_code == 200
+        data = resp.json()
+        assert "or_optimization" in data
+        assert data["or_optimization"] is not None
+        assert data["or_optimization"]["total_alternatives"] == 2
+        ranked = data["or_optimization"]["ranked_alternatives"]
+        assert len(ranked) == 2
+        assert ranked[0]["rank"] == 1
+        assert ranked[1]["rank"] == 2
+
     def test_analyze_empty_sql_rejected(self, client):
         resp = client.post("/api/v1/analyze", json={"sql": ""})
         assert resp.status_code == 422  # Pydantic validation error

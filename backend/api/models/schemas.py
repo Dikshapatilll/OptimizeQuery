@@ -95,6 +95,62 @@ class ConfigurationItem(BaseModel):
     estimated_impact: str   # "high" | "medium" | "low"
 
 
+class ConfidenceRange(BaseModel):
+    min_ms: float
+    max_ms: float
+
+
+class ModelPredictions(BaseModel):
+    random_forest_ms: float
+    xgboost_ms: float
+
+
+class ExecutionTimePrediction(BaseModel):
+    predicted_time_ms: float
+    latency_tier: Literal["fast", "moderate", "heavy"]
+    confidence_range: ConfidenceRange
+    models: ModelPredictions
+    features_summary: dict = {}
+    cost_factors: list[str] = []
+    model_version: str = "1.0.0"
+
+
+class AlternativeMetricsSchema(BaseModel):
+    execution_time_ms: float | None = None
+    planner_cost: float | None = None
+    buffer_reads: int | None = None
+    buffer_hits: int | None = None
+
+
+class NormalisedMetricsSchema(BaseModel):
+    execution_time: float | None = None
+    planner_cost: float | None = None
+    buffer_reads: float | None = None
+    buffer_hits: float | None = None
+
+
+class ScoredAlternativeSchema(BaseModel):
+    rank: int
+    category: str
+    sql: str | None = None
+    explanation: str
+    estimated_impact: str
+    raw_metrics: AlternativeMetricsSchema
+    normalised_metrics: NormalisedMetricsSchema
+    weighted_score: float
+    score_breakdown: dict[str, float] = {}
+    score_explanation: str = ""
+    ml_predicted_time_ms: float | None = None
+    is_ml_prediction: bool = False
+
+
+class OROptimizationSummary(BaseModel):
+    total_alternatives: int
+    weights_used: dict[str, float]
+    ranked_alternatives: list[ScoredAlternativeSchema] = []
+    algorithm: str = "Multi-Objective Weighted Scoring (min-max normalised)"
+
+
 class AnalysisResult(BaseModel):
     query_id: str
     indexes: list[SuggestionItem] = []
@@ -107,6 +163,8 @@ class AnalysisResult(BaseModel):
     explain_plan: str | None = None
     explain_error: str | None = None
     tables_analyzed: list[str] = []
+    execution_time_prediction: ExecutionTimePrediction | None = None
+    or_optimization: OROptimizationSummary | None = None
 
 
 # ─────────────────────────────  Comparison  ──────────────────────────────────
@@ -244,6 +302,10 @@ class QueryHistoryItem(BaseModel):
     id: str
     connection_id: str | None
     sql_query: str
+    explain_plan: str | None = None
+    execution_time_ms: float | None = None
+    planning_time_ms: float | None = None
+    is_benchmark: bool = False
     llm_response: str | None = None
     schema_ddl: str | None = None
     created_at: datetime
@@ -285,3 +347,36 @@ class DashboardStats(BaseModel):
     most_analyzed_tables: list[TableCount] = []
     queries_by_date: list[QueryByDate]
     recent_analyses: list[RecentAnalysis]
+
+
+# ─────────────────────────────  Machine Learning  ─────────────────────────────
+
+class PredictTimeRequest(BaseModel):
+    sql: str = Field(..., min_length=1)
+    connection_id: str | None = None
+    table_row_estimates: dict[str, int] | None = None
+    model: Literal["random_forest", "xgboost"] | None = None
+
+    @field_validator("sql")
+    @classmethod
+    def strip_sql(cls, v: str) -> str:
+        return v.strip()
+
+
+class ModelEvaluationMetric(BaseModel):
+    mae_ms: float
+    rmse_ms: float
+    r2_score: float
+    accuracy_within_30pct: float
+
+
+class MLModelInfoResponse(BaseModel):
+    status: str
+    models_available: list[str]
+    default_model: str
+    model_version: str
+    dataset_summary: dict[str, int]
+    splits: dict[str, int]
+    evaluation_metrics: dict[str, ModelEvaluationMetric]
+    trained_at: str | None = None
+    features_used: list[str] = []

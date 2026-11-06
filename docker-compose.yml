@@ -2,7 +2,9 @@ services:
   backend:
     build: ./backend
     restart: unless-stopped
-    env_file: ./backend/.env
+    env_file:
+      - path: ./backend/.env
+        required: false
     environment:
       APP_ENV: production
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}

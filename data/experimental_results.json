@@ -1,0 +1,862 @@
+[
+  {
+    "workload": {
+      "id": "W1_JOIN",
+      "name": "Workload 1: Multi-Table JOIN with Aggregation",
+      "original_sql": "SELECT u.name, count(o.id) AS total_orders, sum(oi.quantity * oi.unit_price) AS total_spent\nFROM users u\nJOIN orders o ON u.id = o.user_id\nJOIN order_items oi ON o.id = oi.order_id\nWHERE o.status = 'completed' AND u.id BETWEEN 1 AND 500\nGROUP BY u.name\nORDER BY total_spent DESC\nLIMIT 20;",
+      "target_type": "index",
+      "index_sql": "CREATE INDEX idx_order_items_order ON order_items(order_id);",
+      "optimized_sql": null
+    },
+    "ml": {
+      "predicted_time_ms": 4.61,
+      "latency_tier": "fast",
+      "confidence_range": {
+        "min_ms": 1.38,
+        "max_ms": 5.3
+      },
+      "models": {
+        "random_forest_ms": 1.63,
+        "xgboost_ms": 4.61
+      },
+      "features_summary": {
+        "num_tables": 3,
+        "num_joins": 2,
+        "num_where_predicates": 1,
+        "has_group_by": true,
+        "has_order_by": true,
+        "has_limit": true,
+        "num_aggregates": 2
+      },
+      "cost_factors": [
+        "Relational join (2 join)",
+        "Grouping aggregation over multiple metrics",
+        "Unindexed filter conditions (table scan potential)"
+      ],
+      "model_version": "1.0.0"
+    },
+    "benchmark": {
+      "benchmark_id": "742d8e3e-e93d-4096-8098-c1a74337a70e",
+      "query_id": null,
+      "original_sql": "SELECT u.name, count(o.id) AS total_orders, sum(oi.quantity * oi.unit_price) AS total_spent\nFROM users u\nJOIN orders o ON u.id = o.user_id\nJOIN order_items oi ON o.id = oi.order_id\nWHERE o.status = 'completed' AND u.id BETWEEN 1 AND 500\nGROUP BY u.name\nORDER BY total_spent DESC\nLIMIT 20",
+      "optimized_sql": null,
+      "applied_index_sql": "CREATE INDEX idx_order_items_order ON order_items(order_id);",
+      "environment": "postgresql_isolated_transaction",
+      "original_metrics": {
+        "runs_count": 5,
+        "cold_execution_time_ms": 25.936,
+        "warm_median_execution_time_ms": 11.333,
+        "mean_execution_time_ms": 14.9362,
+        "std_dev_execution_time_ms": 6.6435,
+        "min_execution_time_ms": 9.873,
+        "max_execution_time_ms": 25.936,
+        "planning_time_ms": 0.173,
+        "estimated_planner_cost": 1632.51,
+        "actual_rows": 20,
+        "shared_buffer_reads": 0,
+        "shared_buffer_hits": 3200,
+        "cache_hit_ratio": 1.0,
+        "cache_state_provenance": "Trial 1 reflects initial execution latency before repeated memory buffer hits. OS/DB buffer caches are not physically dropped without elevated OS privileges.",
+        "raw_runs": [
+          {
+            "run_index": 1,
+            "is_cold": true,
+            "execution_time_ms": 25.936,
+            "planning_time_ms": 3.202,
+            "planner_cost": 1632.51,
+            "actual_rows": 20,
+            "buffer_reads": 0,
+            "buffer_hits": 3206
+          },
+          {
+            "run_index": 2,
+            "is_cold": false,
+            "execution_time_ms": 16.206,
+            "planning_time_ms": 0.173,
+            "planner_cost": 1632.51,
+            "actual_rows": 20,
+            "buffer_reads": 0,
+            "buffer_hits": 3200
+          },
+          {
+            "run_index": 3,
+            "is_cold": false,
+            "execution_time_ms": 12.413,
+            "planning_time_ms": 0.134,
+            "planner_cost": 1632.51,
+            "actual_rows": 20,
+            "buffer_reads": 0,
+            "buffer_hits": 3200
+          },
+          {
+            "run_index": 4,
+            "is_cold": false,
+            "execution_time_ms": 10.253,
+            "planning_time_ms": 0.135,
+            "planner_cost": 1632.51,
+            "actual_rows": 20,
+            "buffer_reads": 0,
+            "buffer_hits": 3200
+          },
+          {
+            "run_index": 5,
+            "is_cold": false,
+            "execution_time_ms": 9.873,
+            "planning_time_ms": 0.149,
+            "planner_cost": 1632.51,
+            "actual_rows": 20,
+            "buffer_reads": 0,
+            "buffer_hits": 3200
+          }
+        ]
+      },
+      "optimized_metrics": {
+        "runs_count": 5,
+        "cold_execution_time_ms": 3.059,
+        "warm_median_execution_time_ms": 2.749,
+        "mean_execution_time_ms": 2.8202,
+        "std_dev_execution_time_ms": 0.1401,
+        "min_execution_time_ms": 2.717,
+        "max_execution_time_ms": 3.059,
+        "planning_time_ms": 0.12,
+        "estimated_planner_cost": 963.71,
+        "actual_rows": 20,
+        "shared_buffer_reads": 0,
+        "shared_buffer_hits": 11312,
+        "cache_hit_ratio": 0.9912,
+        "cache_state_provenance": "Trial 1 reflects initial execution latency before repeated memory buffer hits. OS/DB buffer caches are not physically dropped without elevated OS privileges.",
+        "raw_runs": [
+          {
+            "run_index": 1,
+            "is_cold": true,
+            "execution_time_ms": 3.059,
+            "planning_time_ms": 0.274,
+            "planner_cost": 963.71,
+            "actual_rows": 20,
+            "buffer_reads": 495,
+            "buffer_hits": 10817
+          },
+          {
+            "run_index": 2,
+            "is_cold": false,
+            "execution_time_ms": 2.767,
+            "planning_time_ms": 0.12,
+            "planner_cost": 963.71,
+            "actual_rows": 20,
+            "buffer_reads": 0,
+            "buffer_hits": 11312
+          },
+          {
+            "run_index": 3,
+            "is_cold": false,
+            "execution_time_ms": 2.731,
+            "planning_time_ms": 0.115,
+            "planner_cost": 963.71,
+            "actual_rows": 20,
+            "buffer_reads": 0,
+            "buffer_hits": 11312
+          },
+          {
+            "run_index": 4,
+            "is_cold": false,
+            "execution_time_ms": 2.717,
+            "planning_time_ms": 0.109,
+            "planner_cost": 963.71,
+            "actual_rows": 20,
+            "buffer_reads": 0,
+            "buffer_hits": 11312
+          },
+          {
+            "run_index": 5,
+            "is_cold": false,
+            "execution_time_ms": 2.827,
+            "planning_time_ms": 0.107,
+            "planner_cost": 963.71,
+            "actual_rows": 20,
+            "buffer_reads": 0,
+            "buffer_hits": 11312
+          }
+        ]
+      },
+      "equivalence": null,
+      "execution_time_improvement_pct": 75.74,
+      "planner_cost_improvement_pct": 40.97,
+      "buffer_read_improvement_pct": 0.0,
+      "caching_analysis": {
+        "cold_time_ms": 25.936,
+        "warm_median_time_ms": 11.333,
+        "cache_speedup_factor": 2.29,
+        "cold_cache_hit_ratio": 1.0,
+        "warm_cache_hit_ratio": 1.0,
+        "caching_effect_summary": "Significant caching effect observed: warm runs are 2.3x faster (11.33 ms vs cold 25.94 ms). Buffer cache hit ratio increased to 100.0%."
+      },
+      "ml_comparison": {
+        "ml_predicted_time_ms": 4.61,
+        "actual_measured_time_ms": 11.33,
+        "prediction_error_ms": 6.72,
+        "relative_error_pct": 59.32,
+        "latency_tier_predicted": "fast",
+        "is_prediction_accurate_within_30pct": false,
+        "provenance_note": "ML prediction is distinct from actual benchmark measurement."
+      },
+      "created_at": "2026-11-06T08:01:30.010703+00:00"
+    },
+    "ml_validation": {
+      "predicted_ms": 4.61,
+      "actual_warm_ms": 11.333,
+      "abs_error_ms": 6.723,
+      "rel_error_pct": 59.32,
+      "within_30pct": false
+    },
+    "or": {
+      "query_id": "d3130c5f-2c59-4ea8-863a-29e33bce4abd",
+      "alternatives": [
+        {
+          "rank": 1,
+          "category": "index",
+          "sql": "CREATE INDEX idx_order_items_order ON order_items(order_id);",
+          "explanation": "Index optimization",
+          "estimated_impact": "high",
+          "raw_metrics": {
+            "execution_time_ms": 3.227,
+            "planner_cost": null,
+            "buffer_reads": null,
+            "buffer_hits": null
+          },
+          "normalised_metrics": {
+            "execution_time": 0.0,
+            "planner_cost": null,
+            "buffer_reads": null,
+            "buffer_hits": null
+          },
+          "weighted_score": 0.0,
+          "score_breakdown": {
+            "execution_time": 0.0,
+            "planner_cost": 0.0,
+            "buffer_reads": 0.0,
+            "buffer_hits": 0.0
+          },
+          "score_explanation": "ObjectiveName.EXECUTION_TIME(norm=0.000, w=1.00) \u2192 0.0000; ObjectiveName.PLANNER_COST: not available (weight redistributed); ObjectiveName.BUFFER_READS: not available (weight redistributed); ObjectiveName.BUFFER_HITS: not available (weight redistributed)",
+          "ml_predicted_time_ms": 4.61,
+          "is_ml_prediction": true
+        }
+      ],
+      "weights_used": {
+        "execution_time": 0.4,
+        "planner_cost": 0.3,
+        "buffer_reads": 0.2,
+        "buffer_hits": 0.1
+      },
+      "objectives": [
+        {
+          "name": "execution_time",
+          "description": "Query execution time in milliseconds (actual or ML-predicted).",
+          "unit": "ms",
+          "direction": "minimize",
+          "weight": 0.4
+        },
+        {
+          "name": "planner_cost",
+          "description": "PostgreSQL planner estimated total cost (dimensionless units).",
+          "unit": "cost units",
+          "direction": "minimize",
+          "weight": 0.3
+        },
+        {
+          "name": "buffer_reads",
+          "description": "Shared buffer blocks read from disk (lower = more cache-friendly).",
+          "unit": "blocks",
+          "direction": "minimize",
+          "weight": 0.2
+        },
+        {
+          "name": "buffer_hits",
+          "description": "Shared buffer blocks hit in cache (higher is better, but treated as a cost: buffer_hits_normalised = 1 - normalised_value so the scorer always minimises).",
+          "unit": "blocks",
+          "direction": "maximize",
+          "weight": 0.1
+        }
+      ],
+      "normalisation_method": "min-max",
+      "scoring_algorithm": "weighted-sum",
+      "total_alternatives": 1,
+      "ml_prediction_available": true
+    }
+  },
+  {
+    "workload": {
+      "id": "W2_RANGE",
+      "name": "Workload 2: Range Filter with Composite Index",
+      "original_sql": "SELECT user_id, action, request_timestamp, response_time_ms\nFROM access_logs\nWHERE response_time_ms >= 1000.0 AND status_code = 500\nORDER BY response_time_ms DESC\nLIMIT 50;",
+      "target_type": "index",
+      "index_sql": "CREATE INDEX idx_access_logs_status_resp ON access_logs(status_code, response_time_ms DESC);",
+      "optimized_sql": null
+    },
+    "ml": {
+      "predicted_time_ms": 2.9,
+      "latency_tier": "fast",
+      "confidence_range": {
+        "min_ms": 0.26,
+        "max_ms": 3.34
+      },
+      "models": {
+        "random_forest_ms": 0.31,
+        "xgboost_ms": 2.9
+      },
+      "features_summary": {
+        "num_tables": 1,
+        "num_joins": 0,
+        "num_where_predicates": 1,
+        "has_group_by": false,
+        "has_order_by": true,
+        "has_limit": true,
+        "num_aggregates": 0
+      },
+      "cost_factors": [
+        "Unindexed filter conditions (table scan potential)"
+      ],
+      "model_version": "1.0.0"
+    },
+    "benchmark": {
+      "benchmark_id": "94163ef1-e7ca-4210-84cd-a7cf31158e08",
+      "query_id": null,
+      "original_sql": "SELECT user_id, action, request_timestamp, response_time_ms\nFROM access_logs\nWHERE response_time_ms >= 1000.0 AND status_code = 500\nORDER BY response_time_ms DESC\nLIMIT 50",
+      "optimized_sql": null,
+      "applied_index_sql": "CREATE INDEX idx_access_logs_status_resp ON access_logs(status_code, response_time_ms DESC);",
+      "environment": "postgresql_isolated_transaction",
+      "original_metrics": {
+        "runs_count": 5,
+        "cold_execution_time_ms": 5.646,
+        "warm_median_execution_time_ms": 5.4925,
+        "mean_execution_time_ms": 5.478,
+        "std_dev_execution_time_ms": 0.1428,
+        "min_execution_time_ms": 5.25,
+        "max_execution_time_ms": 5.646,
+        "planning_time_ms": 0.021,
+        "estimated_planner_cost": 1248.63,
+        "actual_rows": 50,
+        "shared_buffer_reads": 0,
+        "shared_buffer_hits": 1353,
+        "cache_hit_ratio": 1.0,
+        "cache_state_provenance": "Trial 1 reflects initial execution latency before repeated memory buffer hits. OS/DB buffer caches are not physically dropped without elevated OS privileges.",
+        "raw_runs": [
+          {
+            "run_index": 1,
+            "is_cold": true,
+            "execution_time_ms": 5.646,
+            "planning_time_ms": 0.245,
+            "planner_cost": 1248.63,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 1359
+          },
+          {
+            "run_index": 2,
+            "is_cold": false,
+            "execution_time_ms": 5.25,
+            "planning_time_ms": 0.021,
+            "planner_cost": 1248.63,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 1353
+          },
+          {
+            "run_index": 3,
+            "is_cold": false,
+            "execution_time_ms": 5.509,
+            "planning_time_ms": 0.017,
+            "planner_cost": 1248.63,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 1353
+          },
+          {
+            "run_index": 4,
+            "is_cold": false,
+            "execution_time_ms": 5.49,
+            "planning_time_ms": 0.015,
+            "planner_cost": 1248.63,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 1353
+          },
+          {
+            "run_index": 5,
+            "is_cold": false,
+            "execution_time_ms": 5.495,
+            "planning_time_ms": 0.014,
+            "planner_cost": 1248.63,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 1353
+          }
+        ]
+      },
+      "optimized_metrics": {
+        "runs_count": 5,
+        "cold_execution_time_ms": 0.044,
+        "warm_median_execution_time_ms": 0.017,
+        "mean_execution_time_ms": 0.0224,
+        "std_dev_execution_time_ms": 0.0121,
+        "min_execution_time_ms": 0.016,
+        "max_execution_time_ms": 0.044,
+        "planning_time_ms": 0.014,
+        "estimated_planner_cost": 64.16,
+        "actual_rows": 50,
+        "shared_buffer_reads": 0,
+        "shared_buffer_hits": 104,
+        "cache_hit_ratio": 0.9923,
+        "cache_state_provenance": "Trial 1 reflects initial execution latency before repeated memory buffer hits. OS/DB buffer caches are not physically dropped without elevated OS privileges.",
+        "raw_runs": [
+          {
+            "run_index": 1,
+            "is_cold": true,
+            "execution_time_ms": 0.044,
+            "planning_time_ms": 0.132,
+            "planner_cost": 64.16,
+            "actual_rows": 50,
+            "buffer_reads": 4,
+            "buffer_hits": 100
+          },
+          {
+            "run_index": 2,
+            "is_cold": false,
+            "execution_time_ms": 0.018,
+            "planning_time_ms": 0.014,
+            "planner_cost": 64.16,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 104
+          },
+          {
+            "run_index": 3,
+            "is_cold": false,
+            "execution_time_ms": 0.017,
+            "planning_time_ms": 0.012,
+            "planner_cost": 64.16,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 104
+          },
+          {
+            "run_index": 4,
+            "is_cold": false,
+            "execution_time_ms": 0.017,
+            "planning_time_ms": 0.012,
+            "planner_cost": 64.16,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 104
+          },
+          {
+            "run_index": 5,
+            "is_cold": false,
+            "execution_time_ms": 0.016,
+            "planning_time_ms": 0.012,
+            "planner_cost": 64.16,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 104
+          }
+        ]
+      },
+      "equivalence": null,
+      "execution_time_improvement_pct": 99.69,
+      "planner_cost_improvement_pct": 94.86,
+      "buffer_read_improvement_pct": 0.0,
+      "caching_analysis": {
+        "cold_time_ms": 5.646,
+        "warm_median_time_ms": 5.4925,
+        "cache_speedup_factor": 1.03,
+        "cold_cache_hit_ratio": 1.0,
+        "warm_cache_hit_ratio": 1.0,
+        "caching_effect_summary": "Minimal caching variance between cold (5.65 ms) and warm (5.49 ms) runs."
+      },
+      "ml_comparison": {
+        "ml_predicted_time_ms": 2.9,
+        "actual_measured_time_ms": 5.49,
+        "prediction_error_ms": 2.59,
+        "relative_error_pct": 47.2,
+        "latency_tier_predicted": "fast",
+        "is_prediction_accurate_within_30pct": false,
+        "provenance_note": "ML prediction is distinct from actual benchmark measurement."
+      },
+      "created_at": "2026-11-06T08:01:30.243255+00:00"
+    },
+    "ml_validation": {
+      "predicted_ms": 2.9,
+      "actual_warm_ms": 5.4925,
+      "abs_error_ms": 2.5925,
+      "rel_error_pct": 47.2,
+      "within_30pct": false
+    },
+    "or": {
+      "query_id": "7ced076b-886a-49ce-8f88-5ac25c29fa7b",
+      "alternatives": [
+        {
+          "rank": 1,
+          "category": "index",
+          "sql": "CREATE INDEX idx_access_logs_status_resp ON access_logs(status_code, response_time_ms DESC);",
+          "explanation": "Index optimization",
+          "estimated_impact": "high",
+          "raw_metrics": {
+            "execution_time_ms": 2.03,
+            "planner_cost": null,
+            "buffer_reads": null,
+            "buffer_hits": null
+          },
+          "normalised_metrics": {
+            "execution_time": 0.0,
+            "planner_cost": null,
+            "buffer_reads": null,
+            "buffer_hits": null
+          },
+          "weighted_score": 0.0,
+          "score_breakdown": {
+            "execution_time": 0.0,
+            "planner_cost": 0.0,
+            "buffer_reads": 0.0,
+            "buffer_hits": 0.0
+          },
+          "score_explanation": "ObjectiveName.EXECUTION_TIME(norm=0.000, w=1.00) \u2192 0.0000; ObjectiveName.PLANNER_COST: not available (weight redistributed); ObjectiveName.BUFFER_READS: not available (weight redistributed); ObjectiveName.BUFFER_HITS: not available (weight redistributed)",
+          "ml_predicted_time_ms": 2.9,
+          "is_ml_prediction": true
+        }
+      ],
+      "weights_used": {
+        "execution_time": 0.4,
+        "planner_cost": 0.3,
+        "buffer_reads": 0.2,
+        "buffer_hits": 0.1
+      },
+      "objectives": [
+        {
+          "name": "execution_time",
+          "description": "Query execution time in milliseconds (actual or ML-predicted).",
+          "unit": "ms",
+          "direction": "minimize",
+          "weight": 0.4
+        },
+        {
+          "name": "planner_cost",
+          "description": "PostgreSQL planner estimated total cost (dimensionless units).",
+          "unit": "cost units",
+          "direction": "minimize",
+          "weight": 0.3
+        },
+        {
+          "name": "buffer_reads",
+          "description": "Shared buffer blocks read from disk (lower = more cache-friendly).",
+          "unit": "blocks",
+          "direction": "minimize",
+          "weight": 0.2
+        },
+        {
+          "name": "buffer_hits",
+          "description": "Shared buffer blocks hit in cache (higher is better, but treated as a cost: buffer_hits_normalised = 1 - normalised_value so the scorer always minimises).",
+          "unit": "blocks",
+          "direction": "maximize",
+          "weight": 0.1
+        }
+      ],
+      "normalisation_method": "min-max",
+      "scoring_algorithm": "weighted-sum",
+      "total_alternatives": 1,
+      "ml_prediction_available": true
+    }
+  },
+  {
+    "workload": {
+      "id": "W3_REWRITE",
+      "name": "Workload 3: Correlated Scalar Subquery vs Group-By Join Rewrite",
+      "original_sql": "SELECT u.id, u.name, u.country,\n       (SELECT count(*) FROM orders o WHERE o.user_id = u.id AND o.status = 'completed') AS completed_orders,\n       (SELECT coalesce(sum(total), 0) FROM orders o WHERE o.user_id = u.id AND o.status = 'completed') AS total_spent\nFROM users u\nWHERE u.country = 'US'\nORDER BY total_spent DESC\nLIMIT 50;",
+      "target_type": "rewrite",
+      "index_sql": null,
+      "optimized_sql": "SELECT u.id, u.name, u.country,\n       count(o.id) AS completed_orders,\n       coalesce(sum(o.total), 0) AS total_spent\nFROM users u\nLEFT JOIN orders o ON u.id = o.user_id AND o.status = 'completed'\nWHERE u.country = 'US'\nGROUP BY u.id, u.name, u.country\nORDER BY total_spent DESC\nLIMIT 50;"
+    },
+    "ml": {
+      "predicted_time_ms": 4.68,
+      "latency_tier": "fast",
+      "confidence_range": {
+        "min_ms": 0.95,
+        "max_ms": 5.38
+      },
+      "models": {
+        "random_forest_ms": 1.12,
+        "xgboost_ms": 4.68
+      },
+      "features_summary": {
+        "num_tables": 2,
+        "num_joins": 0,
+        "num_where_predicates": 3,
+        "has_group_by": false,
+        "has_order_by": true,
+        "has_limit": true,
+        "num_aggregates": 2
+      },
+      "cost_factors": [
+        "Unindexed filter conditions (table scan potential)",
+        "Nested subquery execution overhead"
+      ],
+      "model_version": "1.0.0"
+    },
+    "benchmark": {
+      "benchmark_id": "a5994165-8fb3-46dd-87a1-d2b1e81a2fe8",
+      "query_id": null,
+      "original_sql": "SELECT u.id, u.name, u.country,\n       (SELECT count(*) FROM orders o WHERE o.user_id = u.id AND o.status = 'completed') AS completed_orders,\n       (SELECT coalesce(sum(total), 0) FROM orders o WHERE o.user_id = u.id AND o.status = 'completed') AS total_spent\nFROM users u\nWHERE u.country = 'US'\nORDER BY total_spent DESC\nLIMIT 50",
+      "optimized_sql": "SELECT u.id, u.name, u.country,\n       count(o.id) AS completed_orders,\n       coalesce(sum(o.total), 0) AS total_spent\nFROM users u\nLEFT JOIN orders o ON u.id = o.user_id AND o.status = 'completed'\nWHERE u.country = 'US'\nGROUP BY u.id, u.name, u.country\nORDER BY total_spent DESC\nLIMIT 50",
+      "applied_index_sql": null,
+      "environment": "postgresql_isolated_transaction",
+      "original_metrics": {
+        "runs_count": 5,
+        "cold_execution_time_ms": 637.063,
+        "warm_median_execution_time_ms": 625.5005,
+        "mean_execution_time_ms": 627.6516,
+        "std_dev_execution_time_ms": 5.757,
+        "min_execution_time_ms": 622.007,
+        "max_execution_time_ms": 637.063,
+        "planning_time_ms": 0.08,
+        "estimated_planner_cost": 413569.24,
+        "actual_rows": 50,
+        "shared_buffer_reads": 0,
+        "shared_buffer_hits": 827152,
+        "cache_hit_ratio": 1.0,
+        "cache_state_provenance": "Trial 1 reflects initial execution latency before repeated memory buffer hits. OS/DB buffer caches are not physically dropped without elevated OS privileges.",
+        "raw_runs": [
+          {
+            "run_index": 1,
+            "is_cold": true,
+            "execution_time_ms": 637.063,
+            "planning_time_ms": 0.318,
+            "planner_cost": 413569.24,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 827161
+          },
+          {
+            "run_index": 2,
+            "is_cold": false,
+            "execution_time_ms": 622.007,
+            "planning_time_ms": 0.08,
+            "planner_cost": 413569.24,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 827152
+          },
+          {
+            "run_index": 3,
+            "is_cold": false,
+            "execution_time_ms": 624.361,
+            "planning_time_ms": 0.063,
+            "planner_cost": 413569.24,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 827152
+          },
+          {
+            "run_index": 4,
+            "is_cold": false,
+            "execution_time_ms": 626.64,
+            "planning_time_ms": 0.03,
+            "planner_cost": 413569.24,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 827152
+          },
+          {
+            "run_index": 5,
+            "is_cold": false,
+            "execution_time_ms": 628.187,
+            "planning_time_ms": 0.026,
+            "planner_cost": 413569.24,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 827152
+          }
+        ]
+      },
+      "optimized_metrics": {
+        "runs_count": 5,
+        "cold_execution_time_ms": 2.348,
+        "warm_median_execution_time_ms": 2.269,
+        "mean_execution_time_ms": 2.2794,
+        "std_dev_execution_time_ms": 0.0427,
+        "min_execution_time_ms": 2.231,
+        "max_execution_time_ms": 2.348,
+        "planning_time_ms": 0.043,
+        "estimated_planner_cost": 698.26,
+        "actual_rows": 50,
+        "shared_buffer_reads": 0,
+        "shared_buffer_hits": 1407,
+        "cache_hit_ratio": 1.0,
+        "cache_state_provenance": "Trial 1 reflects initial execution latency before repeated memory buffer hits. OS/DB buffer caches are not physically dropped without elevated OS privileges.",
+        "raw_runs": [
+          {
+            "run_index": 1,
+            "is_cold": true,
+            "execution_time_ms": 2.348,
+            "planning_time_ms": 0.263,
+            "planner_cost": 698.26,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 1407
+          },
+          {
+            "run_index": 2,
+            "is_cold": false,
+            "execution_time_ms": 2.273,
+            "planning_time_ms": 0.043,
+            "planner_cost": 698.26,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 1407
+          },
+          {
+            "run_index": 3,
+            "is_cold": false,
+            "execution_time_ms": 2.231,
+            "planning_time_ms": 0.037,
+            "planner_cost": 698.26,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 1407
+          },
+          {
+            "run_index": 4,
+            "is_cold": false,
+            "execution_time_ms": 2.265,
+            "planning_time_ms": 0.035,
+            "planner_cost": 698.26,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 1407
+          },
+          {
+            "run_index": 5,
+            "is_cold": false,
+            "execution_time_ms": 2.28,
+            "planning_time_ms": 0.034,
+            "planner_cost": 698.26,
+            "actual_rows": 50,
+            "buffer_reads": 0,
+            "buffer_hits": 1407
+          }
+        ]
+      },
+      "equivalence": {
+        "results_match": true,
+        "rows_compared": 50,
+        "original_row_count": 50,
+        "optimized_row_count": 50,
+        "first_diff": null,
+        "original_error": null,
+        "optimized_error": null,
+        "is_bounded_check": true,
+        "order_by_checked": true,
+        "equivalence_note": "Bounded comparison verified across 50 sample rows (limit: 100). Strict ORDER BY sequence verified."
+      },
+      "execution_time_improvement_pct": 99.64,
+      "planner_cost_improvement_pct": 99.83,
+      "buffer_read_improvement_pct": 0.0,
+      "caching_analysis": {
+        "cold_time_ms": 637.063,
+        "warm_median_time_ms": 625.5005,
+        "cache_speedup_factor": 1.02,
+        "cold_cache_hit_ratio": 1.0,
+        "warm_cache_hit_ratio": 1.0,
+        "caching_effect_summary": "Minimal caching variance between cold (637.06 ms) and warm (625.50 ms) runs."
+      },
+      "ml_comparison": {
+        "ml_predicted_time_ms": 4.68,
+        "actual_measured_time_ms": 625.5,
+        "prediction_error_ms": 620.82,
+        "relative_error_pct": 99.25,
+        "latency_tier_predicted": "fast",
+        "is_prediction_accurate_within_30pct": false,
+        "provenance_note": "ML prediction is distinct from actual benchmark measurement."
+      },
+      "created_at": "2026-11-06T08:01:30.391217+00:00"
+    },
+    "ml_validation": {
+      "predicted_ms": 4.68,
+      "actual_warm_ms": 625.5005,
+      "abs_error_ms": 620.8205,
+      "rel_error_pct": 99.25,
+      "within_30pct": false
+    },
+    "or": {
+      "query_id": "5e64f7e6-f182-4091-95b5-b31e67e166a2",
+      "alternatives": [
+        {
+          "rank": 1,
+          "category": "rewrite",
+          "sql": "SELECT u.id, u.name, u.country,\n       count(o.id) AS completed_orders,\n       coalesce(sum(o.total), 0) AS total_spent\nFROM users u\nLEFT JOIN orders o ON u.id = o.user_id AND o.status = 'completed'\nWHERE u.country = 'US'\nGROUP BY u.id, u.name, u.country\nORDER BY total_spent DESC\nLIMIT 50;",
+          "explanation": "Query rewrite optimization",
+          "estimated_impact": "high",
+          "raw_metrics": {
+            "execution_time_ms": 3.276,
+            "planner_cost": null,
+            "buffer_reads": null,
+            "buffer_hits": null
+          },
+          "normalised_metrics": {
+            "execution_time": 0.0,
+            "planner_cost": null,
+            "buffer_reads": null,
+            "buffer_hits": null
+          },
+          "weighted_score": 0.0,
+          "score_breakdown": {
+            "execution_time": 0.0,
+            "planner_cost": 0.0,
+            "buffer_reads": 0.0,
+            "buffer_hits": 0.0
+          },
+          "score_explanation": "ObjectiveName.EXECUTION_TIME(norm=0.000, w=1.00) \u2192 0.0000; ObjectiveName.PLANNER_COST: not available (weight redistributed); ObjectiveName.BUFFER_READS: not available (weight redistributed); ObjectiveName.BUFFER_HITS: not available (weight redistributed)",
+          "ml_predicted_time_ms": 4.68,
+          "is_ml_prediction": true
+        }
+      ],
+      "weights_used": {
+        "execution_time": 0.4,
+        "planner_cost": 0.3,
+        "buffer_reads": 0.2,
+        "buffer_hits": 0.1
+      },
+      "objectives": [
+        {
+          "name": "execution_time",
+          "description": "Query execution time in milliseconds (actual or ML-predicted).",
+          "unit": "ms",
+          "direction": "minimize",
+          "weight": 0.4
+        },
+        {
+          "name": "planner_cost",
+          "description": "PostgreSQL planner estimated total cost (dimensionless units).",
+          "unit": "cost units",
+          "direction": "minimize",
+          "weight": 0.3
+        },
+        {
+          "name": "buffer_reads",
+          "description": "Shared buffer blocks read from disk (lower = more cache-friendly).",
+          "unit": "blocks",
+          "direction": "minimize",
+          "weight": 0.2
+        },
+        {
+          "name": "buffer_hits",
+          "description": "Shared buffer blocks hit in cache (higher is better, but treated as a cost: buffer_hits_normalised = 1 - normalised_value so the scorer always minimises).",
+          "unit": "blocks",
+          "direction": "maximize",
+          "weight": 0.1
+        }
+      ],
+      "normalisation_method": "min-max",
+      "scoring_algorithm": "weighted-sum",
+      "total_alternatives": 1,
+      "ml_prediction_available": true
+    }
+  }
+]

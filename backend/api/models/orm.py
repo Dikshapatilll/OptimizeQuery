@@ -6,6 +6,7 @@ from datetime import datetime
 from sqlalchemy import (
     Boolean,
     DateTime,
+    Float,
     ForeignKey,
     Integer,
     String,
@@ -57,6 +58,9 @@ class QueryHistory(Base):
     )
     sql_query: Mapped[str] = mapped_column(Text, nullable=False)
     explain_plan: Mapped[str | None] = mapped_column(Text, nullable=True)
+    execution_time_ms: Mapped[float | None] = mapped_column(Float, nullable=True)
+    planning_time_ms: Mapped[float | None] = mapped_column(Float, nullable=True)
+    is_benchmark: Mapped[bool] = mapped_column(Boolean, default=False)
     # Full JSON response from Claude stored as text
     llm_response: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
@@ -117,3 +121,26 @@ class LLMConfig(Base):
     updated_at: Mapped[datetime] = mapped_column(
         DateTime, server_default=func.now(), onupdate=func.now()
     )
+
+
+class BenchmarkHistory(Base):
+    """Historical benchmark run comparing original and optimized queries."""
+
+    __tablename__ = "benchmark_history"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    connection_id: Mapped[str | None] = mapped_column(
+        String(36), ForeignKey("db_connections.id", ondelete="SET NULL"), nullable=True
+    )
+    original_sql: Mapped[str] = mapped_column(Text, nullable=False)
+    optimized_sql: Mapped[str | None] = mapped_column(Text, nullable=True)
+    applied_index_sql: Mapped[str | None] = mapped_column(Text, nullable=True)
+    environment: Mapped[str] = mapped_column(String(50), nullable=False)
+    original_exec_time_ms: Mapped[float] = mapped_column(Float, nullable=False)
+    optimized_exec_time_ms: Mapped[float | None] = mapped_column(Float, nullable=True)
+    exec_time_improvement_pct: Mapped[float | None] = mapped_column(Float, nullable=True)
+    planner_cost_improvement_pct: Mapped[float | None] = mapped_column(Float, nullable=True)
+    buffer_read_improvement_pct: Mapped[float | None] = mapped_column(Float, nullable=True)
+    results_match: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
+    full_telemetry_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())

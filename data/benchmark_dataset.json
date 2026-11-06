@@ -1,0 +1,3502 @@
+[
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 54 LIMIT 100",
+    "execution_time_ms": 0.161,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_1"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.102,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_2"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.298,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_3"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 30 LIMIT 100",
+    "execution_time_ms": 0.136,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_4"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.125,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_5"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.297,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_6"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 43 LIMIT 100",
+    "execution_time_ms": 0.159,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_7"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.11,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_8"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.3,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_9"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 33 LIMIT 100",
+    "execution_time_ms": 0.146,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_10"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.116,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_11"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.297,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_12"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'FR' AND age > 60 LIMIT 500",
+    "execution_time_ms": 0.247,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_13"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.128,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_14"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.296,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_15"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 42 LIMIT 500",
+    "execution_time_ms": 0.406,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_16"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.135,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_17"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.297,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_18"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'JP' AND age > 39 LIMIT 10",
+    "execution_time_ms": 0.032,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_19"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Home' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.051,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_20"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.304,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_21"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 27 LIMIT 500",
+    "execution_time_ms": 0.537,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_22"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Books' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.121,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_23"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.297,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_24"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'DE' AND age > 40 LIMIT 1000",
+    "execution_time_ms": 0.448,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_25"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.141,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_26"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.298,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_27"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 36 LIMIT 50",
+    "execution_time_ms": 0.084,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_28"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 50",
+    "execution_time_ms": 0.082,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_29"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.298,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_30"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'US' AND age > 60 LIMIT 1000",
+    "execution_time_ms": 0.251,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_31"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.11,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_32"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.298,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_33"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 22 LIMIT 10",
+    "execution_time_ms": 0.039,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_34"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.057,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_35"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.297,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_36"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 59 LIMIT 10",
+    "execution_time_ms": 0.036,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_37"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.058,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_38"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.3,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_39"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 32 LIMIT 50",
+    "execution_time_ms": 0.08,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_40"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 50",
+    "execution_time_ms": 0.095,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_41"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.298,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_42"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'GB' AND age > 32 LIMIT 500",
+    "execution_time_ms": 0.511,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_43"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.109,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_44"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.297,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_45"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'GB' AND age > 20 LIMIT 1000",
+    "execution_time_ms": 0.594,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_46"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Home' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.101,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_47"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.274,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_48"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'FR' AND age > 56 LIMIT 50",
+    "execution_time_ms": 0.092,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_49"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 50",
+    "execution_time_ms": 0.067,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_50"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.278,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_51"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'US' AND age > 55 LIMIT 100",
+    "execution_time_ms": 0.159,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_52"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Books' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.105,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_53"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.275,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_54"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 31 LIMIT 1000",
+    "execution_time_ms": 0.465,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_55"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.094,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_56"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.277,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_57"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 31 LIMIT 10",
+    "execution_time_ms": 0.027,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_58"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.046,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_59"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.275,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_60"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 57 LIMIT 500",
+    "execution_time_ms": 0.231,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_61"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.109,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_62"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.276,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_63"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'JP' AND age > 53 LIMIT 500",
+    "execution_time_ms": 0.291,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_64"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.093,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_65"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.277,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_66"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'JP' AND age > 42 LIMIT 1000",
+    "execution_time_ms": 0.389,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_67"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.094,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_68"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.274,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_69"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 36 LIMIT 100",
+    "execution_time_ms": 0.139,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_70"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.098,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_71"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.275,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_72"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 28 LIMIT 10",
+    "execution_time_ms": 0.028,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_73"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Books' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.047,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_74"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.277,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_75"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'GB' AND age > 25 LIMIT 50",
+    "execution_time_ms": 0.073,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_76"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 50",
+    "execution_time_ms": 0.083,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_77"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.275,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_78"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 36 LIMIT 10",
+    "execution_time_ms": 0.027,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_79"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.05,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_80"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.276,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_81"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'DE' AND age > 47 LIMIT 100",
+    "execution_time_ms": 0.144,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_82"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.091,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_83"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.275,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_84"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 22 LIMIT 500",
+    "execution_time_ms": 0.518,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_85"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Home' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.102,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_86"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.276,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_87"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 29 LIMIT 10",
+    "execution_time_ms": 0.03,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_88"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.045,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_89"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.275,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_90"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'GB' AND age > 44 LIMIT 10",
+    "execution_time_ms": 0.029,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_91"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Books' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.041,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_92"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.275,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_93"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'GB' AND age > 58 LIMIT 100",
+    "execution_time_ms": 0.157,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_94"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Books' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.095,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_95"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.274,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_96"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'DE' AND age > 28 LIMIT 500",
+    "execution_time_ms": 0.495,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_97"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.117,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_98"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.277,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_99"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 47 LIMIT 1000",
+    "execution_time_ms": 0.32,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_100"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Home' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.093,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_101"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.275,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_102"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'DE' AND age > 34 LIMIT 100",
+    "execution_time_ms": 0.134,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_103"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.103,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_104"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.274,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_105"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 32 LIMIT 1000",
+    "execution_time_ms": 0.451,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_106"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.112,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_107"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.266,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_108"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'DE' AND age > 50 LIMIT 1000",
+    "execution_time_ms": 0.312,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_109"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Home' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.092,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_110"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.269,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_111"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'US' AND age > 21 LIMIT 1000",
+    "execution_time_ms": 0.544,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_112"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.091,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_113"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.268,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_114"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'DE' AND age > 47 LIMIT 100",
+    "execution_time_ms": 0.131,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_115"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.087,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_116"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.266,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_117"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'GB' AND age > 45 LIMIT 100",
+    "execution_time_ms": 0.137,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_118"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Books' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.092,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_119"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.265,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_120"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'GB' AND age > 48 LIMIT 1000",
+    "execution_time_ms": 0.322,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_121"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.121,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_122"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.264,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_123"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 44 LIMIT 50",
+    "execution_time_ms": 0.076,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_124"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 50",
+    "execution_time_ms": 0.065,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_125"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.266,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_126"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'JP' AND age > 37 LIMIT 50",
+    "execution_time_ms": 0.074,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_127"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 50",
+    "execution_time_ms": 0.072,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_128"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.267,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_129"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'JP' AND age > 25 LIMIT 500",
+    "execution_time_ms": 0.535,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_130"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.105,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_131"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.265,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_132"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'GB' AND age > 25 LIMIT 100",
+    "execution_time_ms": 0.132,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_133"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.103,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_134"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.266,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_135"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 58 LIMIT 500",
+    "execution_time_ms": 0.237,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_136"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Books' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.1,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_137"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.264,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_138"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'US' AND age > 52 LIMIT 1000",
+    "execution_time_ms": 0.295,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_139"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.113,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_140"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.264,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_141"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'DE' AND age > 60 LIMIT 500",
+    "execution_time_ms": 0.228,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_142"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.104,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_143"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.266,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_144"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 35 LIMIT 100",
+    "execution_time_ms": 0.131,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_145"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.093,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_146"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.261,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_147"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'FR' AND age > 33 LIMIT 100",
+    "execution_time_ms": 0.133,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_148"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.087,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_149"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_150"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'GB' AND age > 37 LIMIT 1000",
+    "execution_time_ms": 0.401,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_151"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.109,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_152"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.261,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_153"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 29 LIMIT 1000",
+    "execution_time_ms": 0.429,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_154"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.088,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_155"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.261,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_156"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 22 LIMIT 1000",
+    "execution_time_ms": 0.49,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_157"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.111,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_158"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.261,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_159"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'GB' AND age > 21 LIMIT 50",
+    "execution_time_ms": 0.069,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_160"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Books' AND price > 100 ORDER BY price DESC LIMIT 50",
+    "execution_time_ms": 0.075,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_161"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_162"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'FR' AND age > 25 LIMIT 1000",
+    "execution_time_ms": 0.497,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_163"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.111,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_164"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.261,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_165"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'FR' AND age > 21 LIMIT 50",
+    "execution_time_ms": 0.071,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_166"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Books' AND price > 100 ORDER BY price DESC LIMIT 50",
+    "execution_time_ms": 0.07,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_167"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.26,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_168"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'DE' AND age > 35 LIMIT 50",
+    "execution_time_ms": 0.07,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_169"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 50",
+    "execution_time_ms": 0.069,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_170"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_171"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 60 LIMIT 500",
+    "execution_time_ms": 0.198,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_172"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.111,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_173"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.264,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_174"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 45 LIMIT 100",
+    "execution_time_ms": 0.139,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_175"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Home' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.093,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_176"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_177"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'US' AND age > 47 LIMIT 100",
+    "execution_time_ms": 0.139,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_178"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.093,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_179"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.261,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_180"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'JP' AND age > 30 LIMIT 10",
+    "execution_time_ms": 0.027,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_181"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.041,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_182"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_183"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'GB' AND age > 60 LIMIT 50",
+    "execution_time_ms": 0.085,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_184"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Books' AND price > 100 ORDER BY price DESC LIMIT 50",
+    "execution_time_ms": 0.068,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_185"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.26,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_186"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 32 LIMIT 10",
+    "execution_time_ms": 0.025,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_187"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.041,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_188"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.264,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_189"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'DE' AND age > 55 LIMIT 500",
+    "execution_time_ms": 0.273,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_190"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.09,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_191"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_192"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 35 LIMIT 10",
+    "execution_time_ms": 0.025,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_193"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.043,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_194"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.263,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_195"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'DE' AND age > 46 LIMIT 100",
+    "execution_time_ms": 0.136,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_196"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.087,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_197"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_198"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'FR' AND age > 50 LIMIT 50",
+    "execution_time_ms": 0.08,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_199"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 50",
+    "execution_time_ms": 0.069,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_200"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.264,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_201"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'US' AND age > 24 LIMIT 50",
+    "execution_time_ms": 0.07,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_202"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Home' AND price > 100 ORDER BY price DESC LIMIT 50",
+    "execution_time_ms": 0.073,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_203"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_204"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'GB' AND age > 57 LIMIT 500",
+    "execution_time_ms": 0.258,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_205"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.102,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_206"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_207"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'US' AND age > 35 LIMIT 10",
+    "execution_time_ms": 0.026,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_208"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.041,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_209"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.261,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_210"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 27 LIMIT 500",
+    "execution_time_ms": 0.455,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_211"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Home' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.091,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_212"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.264,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_213"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 55 LIMIT 100",
+    "execution_time_ms": 0.158,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_214"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Books' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.093,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_215"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.261,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_216"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 20 LIMIT 500",
+    "execution_time_ms": 0.514,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_217"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Home' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.088,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_218"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.261,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_219"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'FR' AND age > 43 LIMIT 10",
+    "execution_time_ms": 0.028,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_220"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Home' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.036,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_221"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_222"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'US' AND age > 58 LIMIT 10",
+    "execution_time_ms": 0.03,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_223"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.042,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_224"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_225"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'JP' AND age > 23 LIMIT 100",
+    "execution_time_ms": 0.126,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_226"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.098,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_227"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_228"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 46 LIMIT 500",
+    "execution_time_ms": 0.316,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_229"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.114,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_230"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.261,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_231"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'DE' AND age > 20 LIMIT 500",
+    "execution_time_ms": 0.534,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_232"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Books' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.099,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_233"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.261,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_234"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'DE' AND age > 24 LIMIT 500",
+    "execution_time_ms": 0.506,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_235"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Books' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.097,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_236"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.261,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_237"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'US' AND age > 55 LIMIT 1000",
+    "execution_time_ms": 0.259,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_238"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Books' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.104,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_239"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_240"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'FR' AND age > 34 LIMIT 1000",
+    "execution_time_ms": 0.43,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_241"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.103,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_242"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_243"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'DE' AND age > 52 LIMIT 50",
+    "execution_time_ms": 0.08,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_244"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 50",
+    "execution_time_ms": 0.071,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_245"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_246"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'US' AND age > 47 LIMIT 1000",
+    "execution_time_ms": 0.328,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_247"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.09,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_248"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.261,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_249"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'JP' AND age > 39 LIMIT 10",
+    "execution_time_ms": 0.019,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_250"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Home' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.037,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_251"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.264,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_252"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'GB' AND age > 23 LIMIT 500",
+    "execution_time_ms": 0.52,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_253"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Home' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.088,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_254"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.261,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_255"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'JP' AND age > 40 LIMIT 10",
+    "execution_time_ms": 0.027,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_256"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Home' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.036,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_257"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_258"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 57 LIMIT 100",
+    "execution_time_ms": 0.156,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_259"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Books' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.09,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_260"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_261"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'US' AND age > 54 LIMIT 10",
+    "execution_time_ms": 0.028,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_262"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.042,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_263"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_264"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'FR' AND age > 53 LIMIT 500",
+    "execution_time_ms": 0.282,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_265"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.104,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_266"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_267"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'JP' AND age > 45 LIMIT 10",
+    "execution_time_ms": 0.027,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_268"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.041,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_269"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.261,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_270"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 59 LIMIT 500",
+    "execution_time_ms": 0.204,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_271"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.112,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_272"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_273"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'US' AND age > 40 LIMIT 1000",
+    "execution_time_ms": 0.389,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_274"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.089,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_275"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.261,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_276"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 48 LIMIT 1000",
+    "execution_time_ms": 0.302,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_277"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 1000",
+    "execution_time_ms": 0.089,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_278"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_279"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'DE' AND age > 25 LIMIT 500",
+    "execution_time_ms": 0.493,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_280"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.088,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_281"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_282"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'IN' AND age > 43 LIMIT 100",
+    "execution_time_ms": 0.129,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_283"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Electronics' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.094,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_284"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.261,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_285"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'DE' AND age > 29 LIMIT 10",
+    "execution_time_ms": 0.026,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_286"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Books' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.038,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_287"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.262,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_288"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'JP' AND age > 59 LIMIT 500",
+    "execution_time_ms": 0.244,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_289"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Books' AND price > 100 ORDER BY price DESC LIMIT 500",
+    "execution_time_ms": 0.101,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_290"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.269,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_291"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'DE' AND age > 32 LIMIT 100",
+    "execution_time_ms": 0.13,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_292"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Clothing' AND price > 100 ORDER BY price DESC LIMIT 100",
+    "execution_time_ms": 0.1,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_293"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.268,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_294"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'FR' AND age > 41 LIMIT 10",
+    "execution_time_ms": 0.027,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_295"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Home' AND price > 100 ORDER BY price DESC LIMIT 10",
+    "execution_time_ms": 0.037,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_296"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.267,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_297"
+  },
+  {
+    "sql": "SELECT * FROM users WHERE country = 'CA' AND age > 33 LIMIT 50",
+    "execution_time_ms": 0.075,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_298"
+  },
+  {
+    "sql": "SELECT id, name, price FROM products WHERE category = 'Sports' AND price > 100 ORDER BY price DESC LIMIT 50",
+    "execution_time_ms": 0.064,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_299"
+  },
+  {
+    "sql": "SELECT count(*) FROM users WHERE is_active = 1 AND balance > 500",
+    "execution_time_ms": 0.265,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_300"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 4.685,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_301"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.967,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_302"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.389,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_303"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.763,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_304"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.532,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_305"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.742,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_306"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.465,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_307"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.729,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_308"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.312,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_309"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.733,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_310"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.378,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_311"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.718,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_312"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.264,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_313"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.714,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_314"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.343,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_315"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.712,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_316"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.347,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_317"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.707,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_318"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.342,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_319"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.713,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_320"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.362,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_321"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.727,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_322"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.352,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_323"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.712,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_324"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.322,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_325"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.713,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_326"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.34,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_327"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.71,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_328"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.301,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_329"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.723,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_330"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.244,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_331"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.771,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_332"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.286,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_333"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.711,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_334"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.217,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_335"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.728,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_336"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.315,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_337"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.708,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_338"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.35,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_339"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.703,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_340"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.497,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_341"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.781,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_342"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.364,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_343"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.7,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_344"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.28,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_345"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.716,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_346"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.363,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_347"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.702,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_348"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.349,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_349"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.704,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_350"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.508,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_351"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.724,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_352"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.529,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_353"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.699,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_354"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.456,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_355"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.71,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_356"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.304,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_357"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.719,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_358"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.46,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_359"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.701,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_360"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.455,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_361"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.697,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_362"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.365,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_363"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.716,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_364"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.288,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_365"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.709,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_366"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.489,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_367"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.728,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_368"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.492,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_369"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.707,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_370"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.493,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_371"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.932,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_372"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.412,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_373"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.884,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_374"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.505,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_375"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.732,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_376"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.232,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_377"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.739,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_378"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.494,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_379"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.737,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_380"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.273,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_381"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.71,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_382"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.23,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_383"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.752,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_384"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.355,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_385"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 5.052,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_386"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.384,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_387"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.945,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_388"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.354,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_389"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.719,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_390"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.319,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_391"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.711,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_392"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.226,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_393"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.74,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_394"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.305,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_395"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.713,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_396"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.496,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_397"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.71,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_398"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.285,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_399"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.711,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_400"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.491,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_401"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.706,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_402"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.489,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_403"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.733,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_404"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.326,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_405"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.725,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_406"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.499,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_407"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.711,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_408"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.232,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_409"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.712,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_410"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.312,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_411"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.702,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_412"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.496,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_413"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.707,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_414"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.305,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_415"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.736,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_416"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.224,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_417"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.712,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_418"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.494,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_419"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.718,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_420"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.285,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_421"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.714,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_422"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.303,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_423"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.713,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_424"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.276,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_425"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.758,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_426"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.35,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_427"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.71,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_428"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.213,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_429"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.736,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_430"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.305,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_431"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.719,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_432"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.346,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_433"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.73,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_434"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.342,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_435"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.75,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_436"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.491,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_437"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.709,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_438"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.491,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_439"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.713,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_440"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.486,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_441"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.718,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_442"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.345,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_443"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.702,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_444"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.302,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_445"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.724,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_446"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.238,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_447"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.716,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_448"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.218,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_449"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.713,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_450"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.491,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_451"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.717,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_452"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.345,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_453"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.724,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_454"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.261,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_455"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.74,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_456"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.357,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_457"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.706,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_458"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.264,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_459"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.717,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_460"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.277,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_461"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.714,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_462"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.256,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_463"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.716,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_464"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.253,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_465"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.737,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_466"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.263,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_467"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.71,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_468"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.285,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_469"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.725,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_470"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.269,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_471"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.718,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_472"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.49,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_473"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.703,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_474"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.255,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_475"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.735,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_476"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.306,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_477"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.709,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_478"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.211,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_479"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.71,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_480"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.514,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_481"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.713,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_482"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.458,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_483"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.738,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_484"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.489,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_485"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.717,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_486"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.253,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_487"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.716,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_488"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'completed' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.347,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_489"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.729,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_490"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'cancelled' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.302,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_491"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.713,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_492"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.306,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_493"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.712,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_494"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 100",
+    "execution_time_ms": 1.465,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_495"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.717,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_496"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 20",
+    "execution_time_ms": 1.304,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_497"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.747,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_498"
+  },
+  {
+    "sql": "SELECT u.name, o.id, o.total, o.order_date FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = 'pending' ORDER BY o.total DESC LIMIT 500",
+    "execution_time_ms": 2.213,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_499"
+  },
+  {
+    "sql": "SELECT u.country, count(o.id) as order_cnt, sum(o.total) as gmv FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.country HAVING count(o.id) > 10",
+    "execution_time_ms": 4.717,
+    "planning_time_ms": 0.1,
+    "is_benchmark": true,
+    "query_id": "bm_500"
+  }
+]

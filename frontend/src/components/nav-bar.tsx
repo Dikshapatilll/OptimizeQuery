@@ -88,6 +88,14 @@ function MoonIcon() {
   );
 }
 
+function BenchmarkIcon() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+    </svg>
+  );
+}
+
 function DashboardIcon() {
   return (
     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -104,6 +112,7 @@ const isHosted = !!(process.env.NEXT_PUBLIC_API_URL && !process.env.NEXT_PUBLIC_
 const allLinks = [
   { href: "/", label: "Dashboard", icon: <DashboardIcon />, selfHostedOnly: true },
   { href: "/analyze", label: "Analyze", icon: <AnalyzeIcon /> },
+  { href: "/benchmark", label: "Benchmarks", icon: <BenchmarkIcon /> },
   { href: "/connections", label: "Connections", icon: <ConnectionsIcon />, selfHostedOnly: true },
   { href: "/history", label: "History", icon: <HistoryIcon /> },
   { href: "/settings", label: "LLM Settings", icon: <SettingsIcon />, selfHostedOnly: true },

@@ -36,7 +36,25 @@ def get_db() -> Generator[Session, None, None]:
 
 
 def init_db() -> None:
-    """Create all tables on startup."""
+    """Create all tables on startup and apply safe column migrations."""
     # Import models so Base registers them before create_all
     import api.models.orm  # noqa: F401
     Base.metadata.create_all(bind=engine)
+    _apply_migrations()
+
+
+def _apply_migrations() -> None:
+    """Safe, idempotent column additions for existing SQLite/Postgres tables."""
+    from sqlalchemy import inspect, text
+
+    inspector = inspect(engine)
+    table_names = inspector.get_table_names()
+    if "query_history" in table_names:
+        columns = {col["name"] for col in inspector.get_columns("query_history")}
+        with engine.begin() as conn:
+            if "execution_time_ms" not in columns:
+                conn.execute(text("ALTER TABLE query_history ADD COLUMN execution_time_ms FLOAT"))
+            if "planning_time_ms" not in columns:
+                conn.execute(text("ALTER TABLE query_history ADD COLUMN planning_time_ms FLOAT"))
+            if "is_benchmark" not in columns:
+                conn.execute(text("ALTER TABLE query_history ADD COLUMN is_benchmark BOOLEAN DEFAULT 0"))
