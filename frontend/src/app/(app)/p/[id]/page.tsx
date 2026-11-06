@@ -60,7 +60,7 @@ export default function SharedPage() {
         <p className="text-sm text-(--color-text-muted)">{error}</p>
         <a
           href="/analyze"
-          className="inline-block px-4 py-2 bg-[#1e3a5f] dark:bg-blue-600 text-white text-sm rounded-lg hover:bg-[#2a4d7a] dark:hover:bg-blue-700 transition-colors"
+          className="inline-block px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold rounded-lg transition-colors shadow-2xs"
         >
           Go to Analyze
         </a>
@@ -131,7 +131,7 @@ export default function SharedPage() {
       <div className="text-center pt-4 pb-8">
         <a
           href="/analyze"
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#1e3a5f] dark:bg-blue-600 text-white text-sm font-medium rounded-xl hover:bg-[#2a4d7a] dark:hover:bg-blue-700 transition-colors"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold rounded-lg transition-colors shadow-2xs"
         >
           Try OptimizeQL
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

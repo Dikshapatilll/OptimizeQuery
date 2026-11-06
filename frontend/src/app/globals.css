@@ -3,32 +3,106 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
-  --color-background: #faf8f4;
-  --color-foreground: #111827;
-  --color-primary: #1e3a5f;
-  --color-surface: #ffffff;
-  --color-surface-muted: #f9fafb;
-  --color-border: #f3f4f6;
-  --color-border-strong: #e5e7eb;
-  --color-text-muted: #6b7280;
-  --color-text-faint: #9ca3af;
-  --font-sans: "Google Sans", sans-serif;
-  --font-mono: var(--font-geist-mono);
+  /* Brand Palette (Light) */
+  --color-background: #F5F7FA;
+  --color-foreground: #101827;
+  --color-surface: #FFFFFF;
+  --color-surface-muted: #F0F4F8;
+  --color-surface-elevated: #FFFFFF;
+
+  --color-border: #E2E8F0;
+  --color-border-hover: #CBD5E1;
+  --color-border-strong: #94A3B8;
+
+  --color-text: #101827;
+  --color-text-muted: #475569;
+  --color-text-faint: #64748B;
+  --color-text-secondary: #334155;
+
+  --color-bg-secondary: #F0F4F8;
+  --color-bg-tertiary: #E2E8F0;
+
+  --color-primary: #0D9488;
+  --color-primary-hover: #0F766E;
+  --color-primary-subtle: #CCFBF1;
+  --color-secondary: #7567D8;
+  --color-secondary-subtle: #EDE9FE;
+
+  --color-navy: #101827;
+  --color-graphite: #202B3C;
+  --color-success: #16865D;
+  --color-warning: #C18A36;
+  --color-error: #D14E5A;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Geist", system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 body {
   background: var(--color-background);
   color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html.dark {
-  --color-background: #0f1117;
-  --color-foreground: #e5e7eb;
-  --color-primary: #3b82f6;
-  --color-surface: #1a1d27;
-  --color-surface-muted: #1f2230;
-  --color-border: #2a2d3a;
-  --color-border-strong: #3a3d4a;
-  --color-text-muted: #9ca3af;
-  --color-text-faint: #6b7280;
+  /* Brand Palette (Dark) */
+  --color-background: #0B0F17;
+  --color-foreground: #F8FAFC;
+  --color-surface: #101827;
+  --color-surface-muted: #162032;
+  --color-surface-elevated: #1E293B;
+
+  --color-border: #202B3C;
+  --color-border-hover: #334155;
+  --color-border-strong: #475569;
+
+  --color-text: #F8FAFC;
+  --color-text-muted: #94A3B8;
+  --color-text-faint: #64748B;
+  --color-text-secondary: #CBD5E1;
+
+  --color-bg-secondary: #162032;
+  --color-bg-tertiary: #1E293B;
+
+  --color-primary: #14B8A6;
+  --color-primary-hover: #2DD4BF;
+  --color-primary-subtle: #134E4A;
+  --color-secondary: #8B7EF8;
+  --color-secondary-subtle: #2E1065;
+
+  --color-navy: #0B0F17;
+  --color-graphite: #202B3C;
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+}
+
+/* Custom scrollbars for clean developer feel */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.5);
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(51, 65, 85, 0.5);
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(71, 85, 105, 0.7);
+}
+
+/* Monospace measurement display */
+.num-metric {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum" 1, "zero" 1;
 }

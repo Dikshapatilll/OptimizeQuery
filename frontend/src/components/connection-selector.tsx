@@ -13,9 +13,9 @@ export function ConnectionSelector({ connections, value, onChange }: ConnectionS
     <select
       value={value || ""}
       onChange={(e) => onChange(e.target.value || null)}
-      className="w-full px-3 py-2 border border-(--color-border-strong) rounded-xl bg-(--color-surface-muted) text-sm text-(--color-text-muted)
-                 focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 focus:border-blue-200 dark:focus:border-blue-700
-                 focus:bg-(--color-surface) transition-all"
+      className="w-full px-3 py-2 border border-(--color-border) rounded-lg bg-(--color-surface-muted) text-xs font-mono text-(--color-foreground)
+                 focus:outline-none focus:ring-1 focus:ring-teal-500
+                 focus:bg-(--color-surface) transition-all cursor-pointer"
     >
       <option value="">No connection (static analysis only)</option>
       {connections.map((conn) => (

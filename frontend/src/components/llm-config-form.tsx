@@ -40,31 +40,38 @@ export function LLMConfigForm({ onSubmit, onCancel }: LLMConfigFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-xl border border-(--color-border-strong) bg-(--color-surface) p-6 space-y-4"
+      className="rounded-xl border border-(--color-border) bg-(--color-surface) p-5 space-y-4 shadow-2xs"
     >
-      <h3 className="text-lg font-semibold text-(--color-foreground)">Add API Key</h3>
+      <div className="flex items-center justify-between border-b border-(--color-border) pb-3">
+        <h3 className="text-sm font-semibold text-(--color-foreground)">Configure LLM Provider</h3>
+        <button
+          type="button"
+          onClick={onCancel}
+          className="text-xs text-(--color-text-faint) hover:text-(--color-foreground) cursor-pointer"
+        >
+          Cancel
+        </button>
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
-          <label className="block text-sm font-medium text-(--color-text-muted) mb-1">Name</label>
+          <label className="block text-xs font-semibold text-(--color-foreground) mb-1">Configuration Name</label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="e.g. My Gemini Key"
+            placeholder="e.g. Production Anthropic"
             required
-            className="w-full px-3 py-2 border border-(--color-border-strong) rounded-lg text-sm bg-(--color-surface) text-(--color-foreground)
-                       focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 focus:border-blue-200 dark:focus:border-blue-700"
+            className="w-full px-3 py-2 border border-(--color-border) rounded-lg text-xs bg-(--color-surface-muted) text-(--color-foreground) focus:outline-none focus:ring-1 focus:ring-teal-500 font-mono"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-(--color-text-muted) mb-1">Provider</label>
+          <label className="block text-xs font-semibold text-(--color-foreground) mb-1">Provider Engine</label>
           <select
             value={provider}
             onChange={(e) => setProvider(e.target.value as LLMConfigCreate["provider"])}
-            className="w-full px-3 py-2 border border-(--color-border-strong) rounded-lg text-sm bg-(--color-surface) text-(--color-foreground)
-                       focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 focus:border-blue-200 dark:focus:border-blue-700"
+            className="w-full px-3 py-2 border border-(--color-border) rounded-lg text-xs bg-(--color-surface-muted) text-(--color-foreground) focus:outline-none focus:ring-1 focus:ring-teal-500 font-mono"
           >
             {providers.map((p) => (
               <option key={p.name} value={p.name}>
@@ -75,36 +82,36 @@ export function LLMConfigForm({ onSubmit, onCancel }: LLMConfigFormProps) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-(--color-text-muted) mb-1">API Key</label>
+          <label className="block text-xs font-semibold text-(--color-foreground) mb-1">API Key</label>
           <input
             type="password"
             value={apiKey}
             onChange={(e) => setApiKey(e.target.value)}
-            placeholder="Enter your API key"
+            placeholder="sk-..."
             required
-            className="w-full px-3 py-2 border border-(--color-border-strong) rounded-lg text-sm font-mono bg-(--color-surface) text-(--color-foreground)
-                       focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 focus:border-blue-200 dark:focus:border-blue-700"
+            className="w-full px-3 py-2 border border-(--color-border) rounded-lg text-xs font-mono bg-(--color-surface-muted) text-(--color-foreground) focus:outline-none focus:ring-1 focus:ring-teal-500"
           />
         </div>
       </div>
 
-      <div className="flex gap-3 pt-2">
-        <button
-          type="submit"
-          disabled={submitting || !name || !apiKey}
-          className="px-4 py-2 bg-[#1e3a5f] dark:bg-blue-600 text-white text-sm font-medium rounded-lg
-                     hover:bg-[#2a4d7a] dark:hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-        >
-          {submitting ? "Saving..." : "Save"}
-        </button>
+      <div className="flex justify-end gap-2 pt-2 border-t border-(--color-border)">
         <button
           type="button"
           onClick={onCancel}
-          className="px-4 py-2 text-sm font-medium text-(--color-text-muted) hover:text-(--color-foreground) transition-colors"
+          className="px-4 py-2 border border-(--color-border) bg-(--color-surface) text-xs font-medium rounded-lg text-(--color-foreground) hover:bg-(--color-surface-muted) transition-colors cursor-pointer"
         >
           Cancel
+        </button>
+        <button
+          type="submit"
+          disabled={submitting || !name || !apiKey}
+          className="px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold rounded-lg disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-2xs cursor-pointer flex items-center gap-1.5"
+        >
+          {submitting ? "Saving..." : "Save Provider Key"}
         </button>
       </div>
     </form>
   );
 }
+
+export default LLMConfigForm;

@@ -6,6 +6,7 @@ import Link from "next/link";
 import Editor from "@monaco-editor/react";
 import { useTheme } from "@/context/theme-context";
 import { PRESETS } from "@/lib/playground-presets";
+import { OptimizeQLLogo } from "./brand-logo";
 
 /* ── Animated placeholder phrases ──────────────────────────────────────── */
 
@@ -210,25 +211,9 @@ export default function LandingPage() {
       {/* ── Top Nav ────────────────────────────────────────────────────────── */}
       <header className="sticky top-0 z-50 border-b border-(--color-border) bg-(--color-background)/80 backdrop-blur-md">
         <div className="max-w-5xl mx-auto flex items-center justify-between px-6 py-3">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 overflow-hidden">
-              <svg width="32" height="32" viewBox="0 0 80 80" fill="none">
-                <defs>
-                  <linearGradient id="logoBg" x1="10" y1="8" x2="70" y2="72" gradientUnits="userSpaceOnUse">
-                    <stop offset="0" stopColor="#1e3a5f"/>
-                    <stop offset="1" stopColor="#2D5B8E"/>
-                  </linearGradient>
-                </defs>
-                <rect x="4" y="4" width="72" height="72" rx="22" fill="url(#logoBg)"/>
-                <circle cx="39" cy="38" r="16" stroke="white" strokeWidth="3.5"/>
-                <circle cx="53" cy="30" r="4.5" fill="#F6D2B8"/>
-                <path d="M50 49L59 58" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>
-              </svg>
-            </div>
-            <span className="text-base font-bold text-(--color-foreground) tracking-tight">
-              OptimizeQL
-            </span>
-          </div>
+          <Link href="/" className="flex items-center gap-3">
+            <OptimizeQLLogo variant="full" size="sm" showBadge />
+          </Link>
           <div className="flex items-center gap-4">
             <Link href="/analyze" className="text-sm font-medium text-(--color-text-muted) hover:text-(--color-foreground) transition-colors">
               Playground
@@ -257,7 +242,7 @@ export default function LandingPage() {
           <h1 className="text-4xl sm:text-5xl font-bold text-(--color-foreground) tracking-tight leading-[1.1]">
             Paste your query. See why it&apos;s slow.
             <br />
-            <span className="text-[#1e3a5f] dark:text-blue-400">Simulate the fix.</span>
+            <span className="text-teal-600 dark:text-teal-400">Simulate the fix.</span>
           </h1>
           <p className="text-base sm:text-lg text-(--color-text-muted) max-w-xl mx-auto leading-relaxed">
             OptimizeQL analyzes your real execution plan and suggests specific
@@ -293,7 +278,7 @@ export default function LandingPage() {
                 onClick={() => setLandingMode("playground")}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
                   landingMode === "playground"
-                    ? "bg-[#1e3a5f] dark:bg-blue-600 text-white shadow-sm"
+                    ? "bg-teal-600 text-white shadow-2xs font-semibold"
                     : "text-(--color-text-muted) hover:text-(--color-foreground) hover:bg-(--color-surface-muted)"
                 }`}
               >
@@ -304,7 +289,7 @@ export default function LandingPage() {
                 onClick={() => setLandingMode("quick")}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
                   landingMode === "quick"
-                    ? "bg-[#1e3a5f] dark:bg-blue-600 text-white shadow-sm"
+                    ? "bg-teal-600 text-white shadow-2xs font-semibold"
                     : "text-(--color-text-muted) hover:text-(--color-foreground) hover:bg-(--color-surface-muted)"
                 }`}
               >
@@ -340,7 +325,7 @@ export default function LandingPage() {
                     onClick={() => setActiveTab("schema")}
                     className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
                       activeTab === "schema"
-                        ? "bg-[#1e3a5f] dark:bg-blue-600 text-white shadow-sm"
+                        ? "bg-teal-600 text-white shadow-2xs font-semibold"
                         : "text-(--color-text-muted) hover:text-(--color-foreground) hover:bg-(--color-surface)"
                     }`}
                   >
@@ -350,7 +335,7 @@ export default function LandingPage() {
                     onClick={() => setActiveTab("query")}
                     className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
                       activeTab === "query"
-                        ? "bg-[#1e3a5f] dark:bg-blue-600 text-white shadow-sm"
+                        ? "bg-teal-600 text-white shadow-2xs font-semibold"
                         : "text-(--color-text-muted) hover:text-(--color-foreground) hover:bg-(--color-surface)"
                     }`}
                   >
@@ -456,14 +441,14 @@ export default function LandingPage() {
         {/* ── How It Works ──────────────────────────────────────────────────── */}
         <section className="mt-20 space-y-8">
           <div className="text-center space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#1e3a5f] dark:text-blue-400">How it works</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400">How it works</p>
             <h2 className="text-2xl sm:text-3xl font-bold text-(--color-foreground)">From query to optimized in seconds</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {STEPS.map((step, i) => (
               <div key={step.num} className="relative rounded-xl border border-(--color-border) bg-(--color-surface) p-5 space-y-3 hover:border-(--color-border-strong) hover:shadow-sm transition-all group">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-lg bg-[#1e3a5f]/10 dark:bg-blue-500/15 flex items-center justify-center text-[#1e3a5f] dark:text-blue-400"><StepIcon name={step.icon} /></div>
+                  <div className="w-9 h-9 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center"><StepIcon name={step.icon} /></div>
                   <span className="text-xs font-bold text-(--color-border-strong) group-hover:text-(--color-text-muted) transition-colors">{step.num}</span>
                 </div>
                 <h3 className="text-sm font-semibold text-(--color-foreground)">{step.title}</h3>
@@ -477,13 +462,13 @@ export default function LandingPage() {
         {/* ── Core Features ──────────────────────────────────────────────────── */}
         <section className="mt-20 space-y-8">
           <div className="text-center space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#1e3a5f] dark:text-blue-400">Core features</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400">Core features</p>
             <h2 className="text-2xl sm:text-3xl font-bold text-(--color-foreground)">Everything you need to optimize SQL</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {FEATURES.map((f) => (
               <div key={f.title} className="rounded-xl border border-(--color-border) bg-(--color-surface) p-6 space-y-3 hover:border-(--color-border-strong) hover:shadow-sm transition-all">
-                <div className="w-10 h-10 rounded-lg bg-[#1e3a5f]/10 dark:bg-blue-500/15 flex items-center justify-center text-[#1e3a5f] dark:text-blue-400"><FeatureIcon name={f.icon} /></div>
+                <div className="w-10 h-10 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center"><FeatureIcon name={f.icon} /></div>
                 <h3 className="text-base font-semibold text-(--color-foreground)">{f.title}</h3>
                 <p className="text-sm text-(--color-text-muted) leading-relaxed">{f.desc}</p>
               </div>
@@ -494,13 +479,13 @@ export default function LandingPage() {
         {/* ── Use Cases ─────────────────────────────────────────────────────── */}
         <section className="mt-20 space-y-8">
           <div className="text-center space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#1e3a5f] dark:text-blue-400">Use cases</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400">Use cases</p>
             <h2 className="text-2xl sm:text-3xl font-bold text-(--color-foreground)">Built for real-world SQL problems</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {USE_CASES.map((uc) => (
               <div key={uc.title} className="flex items-start gap-4 rounded-xl border border-(--color-border) bg-(--color-surface) p-5 hover:border-(--color-border-strong) hover:shadow-sm transition-all">
-                <div className="w-2 h-2 rounded-full bg-[#1e3a5f] dark:bg-blue-500 mt-2 shrink-0" />
+                <div className="w-2 h-2 rounded-full bg-teal-600 dark:bg-teal-400 mt-2 shrink-0" />
                 <div>
                   <h3 className="text-sm font-semibold text-(--color-foreground)">{uc.title}</h3>
                   <p className="text-sm text-(--color-text-muted) mt-1 leading-relaxed">{uc.desc}</p>
@@ -514,7 +499,7 @@ export default function LandingPage() {
         <section className="mt-20 text-center rounded-2xl border border-(--color-border) bg-(--color-surface) p-10 space-y-4">
           <h2 className="text-xl sm:text-2xl font-bold text-(--color-foreground)">Ready to optimize your queries?</h2>
           <p className="text-sm text-(--color-text-muted) max-w-md mx-auto">No sign-up required. Paste your schema, write a query, and get optimization suggestions backed by real execution plans.</p>
-          <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="px-6 py-2.5 bg-[#1e3a5f] dark:bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-[#2a4d7a] dark:hover:bg-blue-700 transition-all shadow-sm hover:shadow-md">
+          <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="px-6 py-2.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold rounded-lg transition-all shadow-2xs hover:shadow-xs cursor-pointer">
             Get Started
           </button>
         </section>

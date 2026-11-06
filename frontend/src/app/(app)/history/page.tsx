@@ -25,16 +25,21 @@ export default function HistoryPage() {
   }, []);
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-(--color-foreground)">Query History</h1>
-        <p className="text-sm text-(--color-text-muted) mt-1">
-          View previously analyzed queries and re-analyze them.
+    <div className="max-w-5xl mx-auto space-y-6">
+      <div className="border-b border-(--color-border) pb-5">
+        <h1 className="text-2xl font-bold tracking-tight text-(--color-foreground)">
+          Query History
+        </h1>
+        <p className="text-xs text-(--color-text-muted) mt-1">
+          Historical repository of analyzed SQL queries, structural AST representations, and optimization suggestions.
         </p>
       </div>
 
       {loading ? (
-        <p className="text-sm text-gray-500">Loading history...</p>
+        <div className="animate-pulse space-y-3">
+          <div className="h-10 bg-(--color-surface) rounded-lg border border-(--color-border)"></div>
+          <div className="h-64 bg-(--color-surface) rounded-xl border border-(--color-border)"></div>
+        </div>
       ) : (
         <HistoryList items={items} />
       )}

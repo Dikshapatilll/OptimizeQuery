@@ -250,7 +250,7 @@ export function SuggestionCard({ item, originalSql, connectionId, querySql, dbTy
                 <button
                   onClick={handleBenchmark}
                   disabled={benchmarking}
-                  className="px-2.5 py-1 rounded-md text-[12px] font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors disabled:opacity-50 cursor-pointer flex items-center gap-1"
+                  className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20 hover:bg-teal-500/20 transition-colors disabled:opacity-50 cursor-pointer flex items-center gap-1"
                 >
                   {benchmarking ? "Benchmarking..." : "⚡ Benchmark"}
                 </button>
@@ -259,18 +259,18 @@ export function SuggestionCard({ item, originalSql, connectionId, querySql, dbTy
                 <button
                   onClick={handleSimulate}
                   disabled={simulating}
-                  className="px-2.5 py-1 rounded-md text-[12px] font-medium bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors disabled:opacity-50"
+                  className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors disabled:opacity-50 cursor-pointer flex items-center gap-1"
                 >
-                  {simulating ? "Simulating..." : "Simulate"}
+                  {simulating ? "Simulating..." : "Simulate Index"}
                 </button>
               )}
               {canCompare && (
                 <button
                   onClick={handleCompare}
                   disabled={comparing}
-                  className="px-2.5 py-1 rounded-md text-[12px] font-medium bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 hover:bg-violet-100 dark:hover:bg-violet-900/50 transition-colors disabled:opacity-50"
+                  className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-violet-500/10 text-violet-700 dark:text-violet-300 border border-violet-500/20 hover:bg-violet-500/20 transition-colors disabled:opacity-50 cursor-pointer flex items-center gap-1"
                 >
-                  {comparing ? "Comparing..." : "Verify"}
+                  {comparing ? "Comparing..." : "Verify Equivalence"}
                 </button>
               )}
             </div>

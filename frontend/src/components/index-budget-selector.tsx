@@ -76,7 +76,7 @@ export function IndexBudgetSelector({
           <label htmlFor="budget-slider" className="font-semibold text-(--color-foreground)">
             Storage Budget Limit:
           </label>
-          <span className="font-mono font-bold text-sm text-blue-600 dark:text-blue-400">
+          <span className="font-mono font-bold text-sm text-teal-600 dark:text-teal-400">
             {budgetMb} MB
           </span>
         </div>
@@ -88,7 +88,7 @@ export function IndexBudgetSelector({
           step={10}
           value={budgetMb}
           onChange={(e) => setBudgetMb(Number(e.target.value))}
-          className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600"
+          className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-teal-600"
         />
         <div className="flex justify-between text-[10px] text-(--color-text-faint) font-mono">
           <span>10 MB (Strict)</span>
@@ -99,9 +99,9 @@ export function IndexBudgetSelector({
         <button
           onClick={handleSolve}
           disabled={loading || indexes.length === 0}
-          className="w-full mt-2 py-2 px-4 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-xs font-semibold transition-colors flex items-center justify-center gap-2 shadow-2xs cursor-pointer"
+          className="w-full mt-2 py-2 px-4 rounded-lg bg-teal-600 hover:bg-teal-700 disabled:opacity-50 text-white text-xs font-semibold transition-colors flex items-center justify-center gap-2 shadow-2xs cursor-pointer"
         >
-          {loading ? "Solving Knapsack MILP..." : `Solve Optimal Selection for ${indexes.length} Suggested Indexes`}
+          {loading ? "Solving Knapsack MILP via CBC..." : `Solve Optimal Selection for ${indexes.length} Suggested Indexes`}
         </button>
       </div>
 

@@ -1,22 +1,54 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "@/context/theme-context";
+import { LogoMark, OptimizeQLLogo } from "./brand-logo";
 
-function AnalyzeIcon() {
+// ── Icons ────────────────────────────────────────────────────────────────────
+
+function DashboardIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="11" cy="11" r="8" />
-      <path d="m21 21-4.35-4.35" />
-      <path d="M11 8v6M8 11h6" />
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="7" height="9" rx="1.5" />
+      <rect x="14" y="3" width="7" height="5" rx="1.5" />
+      <rect x="14" y="12" width="7" height="9" rx="1.5" />
+      <rect x="3" y="16" width="7" height="5" rx="1.5" />
     </svg>
   );
 }
 
-function ConnectionsIcon() {
+function AnalyzeIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="4 17 10 11 14 15 20 9" />
+      <polyline points="14 9 20 9 20 15" />
+      <path d="M4 21h16" />
+    </svg>
+  );
+}
+
+function BenchmarkIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+    </svg>
+  );
+}
+
+function HistoryIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="9" />
+      <polyline points="12 7 12 12 15 15" />
+    </svg>
+  );
+}
+
+function ConnectionsIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <ellipse cx="12" cy="5" rx="9" ry="3" />
       <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" />
       <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" />
@@ -24,49 +56,27 @@ function ConnectionsIcon() {
   );
 }
 
-function HistoryIcon() {
+function SettingsIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-      <path d="M3 3v5h5" />
-      <path d="M12 7v5l4 2" />
-    </svg>
-  );
-}
-
-function SettingsIcon() {
-  return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="3" />
       <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
     </svg>
   );
 }
 
-function HelpIcon() {
+function DocsIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10" />
-      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-      <path d="M12 17h.01" />
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
     </svg>
   );
 }
 
-function DocsIcon() {
+function SunIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-      <polyline points="14 2 14 8 20 8" />
-      <line x1="16" y1="13" x2="8" y2="13" />
-      <line x1="16" y1="17" x2="8" y2="17" />
-    </svg>
-  );
-}
-
-function SunIcon() {
-  return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="5" />
       <line x1="12" y1="1" x2="12" y2="3" />
       <line x1="12" y1="21" x2="12" y2="23" />
@@ -80,140 +90,234 @@ function SunIcon() {
   );
 }
 
-function MoonIcon() {
+function MoonIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
     </svg>
   );
 }
 
-function BenchmarkIcon() {
+function CollapseIcon({ className = "w-4 h-4", collapsed = false }: { className?: string; collapsed?: boolean }) {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+    <svg
+      className={`${className} transition-transform duration-200 ${collapsed ? "rotate-180" : ""}`}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <polyline points="11 17 6 12 11 7" />
+      <polyline points="18 17 13 12 18 7" />
     </svg>
   );
 }
 
-function DashboardIcon() {
-  return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="3" width="7" height="7" />
-      <rect x="14" y="3" width="7" height="7" />
-      <rect x="3" y="14" width="7" height="7" />
-      <rect x="14" y="14" width="7" height="7" />
-    </svg>
-  );
+// ── Navigation Sections ──────────────────────────────────────────────────────
+
+interface NavItem {
+  href: string;
+  label: string;
+  icon: React.ReactNode;
+  badge?: string;
+  badgeColor?: string;
 }
 
-const isHosted = !!(process.env.NEXT_PUBLIC_API_URL && !process.env.NEXT_PUBLIC_API_URL.includes("localhost"));
+interface NavSection {
+  title: string;
+  items: NavItem[];
+}
 
-const allLinks = [
-  { href: "/", label: "Dashboard", icon: <DashboardIcon />, selfHostedOnly: true },
-  { href: "/analyze", label: "Analyze", icon: <AnalyzeIcon /> },
-  { href: "/benchmark", label: "Benchmarks", icon: <BenchmarkIcon /> },
-  { href: "/connections", label: "Connections", icon: <ConnectionsIcon />, selfHostedOnly: true },
-  { href: "/history", label: "History", icon: <HistoryIcon /> },
-  { href: "/settings", label: "LLM Settings", icon: <SettingsIcon />, selfHostedOnly: true },
+const navSections: NavSection[] = [
+  {
+    title: "WORKSPACE",
+    items: [
+      { href: "/dashboard", label: "Dashboard", icon: <DashboardIcon /> },
+      { href: "/analyze", label: "Analyze Query", icon: <AnalyzeIcon /> },
+      { href: "/benchmark", label: "Benchmarks", icon: <BenchmarkIcon />, badge: "Lab", badgeColor: "bg-teal-500/10 text-teal-600 dark:text-teal-400" },
+      { href: "/history", label: "Query History", icon: <HistoryIcon /> },
+    ],
+  },
+  {
+    title: "DATABASE",
+    items: [
+      { href: "/connections", label: "Connections", icon: <ConnectionsIcon /> },
+    ],
+  },
+  {
+    title: "CONFIGURATION",
+    items: [
+      { href: "/settings", label: "Settings", icon: <SettingsIcon /> },
+    ],
+  },
 ];
-
-const mainLinks = allLinks.filter((link) => !isHosted || !link.selfHostedOnly);
 
 export function NavBar() {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
+  const [collapsed, setCollapsed] = useState<boolean>(false);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("optql-sidebar-collapsed");
+    if (stored === "true") {
+      setCollapsed(true);
+    }
+  }, []);
+
+  const toggleCollapsed = () => {
+    const next = !collapsed;
+    setCollapsed(next);
+    localStorage.setItem("optql-sidebar-collapsed", String(next));
+  };
+
+  const isLinkActive = (href: string) => {
+    if (href === "/dashboard") {
+      return pathname === "/" || pathname === "/dashboard";
+    }
+    return pathname === href || pathname.startsWith(href + "/");
+  };
 
   return (
-    <aside className="w-[300px] shrink-0 min-h-screen bg-(--color-background) border-r border-(--color-border) flex flex-col py-6 px-6">
-      {/* Brand — links to homepage */}
-      <Link href="/" className="flex items-center gap-3 px-2 mb-8 group">
-        <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 overflow-hidden">
-          <svg width="32" height="32" viewBox="0 0 80 80" fill="none">
-            <defs>
-              <linearGradient id="navLogoBg" x1="10" y1="8" x2="70" y2="72" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stopColor="#1e3a5f"/>
-                <stop offset="1" stopColor="#2D5B8E"/>
-              </linearGradient>
-            </defs>
-            <rect x="4" y="4" width="72" height="72" rx="22" fill="url(#navLogoBg)"/>
-            <circle cx="39" cy="38" r="16" stroke="white" strokeWidth="3.5"/>
-            <circle cx="53" cy="30" r="4.5" fill="#F6D2B8"/>
-            <path d="M50 49L59 58" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>
-          </svg>
-        </div>
-        <span className="text-base font-bold text-(--color-foreground) tracking-tight group-hover:opacity-80 transition-opacity">
-          OptimizeQL<span className="text-gray-300 dark:text-gray-600">.</span>
-        </span>
-      </Link>
-
-      {/* Menu section */}
-      <div className="mb-6">
-        <p className="text-[10px] font-semibold text-(--color-text-faint) uppercase tracking-widest px-3 mb-2">
-          Menu
-        </p>
-        <nav className="space-y-0.5">
-          {mainLinks.map((link) => {
-            const active =
-              link.href === "/"
-                ? pathname === "/"
-                : pathname === link.href || pathname.startsWith(link.href + "/");
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                  active
-                    ? "bg-white/70 dark:bg-white/10 text-(--color-foreground) shadow-sm backdrop-blur-sm"
-                    : "text-(--color-text-muted) hover:bg-gray-50 dark:hover:bg-white/5 hover:text-(--color-foreground)"
-                }`}
-              >
-                {link.icon}
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
+    <aside
+      className={`shrink-0 min-h-screen bg-(--color-surface) border-r border-(--color-border) flex flex-col transition-all duration-200 z-30 select-none ${
+        collapsed ? "w-[72px]" : "w-[260px]"
+      }`}
+    >
+      {/* Brand Header */}
+      <div className="h-16 px-4 flex items-center justify-between border-b border-(--color-border)">
+        <Link
+          href="/"
+          className="flex items-center gap-3 overflow-hidden group focus:outline-none"
+          title="OptimizeQL — Intelligent Query Optimization"
+        >
+          {collapsed ? (
+            <div className="w-10 h-10 flex items-center justify-center">
+              <LogoMark size={32} />
+            </div>
+          ) : (
+            <OptimizeQLLogo variant="full" size="md" />
+          )}
+        </Link>
       </div>
 
-      {/* Theme toggle */}
-      <div className="mb-6 px-3">
+      {/* Navigation Sections */}
+      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-6">
+        {navSections.map((sec) => (
+          <div key={sec.title} className="space-y-1">
+            {!collapsed && (
+              <p className="px-3 text-[10px] font-mono font-bold uppercase tracking-wider text-(--color-text-faint)">
+                {sec.title}
+              </p>
+            )}
+            <nav className="space-y-0.5">
+              {sec.items.map((item) => {
+                const active = isLinkActive(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    title={collapsed ? item.label : undefined}
+                    className={`flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-all group relative ${
+                      active
+                        ? "bg-teal-500/10 text-teal-700 dark:text-teal-300 font-semibold"
+                        : "text-(--color-text-muted) hover:bg-(--color-surface-muted) hover:text-(--color-foreground)"
+                    } ${collapsed ? "justify-center px-0 py-2.5" : ""}`}
+                  >
+                    {/* Active left indicator line */}
+                    {active && (
+                      <span className="absolute left-0 top-1.5 bottom-1.5 w-1 bg-teal-600 dark:bg-teal-400 rounded-r" />
+                    )}
+
+                    <span className={`shrink-0 ${active ? "text-teal-600 dark:text-teal-400" : "text-(--color-text-faint) group-hover:text-(--color-foreground)"}`}>
+                      {item.icon}
+                    </span>
+
+                    {!collapsed && (
+                      <>
+                        <span className="truncate flex-1">{item.label}</span>
+                        {item.badge && (
+                          <span className={`text-[10px] font-mono font-semibold px-1.5 py-0.2 rounded ${item.badgeColor || "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300"}`}>
+                            {item.badge}
+                          </span>
+                        )}
+                      </>
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+        ))}
+      </div>
+
+      {/* Database Engine Status Pill */}
+      {!collapsed && (
+        <div className="px-3 py-2 mx-3 mb-2 rounded-lg bg-(--color-surface-muted) border border-(--color-border)">
+          <div className="flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <div className="flex flex-col min-w-0">
+              <span className="text-[11px] font-semibold text-(--color-foreground) truncate">
+                PostgreSQL Engine
+              </span>
+              <span className="text-[9px] font-mono text-(--color-text-faint) truncate">
+                Telemetry: EXPLAIN BUFFERS
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Footer Controls */}
+      <div className="p-3 border-t border-(--color-border) space-y-1">
+        {/* API Docs Link */}
+        <a
+          href="http://localhost:8000/docs"
+          target="_blank"
+          rel="noopener noreferrer"
+          title={collapsed ? "API Docs" : undefined}
+          className={`flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-(--color-text-muted) hover:bg-(--color-surface-muted) hover:text-(--color-foreground) transition-colors ${
+            collapsed ? "justify-center px-0" : ""
+          }`}
+        >
+          <DocsIcon className="w-4 h-4 shrink-0 text-(--color-text-faint)" />
+          {!collapsed && <span>API Docs</span>}
+        </a>
+
+        {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium
-                     text-(--color-text-muted) hover:bg-gray-50 dark:hover:bg-white/5 hover:text-(--color-foreground) transition-all"
+          title={collapsed ? (theme === "dark" ? "Light Mode" : "Dark Mode") : undefined}
+          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-(--color-text-muted) hover:bg-(--color-surface-muted) hover:text-(--color-foreground) transition-colors cursor-pointer ${
+            collapsed ? "justify-center px-0" : ""
+          }`}
         >
-          {theme === "dark" ? <SunIcon /> : <MoonIcon />}
-          {theme === "dark" ? "Light Mode" : "Dark Mode"}
-        </button>
-      </div>
-
-      {/* Support section pinned to bottom */}
-      <div className="mt-auto">
-        <p className="text-[10px] font-semibold text-(--color-text-faint) uppercase tracking-widest px-3 mb-2">
-          Support
-        </p>
-        <nav className="space-y-0.5">
-          {!isHosted && (
-            <a
-              href="http://localhost:8000/docs"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-(--color-text-muted) hover:bg-gray-50 dark:hover:bg-white/5 hover:text-(--color-foreground) transition-all"
-            >
-              <DocsIcon />
-              API Docs
-            </a>
+          <span className="w-4 h-4 shrink-0 text-(--color-text-faint)">
+            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+          </span>
+          {!collapsed && (
+            <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
           )}
-          <a
-            href="#"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-(--color-text-muted) hover:bg-gray-50 dark:hover:bg-white/5 hover:text-(--color-foreground) transition-all"
-          >
-            <HelpIcon />
-            Help
-          </a>
-        </nav>
+        </button>
+
+        {/* Collapse Sidebar Toggle */}
+        <button
+          onClick={toggleCollapsed}
+          title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-(--color-text-muted) hover:bg-(--color-surface-muted) hover:text-(--color-foreground) transition-colors cursor-pointer ${
+            collapsed ? "justify-center px-0" : ""
+          }`}
+        >
+          <CollapseIcon className="w-4 h-4 shrink-0 text-(--color-text-faint)" collapsed={collapsed} />
+          {!collapsed && <span>Collapse Sidebar</span>}
+        </button>
       </div>
     </aside>
   );
 }
+
+export default NavBar;

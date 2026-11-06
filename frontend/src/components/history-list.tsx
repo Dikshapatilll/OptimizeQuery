@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { QueryHistoryItem, AnalysisResult } from "@/lib/types";
 import { useAnalysis } from "@/context/analysis-context";
+import Link from "next/link";
 
 interface HistoryListProps {
   items: QueryHistoryItem[];
@@ -11,9 +13,29 @@ interface HistoryListProps {
 export function HistoryList({ items }: HistoryListProps) {
   const { loadHistoryResult } = useAnalysis();
   const router = useRouter();
+  const [filter, setFilter] = useState("");
 
   if (items.length === 0) {
-    return <p className="text-sm text-gray-500">No query history yet. Analyze a query to get started.</p>;
+    return (
+      <div className="text-center py-16 rounded-xl border border-(--color-border) bg-(--color-surface)">
+        <div className="w-12 h-12 mx-auto rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center mb-3">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="9" />
+            <polyline points="12 7 12 12 15 15" />
+          </svg>
+        </div>
+        <p className="text-sm font-semibold text-(--color-foreground)">No Query History Recorded</p>
+        <p className="text-xs text-(--color-text-muted) max-w-sm mx-auto mt-1 mb-4">
+          Previously analyzed queries, AST decompositions, and recommendations will appear here.
+        </p>
+        <Link
+          href="/analyze"
+          className="px-4 py-2 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold shadow-2xs transition-colors"
+        >
+          Analyze a Query
+        </Link>
+      </div>
+    );
   }
 
   const handleView = (item: QueryHistoryItem) => {
@@ -23,58 +45,81 @@ export function HistoryList({ items }: HistoryListProps) {
       loadHistoryResult(item.sql_query, result, item.schema_ddl);
       router.push("/analyze");
     } catch {
-      // If JSON parsing fails, fall back to re-analyze
       router.push(`/analyze?sql=${encodeURIComponent(item.sql_query)}`);
     }
   };
 
   const handleReanalyze = (item: QueryHistoryItem) => {
-    // Load schema into context (without result) so playground restores DDL
     loadHistoryResult(item.sql_query, null as unknown as AnalysisResult, item.schema_ddl);
     router.push(`/analyze?sql=${encodeURIComponent(item.sql_query)}`);
   };
 
+  const filteredItems = items.filter((item) => {
+    if (!filter.trim()) return true;
+    return item.sql_query.toLowerCase().includes(filter.toLowerCase());
+  });
+
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full text-sm">
-        <thead>
-          <tr className="border-b border-(--color-border-strong)">
-            <th className="text-left py-2 px-3 font-medium text-(--color-text-muted)">Date</th>
-            <th className="text-left py-2 px-3 font-medium text-(--color-text-muted)">SQL Query</th>
-            <th className="text-right py-2 px-3 font-medium text-(--color-text-muted)">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item) => (
-            <tr key={item.id} className="border-b border-(--color-border) hover:bg-gray-50 dark:hover:bg-white/5">
-              <td className="py-2 px-3 text-(--color-text-muted) whitespace-nowrap">
-                {new Date(item.created_at).toLocaleString()}
-              </td>
-              <td className="py-2 px-3">
-                <code className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded block truncate max-w-lg text-(--color-foreground)">
-                  {item.sql_query}
-                </code>
-              </td>
-              <td className="py-2 px-3 text-right space-x-2 whitespace-nowrap">
-                {item.llm_response && (
-                  <button
-                    onClick={() => handleView(item)}
-                    className="px-2 py-1 text-xs rounded bg-[#1e3a5f] dark:bg-blue-600 text-white hover:bg-[#2a4d7a] dark:hover:bg-blue-700 transition-colors"
-                  >
-                    View Result
-                  </button>
-                )}
-                <button
-                  onClick={() => handleReanalyze(item)}
-                  className="px-2 py-1 text-xs rounded bg-[#eef2f9] dark:bg-blue-950/30 text-[#1e3a5f] dark:text-blue-400 hover:bg-[#dce4f2] dark:hover:bg-blue-900/40 transition-colors"
-                >
-                  Re-analyze
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="space-y-4">
+      {/* Search Filter */}
+      <div className="flex items-center justify-between gap-4">
+        <input
+          type="text"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          placeholder="Filter historical queries..."
+          className="w-full max-w-sm text-xs py-2 px-3 rounded-lg border border-(--color-border) bg-(--color-surface) text-(--color-foreground) focus:outline-none focus:ring-1 focus:ring-teal-500 font-mono"
+        />
+        <span className="text-xs font-mono text-(--color-text-faint)">
+          {filteredItems.length} of {items.length} queries
+        </span>
+      </div>
+
+      <div className="rounded-xl border border-(--color-border) overflow-hidden bg-(--color-surface) shadow-2xs">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs">
+            <thead className="bg-(--color-surface-muted) text-(--color-text-faint) uppercase font-mono text-[10px] tracking-wider border-b border-(--color-border)">
+              <tr>
+                <th className="py-3 px-4 font-semibold">Timestamp</th>
+                <th className="py-3 px-4 font-semibold">SQL Query</th>
+                <th className="py-3 px-4 font-semibold text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-(--color-border)">
+              {filteredItems.map((item) => (
+                <tr key={item.id} className="hover:bg-(--color-surface-muted) transition-colors">
+                  <td className="py-3 px-4 font-mono text-[11px] text-(--color-text-muted) whitespace-nowrap">
+                    {new Date(item.created_at).toLocaleDateString()} {new Date(item.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  </td>
+                  <td className="py-3 px-4 max-w-lg">
+                    <code className="text-xs font-mono text-(--color-foreground) block truncate p-1.5 rounded bg-(--color-surface-muted) border border-(--color-border)">
+                      {item.sql_query}
+                    </code>
+                  </td>
+                  <td className="py-3 px-4 text-right space-x-2 whitespace-nowrap">
+                    {item.llm_response && (
+                      <button
+                        onClick={() => handleView(item)}
+                        className="px-3 py-1 text-xs font-semibold rounded-lg bg-teal-600 hover:bg-teal-700 text-white transition-colors cursor-pointer shadow-2xs"
+                      >
+                        Inspect Result
+                      </button>
+                    )}
+                    <button
+                      onClick={() => handleReanalyze(item)}
+                      className="px-3 py-1 text-xs font-medium rounded-lg border border-(--color-border) bg-(--color-surface) text-(--color-foreground) hover:bg-(--color-surface-muted) transition-colors cursor-pointer"
+                    >
+                      Re-analyze
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }
+
+export default HistoryList;

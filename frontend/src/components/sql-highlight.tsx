@@ -14,12 +14,13 @@ export function SqlHighlight({ code }: { code: string }) {
       style={isDark ? oneDark : oneLight}
       customStyle={{
         margin: 0,
-        borderRadius: "0.75rem",
-        fontSize: "0.875rem",
+        borderRadius: "0.5rem",
+        fontSize: "0.8125rem",
         lineHeight: "1.6",
-        padding: "1rem 1.25rem",
-        background: isDark ? "#1a1d27" : "#f8f9fa",
-        border: isDark ? "1px solid #2a2d3a" : "1px solid #e9ecef",
+        padding: "0.875rem 1rem",
+        background: isDark ? "#101827" : "#F8FAFC",
+        border: isDark ? "1px solid #202B3C" : "1px solid #E2E8F0",
+        fontFamily: "var(--font-mono)",
       }}
     >
       {code}

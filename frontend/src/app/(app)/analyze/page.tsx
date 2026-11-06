@@ -15,6 +15,24 @@ import { saveAnalysis } from "@/lib/local-history";
 import { useAnalysis } from "@/context/analysis-context";
 import type { AnalyzeMode, ConnectionResponse } from "@/lib/types";
 
+const QUERY_PRESETS = [
+  {
+    label: "W1: Join & Aggregation",
+    desc: "Orders + Users nested scan bottleneck",
+    sql: "SELECT u.name, count(o.id) as total_orders, sum(o.total) as total_spent FROM users u JOIN orders o ON u.id = o.user_id GROUP BY u.name HAVING count(o.id) > 2 ORDER BY total_orders DESC LIMIT 20",
+  },
+  {
+    label: "W2: Filter & Range Scan",
+    desc: "Multi-column status and response sort",
+    sql: "SELECT * FROM access_logs WHERE status_code = 200 AND resp > 0.5 ORDER BY resp DESC LIMIT 50",
+  },
+  {
+    label: "W3: Correlated Subquery",
+    desc: "Scalar subqueries executing per row",
+    sql: "SELECT u.id, u.name, (SELECT sum(o.total) FROM orders o WHERE o.user_id = u.id) as total_spent, (SELECT count(o.id) FROM orders o WHERE o.user_id = u.id) as order_count FROM users u WHERE u.status = 'active' ORDER BY total_spent DESC LIMIT 25",
+  },
+];
+
 function AnalyzePageInner() {
   const searchParams = useSearchParams();
   const {
@@ -41,7 +59,6 @@ function AnalyzePageInner() {
     return "";
   });
 
-  // ── Mode state ─────────────────────────────────────────────────────────────
   const [mode, setMode] = useState<AnalyzeMode>(() => {
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem("playground-mode") as AnalyzeMode | null;
@@ -50,7 +67,6 @@ function AnalyzePageInner() {
     return "playground";
   });
 
-  // ── Playground state ──────────────────────────────────────────────────────
   const [schemaDDL, setSchemaDDL] = useState<string>(() => {
     if (typeof window !== "undefined") {
       return localStorage.getItem("playground-schema-ddl") ?? "";
@@ -79,7 +95,6 @@ function AnalyzePageInner() {
   const handleModeChange = (m: AnalyzeMode) => {
     setMode(m);
     localStorage.setItem("playground-mode", m);
-    // Clear previous results when switching modes
     setResult(null);
     setError("");
   };
@@ -89,68 +104,12 @@ function AnalyzePageInner() {
     if (sqlParam) setSql(sqlParam);
   }, [searchParams, setSql]);
 
-  // Restore schema DDL from history into playground state
   useEffect(() => {
     if (historySchemaDDL) {
       setSchemaDDL(historySchemaDDL);
       setMode("playground");
     }
   }, [historySchemaDDL]);
-
-  // ── Landing page handoff: pick up sessionStorage and auto-load ──────────
-  useEffect(() => {
-    const landingSchema = sessionStorage.getItem("landing-schema");
-    const landingQuery = sessionStorage.getItem("landing-query");
-    if (landingSchema && landingQuery) {
-      sessionStorage.removeItem("landing-schema");
-      sessionStorage.removeItem("landing-query");
-      setSchemaDDL(landingSchema);
-      setPlaygroundQuery(landingQuery);
-      setMode("playground");
-      localStorage.setItem("playground-mode", "playground");
-      localStorage.setItem("playground-schema-ddl", landingSchema);
-      localStorage.setItem("playground-query-sql", landingQuery);
-      autoAnalyzeRef.current = true;
-
-      // Load schema directly with the exact landing DDL to avoid stale
-      // closure issues (localStorage may hold a different DDL from a
-      // previous session, and handleLoadSchema would read that stale value).
-      (async () => {
-        setSchemaStatus({ state: "loading" });
-        try {
-          const pglite = await import("@/lib/pglite-service");
-          await pglite.reset();
-          const { tables, error: ddlError } = await pglite.executeDDL(landingSchema);
-          if (ddlError) {
-            setSchemaStatus({ state: "error", message: ddlError });
-            return;
-          }
-          if (tables.length === 0) {
-            setSchemaStatus({ state: "error", message: "No tables created." });
-            return;
-          }
-          await pglite.resetPlannerSettings();
-          setSchemaStatus({ state: "ready", tables });
-        } catch (err) {
-          setSchemaStatus({
-            state: "error",
-            message: err instanceof Error ? err.message : "Failed to load schema",
-          });
-        }
-      })();
-      return;
-    }
-
-    // Quick Analyze handoff (no-connection mode)
-    const quickSql = sessionStorage.getItem("landing-quick-sql");
-    if (quickSql) {
-      sessionStorage.removeItem("landing-quick-sql");
-      setSql(quickSql);
-      setMode("none");
-      localStorage.setItem("playground-mode", "none");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const isHosted = !!(process.env.NEXT_PUBLIC_API_URL && !process.env.NEXT_PUBLIC_API_URL.includes("localhost"));
 
@@ -159,7 +118,6 @@ function AnalyzePageInner() {
     listConnections()
       .then((conns) => {
         setConnections(conns);
-        // Default to "connect" if connections exist and no mode was stored
         if (conns.length > 0 && !localStorage.getItem("playground-mode")) {
           setMode("connect");
         }
@@ -167,7 +125,22 @@ function AnalyzePageInner() {
       .catch(() => {});
   }, [isHosted]);
 
-  // ── Standard analyze (connect / no-connection mode) ────────────────────────
+  // Handle keyboard shortcut (Cmd+Enter or Ctrl+Enter)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+        e.preventDefault();
+        if (mode === "playground") {
+          handlePlaygroundAnalyze();
+        } else {
+          handleAnalyze();
+        }
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  });
+
   const handleAnalyze = async () => {
     if (!sql.trim()) return;
     setLoading(true);
@@ -189,7 +162,6 @@ function AnalyzePageInner() {
     }
   };
 
-  // ── Playground: Load Schema ────────────────────────────────────────────────
   const handleLoadSchema = useCallback(async () => {
     if (!schemaDDL.trim()) return;
     setSchemaStatus({ state: "loading" });
@@ -210,10 +182,7 @@ function AnalyzePageInner() {
         });
         return;
       }
-
-      // Ensure planner settings are at defaults
       await pglite.resetPlannerSettings();
-
       setSchemaStatus({ state: "ready", tables });
     } catch (err) {
       setSchemaStatus({
@@ -223,7 +192,6 @@ function AnalyzePageInner() {
     }
   }, [schemaDDL]);
 
-  // ── Playground: Analyze ────────────────────────────────────────────────────
   const handlePlaygroundAnalyze = async () => {
     if (!playgroundQuery.trim()) return;
     if (schemaStatus.state !== "ready") {
@@ -240,13 +208,10 @@ function AnalyzePageInner() {
 
     try {
       const pglite = await import("@/lib/pglite-service");
-
-      // Truncate existing data and reset sequences before regenerating
       const pgInstance = await pglite.getDB();
       for (const t of schemaStatus.tables || []) {
         await pgInstance.exec(`TRUNCATE TABLE "${t}" RESTART IDENTITY CASCADE`);
       }
-      // Data generation runs entirely in the worker (no main-thread jank)
       const { emptyTables } = await pglite.generateAndInsertData(
         schemaDDL,
         schemaStatus.tables || [],
@@ -264,9 +229,7 @@ function AnalyzePageInner() {
       await pglite.resetPlannerSettings();
 
       const explainResult = await pglite.runExplainAnalyze(playgroundQuery);
-      const tableSchemas = await pglite.getTableSchemas(
-        schemaStatus.tables,
-      );
+      const tableSchemas = await pglite.getTableSchemas(schemaStatus.tables);
 
       const res = await analyzeQuery({
         sql: playgroundQuery.trim(),
@@ -284,16 +247,6 @@ function AnalyzePageInner() {
     }
   };
 
-  // ── Auto-analyze once schema is ready from landing handoff ──────────────
-  useEffect(() => {
-    if (autoAnalyzeRef.current && schemaStatus.state === "ready") {
-      autoAnalyzeRef.current = false;
-      handlePlaygroundAnalyze();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [schemaStatus.state]);
-
-  // ── Playground: Reset ──────────────────────────────────────────────────────
   const handleReset = async () => {
     const pglite = await import("@/lib/pglite-service");
     await pglite.reset();
@@ -302,7 +255,6 @@ function AnalyzePageInner() {
     setError("");
   };
 
-  // ── Share ──────────────────────────────────────────────────────────────────
   const handleShare = async () => {
     if (!result) return;
     setSharing(true);
@@ -323,33 +275,52 @@ function AnalyzePageInner() {
     }
   };
 
-  // Determine which analyze function to call
-  const onAnalyze =
-    mode === "playground" ? handlePlaygroundAnalyze : handleAnalyze;
+  const onAnalyze = mode === "playground" ? handlePlaygroundAnalyze : handleAnalyze;
   const analyzeDisabled =
     mode === "playground"
       ? loading || !playgroundQuery.trim() || schemaStatus.state !== "ready"
       : loading || !sql.trim();
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+    <div className="max-w-5xl mx-auto space-y-6">
+      {/* Header & Mode Selector */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-(--color-foreground)">
-            Analyze SQL Query
+          <h1 className="text-2xl font-bold tracking-tight text-(--color-foreground)">
+            SQL Analysis Workspace
           </h1>
-          <p className="text-[15px] text-(--color-text-faint) mt-1">
-            {mode === "playground"
-              ? "Paste your schema, load it into the browser database, then analyze your query."
-              : "Paste your query and get AI-powered optimization suggestions."}
+          <p className="text-xs text-(--color-text-muted) mt-1">
+            Introspect query plans, estimate pre-execution latency via ML, and compute OR-ranked recommendations.
           </p>
         </div>
         <ModeSelector mode={mode} onChange={handleModeChange} />
       </div>
 
-      {/* Input area — varies by mode */}
-      <div className="space-y-3">
+      {/* Preset Query Chips */}
+      {mode !== "playground" && (
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-xs font-mono font-semibold text-(--color-text-faint)">
+            Query Presets:
+          </span>
+          {QUERY_PRESETS.map((preset) => (
+            <button
+              key={preset.label}
+              type="button"
+              onClick={() => {
+                setSql(preset.sql);
+                setResult(null);
+              }}
+              title={preset.desc}
+              className="px-2.5 py-1 rounded-md text-xs font-mono bg-(--color-surface) border border-(--color-border) text-(--color-text-muted) hover:border-teal-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors cursor-pointer shadow-2xs"
+            >
+              {preset.label}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Input Area */}
+      <div className="space-y-4">
         {mode === "playground" ? (
           <PlaygroundPanel
             schemaDDL={schemaDDL}
@@ -365,91 +336,93 @@ function AnalyzePageInner() {
           <SqlEditor value={sql} onChange={setSql} />
         )}
 
-        {(mode === "connect" || playgroundSubTab === "query") && (
-        <div className="flex flex-col sm:flex-row gap-3 items-start">
-          {mode === "connect" && (
-            <div className="flex-1 w-full">
-              <ConnectionSelector
-                connections={connections}
-                value={connectionId}
-                onChange={(id) => {
-                  setConnectionId(id);
-                  const conn = connections.find((c) => c.id === id);
-                  setDbType(conn?.db_type ?? null);
-                }}
-              />
-            </div>
-          )}
-          {!isHosted && (
-            <div className="flex-1 w-full">
-              <ModelSelector value={model} onChange={handleModelChange} />
-            </div>
-          )}
-          <button
-            onClick={onAnalyze}
-            disabled={analyzeDisabled}
-            className="px-5 py-2 bg-[#1e3a5f] dark:bg-blue-600 text-white text-sm font-medium rounded-xl
-                       hover:bg-[#2a4d7a] dark:hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed
-                       transition-all whitespace-nowrap"
-          >
-            {loading ? (
-              <span className="flex items-center gap-2">
-                <svg className="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24">
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                    fill="none"
+        {(mode === "connect" || playgroundSubTab === "query" || mode === "none") && (
+          <div className="flex flex-col sm:flex-row gap-3 items-center justify-between p-4 rounded-xl border border-(--color-border) bg-(--color-surface) shadow-2xs">
+            <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto flex-1">
+              {mode === "connect" && (
+                <div className="w-full sm:w-64">
+                  <ConnectionSelector
+                    connections={connections}
+                    value={connectionId}
+                    onChange={(id) => {
+                      setConnectionId(id);
+                      const conn = connections.find((c) => c.id === id);
+                      setDbType(conn?.db_type ?? null);
+                    }}
                   />
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                  />
-                </svg>
-                Analyzing...
+                </div>
+              )}
+              {!isHosted && (
+                <div className="w-full sm:w-56">
+                  <ModelSelector value={model} onChange={handleModelChange} />
+                </div>
+              )}
+            </div>
+
+            <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
+              <span className="hidden md:inline text-[11px] font-mono text-(--color-text-faint)">
+                Press ⌘+Enter to analyze
               </span>
-            ) : (
-              "Analyze"
-            )}
-          </button>
-        </div>
+              <button
+                onClick={onAnalyze}
+                disabled={analyzeDisabled}
+                className="w-full sm:w-auto px-5 py-2.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold rounded-lg
+                           disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-2xs cursor-pointer flex items-center justify-center gap-2"
+              >
+                {loading ? (
+                  <>
+                    <svg className="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    <span>Extracting AST & Scoring...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>⚡</span>
+                    <span>Analyze Query</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
         )}
       </div>
 
-      {/* Error */}
+      {/* Error Banner */}
       {error && (
-        <div className="rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 px-4 py-3">
-          <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+        <div className="rounded-xl bg-rose-500/10 border border-rose-500/20 px-4 py-3 text-rose-600 dark:text-rose-400 text-xs font-mono">
+          <div className="flex items-center gap-2">
+            <span>⚠️</span>
+            <span>{error}</span>
+          </div>
         </div>
       )}
 
-      {/* Results */}
+      {/* Results Section */}
       {result && (
-        <div className="pt-4 border-t border-(--color-border)">
-          <div className="flex items-center justify-end mb-3 gap-2">
-            {shareUrl && (
-              <span className="text-xs text-emerald-600 dark:text-emerald-400">
-                Link copied!
-              </span>
-            )}
-            <button
-              onClick={handleShare}
-              disabled={sharing}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg
-                         border border-(--color-border) text-(--color-text-muted)
-                         hover:bg-gray-50 dark:hover:bg-white/5 transition-colors
-                         disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3v11.25" />
-              </svg>
-              {sharing ? "Sharing..." : "Share"}
-            </button>
+        <div className="pt-6 border-t border-(--color-border) space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-base font-bold text-(--color-foreground)">
+              Analysis & Optimization Output
+            </h2>
+            <div className="flex items-center gap-2">
+              {shareUrl && (
+                <span className="text-xs font-mono text-teal-600 dark:text-teal-400">
+                  Link copied to clipboard!
+                </span>
+              )}
+              <button
+                onClick={handleShare}
+                disabled={sharing}
+                className="px-3 py-1.5 text-xs font-medium rounded-lg border border-(--color-border) bg-(--color-surface) hover:bg-(--color-surface-muted) text-(--color-foreground) transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
+              >
+                <span>🔗</span>
+                <span>{sharing ? "Sharing..." : "Share Link"}</span>
+              </button>
+            </div>
           </div>
+
           <AnalysisResults result={result} />
         </div>
       )}

@@ -50,10 +50,10 @@ export function ModelSelector({ value, onChange }: ModelSelectorProps) {
     return (
       <select
         disabled
-        className="w-full px-3 py-2 border border-(--color-border-strong) rounded-xl text-sm bg-(--color-surface-muted)
+        className="w-full px-3 py-2 border border-(--color-border) rounded-lg text-xs font-mono bg-(--color-surface-muted)
                    text-(--color-text-faint) cursor-not-allowed"
       >
-        <option>No active LLM — using .env default</option>
+        <option>Built-in ML/OR Mode (Default)</option>
       </select>
     );
   }
@@ -76,9 +76,8 @@ export function ModelSelector({ value, onChange }: ModelSelectorProps) {
       <select
         value={isCustom ? CUSTOM_SENTINEL : value}
         onChange={(e) => handleSelectChange(e.target.value)}
-        className="w-full px-3 py-2 border border-(--color-border-strong) rounded-xl text-sm bg-(--color-surface) text-(--color-foreground)
-                   focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 focus:border-blue-200 dark:focus:border-blue-700
-                   transition-all"
+        className="w-full px-3 py-2 border border-(--color-border) rounded-lg text-xs font-mono bg-(--color-surface-muted) text-(--color-foreground)
+                   focus:outline-none focus:ring-1 focus:ring-teal-500 transition-all cursor-pointer"
       >
         {models.map((m) => (
           <option key={m} value={m}>
@@ -95,8 +94,8 @@ export function ModelSelector({ value, onChange }: ModelSelectorProps) {
           onChange={(e) => onChange(e.target.value)}
           placeholder="e.g. my-fine-tuned-model-v2"
           autoFocus
-          className="w-full px-3 py-2 border border-blue-200 dark:border-blue-700 rounded-xl text-sm font-mono bg-(--color-surface) text-(--color-foreground)
-                     focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 transition-all"
+          className="w-full px-3 py-2 border border-teal-500 rounded-lg text-xs font-mono bg-(--color-surface) text-(--color-foreground)
+                     focus:outline-none focus:ring-1 focus:ring-teal-500 transition-all"
         />
       )}
     </div>

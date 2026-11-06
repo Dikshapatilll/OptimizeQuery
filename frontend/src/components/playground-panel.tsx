@@ -186,9 +186,9 @@ export default function PlaygroundPanel({
         <div className="inline-flex rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-secondary)] p-0.5 gap-0.5">
           <button
             onClick={() => changeSubTab("schema")}
-            className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
+            className={`px-3 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
               subTab === "schema"
-                ? "bg-[#1e3a5f] text-white shadow-sm"
+                ? "bg-teal-600 text-white shadow-2xs"
                 : "text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-bg-tertiary)]"
             }`}
           >
@@ -196,9 +196,9 @@ export default function PlaygroundPanel({
           </button>
           <button
             onClick={() => changeSubTab("query")}
-            className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
+            className={`px-3 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
               subTab === "query"
-                ? "bg-[#1e3a5f] text-white shadow-sm"
+                ? "bg-teal-600 text-white shadow-2xs"
                 : "text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-bg-tertiary)]"
             }`}
           >
@@ -207,9 +207,9 @@ export default function PlaygroundPanel({
           {schemaStatus.state === "ready" && (
             <button
               onClick={() => changeSubTab("data")}
-              className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
+              className={`px-3 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
                 subTab === "data"
-                  ? "bg-[#1e3a5f] text-white shadow-sm"
+                  ? "bg-teal-600 text-white shadow-2xs"
                   : "text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-bg-tertiary)]"
               }`}
             >

@@ -33,20 +33,23 @@ export default function ConnectionsPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="max-w-5xl mx-auto space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-(--color-border) pb-5">
         <div>
-          <h1 className="text-2xl font-bold text-(--color-foreground)">Database Connections</h1>
-          <p className="text-sm text-(--color-text-muted) mt-1">
-            Manage your database connections for live query analysis.
+          <h1 className="text-2xl font-bold tracking-tight text-(--color-foreground)">
+            Database Connections
+          </h1>
+          <p className="text-xs text-(--color-text-muted) mt-1">
+            Configure live PostgreSQL and MySQL connections for plan extraction, index simulations, and empirical benchmarks.
           </p>
         </div>
         {!showForm && (
           <button
             onClick={() => setShowForm(true)}
-            className="px-4 py-2 bg-[#1e3a5f] dark:bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-[#2a4d7a] dark:hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold rounded-lg transition-colors shadow-2xs cursor-pointer flex items-center gap-1.5 self-start sm:self-auto"
           >
-            Add Connection
+            <span>+</span>
+            <span>Add Connection</span>
           </button>
         )}
       </div>
@@ -56,7 +59,9 @@ export default function ConnectionsPage() {
       )}
 
       {loading ? (
-        <p className="text-sm text-gray-500">Loading connections...</p>
+        <div className="animate-pulse space-y-3">
+          <div className="h-40 bg-(--color-surface) rounded-xl border border-(--color-border)"></div>
+        </div>
       ) : (
         <ConnectionList connections={connections} onRefresh={fetchConnections} />
       )}

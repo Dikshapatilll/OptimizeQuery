@@ -57,7 +57,7 @@ export function BenchmarkDetail({ benchmark, onBack }: BenchmarkDetailProps) {
           </button>
           <button
             onClick={() => exportBenchmarkPDF(benchmark)}
-            className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium transition-colors flex items-center gap-1.5 shadow-2xs cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold transition-colors flex items-center gap-1.5 shadow-2xs cursor-pointer"
           >
             <span>📄</span> Download PDF Report
           </button>
@@ -75,7 +75,7 @@ export function BenchmarkDetail({ benchmark, onBack }: BenchmarkDetailProps) {
           </div>
           <div className="flex items-baseline gap-2">
             <span
-              className={`text-2xl font-bold ${
+              className={`text-2xl font-bold font-mono ${
                 execImp != null && execImp > 0
                   ? "text-emerald-600 dark:text-emerald-400"
                   : execImp != null && execImp < 0
@@ -86,7 +86,7 @@ export function BenchmarkDetail({ benchmark, onBack }: BenchmarkDetailProps) {
               {execImp != null ? `${execImp > 0 ? "+" : ""}${execImp.toFixed(1)}%` : "N/A"}
             </span>
             {opt && (
-              <span className="text-xs text-(--color-text-faint)">
+              <span className="text-xs font-mono text-(--color-text-faint)">
                 {orig.warm_median_execution_time_ms.toFixed(2)} ms &rarr; {opt.warm_median_execution_time_ms.toFixed(2)} ms
               </span>
             )}
@@ -102,9 +102,9 @@ export function BenchmarkDetail({ benchmark, onBack }: BenchmarkDetailProps) {
           </div>
           <div className="flex items-baseline gap-2">
             <span
-              className={`text-2xl font-bold ${
+              className={`text-2xl font-bold font-mono ${
                 costImp != null && costImp > 0
-                  ? "text-indigo-600 dark:text-indigo-400"
+                  ? "text-violet-600 dark:text-violet-400"
                   : costImp != null && costImp < 0
                     ? "text-red-500"
                     : "text-(--color-foreground)"
@@ -113,7 +113,7 @@ export function BenchmarkDetail({ benchmark, onBack }: BenchmarkDetailProps) {
               {costImp != null ? `${costImp > 0 ? "+" : ""}${costImp.toFixed(1)}%` : "N/A"}
             </span>
             {opt?.estimated_planner_cost != null && orig.estimated_planner_cost != null && (
-              <span className="text-xs text-(--color-text-faint)">
+              <span className="text-xs font-mono text-(--color-text-faint)">
                 {orig.estimated_planner_cost.toFixed(1)} &rarr; {opt.estimated_planner_cost.toFixed(1)}
               </span>
             )}
@@ -129,7 +129,7 @@ export function BenchmarkDetail({ benchmark, onBack }: BenchmarkDetailProps) {
           </div>
           <div className="flex items-baseline gap-2">
             <span
-              className={`text-2xl font-bold ${
+              className={`text-2xl font-bold font-mono ${
                 readsImp != null && readsImp > 0
                   ? "text-teal-600 dark:text-teal-400"
                   : readsImp != null && readsImp < 0
@@ -140,7 +140,7 @@ export function BenchmarkDetail({ benchmark, onBack }: BenchmarkDetailProps) {
               {readsImp != null ? `${readsImp > 0 ? "+" : ""}${readsImp.toFixed(1)}%` : "N/A"}
             </span>
             {opt?.shared_buffer_reads != null && orig.shared_buffer_reads != null && (
-              <span className="text-xs text-(--color-text-faint)">
+              <span className="text-xs font-mono text-(--color-text-faint)">
                 {orig.shared_buffer_reads} &rarr; {opt.shared_buffer_reads} blocks
               </span>
             )}
@@ -149,12 +149,12 @@ export function BenchmarkDetail({ benchmark, onBack }: BenchmarkDetailProps) {
       </div>
 
       {/* Navigation tabs */}
-      <div className="border-b border-(--color-border) flex gap-4 text-sm font-medium">
+      <div className="border-b border-(--color-border) flex gap-4 text-xs font-semibold">
         <button
           onClick={() => setActiveTab("summary")}
           className={`pb-2.5 transition-colors cursor-pointer ${
             activeTab === "summary"
-              ? "border-b-2 border-blue-600 text-blue-600 dark:text-blue-400 font-semibold"
+              ? "border-b-2 border-teal-600 text-teal-600 dark:text-teal-400 font-bold"
               : "text-(--color-text-muted) hover:text-(--color-foreground)"
           }`}
         >
@@ -164,7 +164,7 @@ export function BenchmarkDetail({ benchmark, onBack }: BenchmarkDetailProps) {
           onClick={() => setActiveTab("charts")}
           className={`pb-2.5 transition-colors cursor-pointer ${
             activeTab === "charts"
-              ? "border-b-2 border-blue-600 text-blue-600 dark:text-blue-400 font-semibold"
+              ? "border-b-2 border-teal-600 text-teal-600 dark:text-teal-400 font-bold"
               : "text-(--color-text-muted) hover:text-(--color-foreground)"
           }`}
         >
@@ -174,18 +174,18 @@ export function BenchmarkDetail({ benchmark, onBack }: BenchmarkDetailProps) {
           onClick={() => setActiveTab("trials")}
           className={`pb-2.5 transition-colors cursor-pointer ${
             activeTab === "trials"
-              ? "border-b-2 border-blue-600 text-blue-600 dark:text-blue-400 font-semibold"
+              ? "border-b-2 border-teal-600 text-teal-600 dark:text-teal-400 font-bold"
               : "text-(--color-text-muted) hover:text-(--color-foreground)"
           }`}
         >
-          Individual Trial Runs ({orig.runs_count})
+          Trial Observations ({orig.runs_count})
         </button>
         {benchmark.ml_comparison && (
           <button
             onClick={() => setActiveTab("ml")}
             className={`pb-2.5 transition-colors cursor-pointer ${
               activeTab === "ml"
-                ? "border-b-2 border-blue-600 text-blue-600 dark:text-blue-400 font-semibold"
+                ? "border-b-2 border-teal-600 text-teal-600 dark:text-teal-400 font-bold"
                 : "text-(--color-text-muted) hover:text-(--color-foreground)"
             }`}
           >

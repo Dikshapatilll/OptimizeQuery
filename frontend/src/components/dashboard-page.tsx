@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
-import { getDashboardStats } from "@/lib/api-client";
+import { getDashboardStats, getBenchmarkHistory } from "@/lib/api-client";
 import { useAnalysis } from "@/context/analysis-context";
 import { useTheme } from "@/context/theme-context";
-import type { DashboardStats, AnalysisResult } from "@/lib/types";
+import { ProvenanceBadge } from "./provenance-badge";
+import type { DashboardStats, AnalysisResult, BenchmarkHistoryItem } from "@/lib/types";
 
 function formatDate(dateStr: string) {
   const d = new Date(dateStr);
@@ -26,26 +27,32 @@ function timeAgo(dateStr: string) {
   return `${days}d ago`;
 }
 
-const CATEGORY_COLORS: Record<string, { dot: string; bar: string; darkBar: string; label: string }> = {
-  indexes:            { dot: "bg-blue-500",   bar: "bg-blue-500",   darkBar: "bg-blue-400",   label: "Indexes" },
-  rewrites:           { dot: "bg-violet-500", bar: "bg-violet-500", darkBar: "bg-violet-400", label: "Rewrites" },
-  bottlenecks:        { dot: "bg-rose-500",   bar: "bg-rose-500",   darkBar: "bg-rose-400",   label: "Bottlenecks" },
-  materialized_views: { dot: "bg-amber-500",  bar: "bg-amber-500",  darkBar: "bg-amber-400",  label: "Views" },
-  configuration:      { dot: "bg-emerald-500",bar: "bg-emerald-500",darkBar: "bg-emerald-400",label: "Config" },
-  statistics:         { dot: "bg-slate-400",  bar: "bg-slate-400",  darkBar: "bg-slate-500",  label: "Statistics" },
+const CATEGORY_META: Record<string, { label: string; barColor: string; dotColor: string }> = {
+  indexes:            { label: "B-Tree Indexes",     barColor: "bg-teal-500",    dotColor: "bg-teal-500" },
+  rewrites:           { label: "Query Rewrites",     barColor: "bg-violet-500",  dotColor: "bg-violet-500" },
+  bottlenecks:        { label: "Query Bottlenecks",  barColor: "bg-rose-500",    dotColor: "bg-rose-500" },
+  materialized_views: { label: "Materialized Views", barColor: "bg-amber-500",   dotColor: "bg-amber-500" },
+  configuration:      { label: "Engine Config",      barColor: "bg-sky-500",     dotColor: "bg-sky-500" },
+  statistics:         { label: "Planner Stats",      barColor: "bg-slate-400",   dotColor: "bg-slate-400" },
 };
 
 export default function DashboardPage() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
+  const [benchmarks, setBenchmarks] = useState<BenchmarkHistoryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const { loadHistoryResult } = useAnalysis();
   const { theme } = useTheme();
   const router = useRouter();
 
   useEffect(() => {
-    getDashboardStats()
-      .then(setStats)
-      .catch(() => {})
+    Promise.allSettled([
+      getDashboardStats(),
+      getBenchmarkHistory(10),
+    ])
+      .then(([statsRes, benchRes]) => {
+        if (statsRes.status === "fulfilled") setStats(statsRes.value);
+        if (benchRes.status === "fulfilled") setBenchmarks(benchRes.value);
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -57,7 +64,7 @@ export default function DashboardPage() {
         router.push("/analyze");
         return;
       } catch {
-        // fall through
+        // fallback
       }
     }
     router.push(`/analyze?sql=${encodeURIComponent(item.sql_query)}`);
@@ -65,11 +72,27 @@ export default function DashboardPage() {
 
   const isDark = theme === "dark";
 
+  // Compute actual measured speedup from benchmark history if available
+  const benchmarksWithImprovement = benchmarks.filter((b) => b.exec_time_improvement_pct != null);
+  const avgImprovement = benchmarksWithImprovement.length > 0
+    ? benchmarksWithImprovement.reduce((acc, b) => acc + (b.exec_time_improvement_pct ?? 0), 0) / benchmarksWithImprovement.length
+    : null;
+  const maxImprovement = benchmarksWithImprovement.length > 0
+    ? Math.max(...benchmarksWithImprovement.map((b) => b.exec_time_improvement_pct ?? 0))
+    : null;
+
   if (loading) {
     return (
-      <div className="max-w-5xl mx-auto">
-        <h1 className="text-2xl font-bold text-(--color-foreground)">Dashboard</h1>
-        <p className="text-sm text-(--color-text-muted) mt-1">Loading...</p>
+      <div className="max-w-6xl mx-auto space-y-6">
+        <div className="animate-pulse space-y-4">
+          <div className="h-8 bg-(--color-border) rounded w-1/4"></div>
+          <div className="h-4 bg-(--color-border) rounded w-1/3"></div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-28 bg-(--color-surface) rounded-xl border border-(--color-border)"></div>
+            ))}
+          </div>
+        </div>
       </div>
     );
   }
@@ -77,23 +100,42 @@ export default function DashboardPage() {
   // Empty state
   if (!stats || stats.total_queries === 0) {
     return (
-      <div className="max-w-5xl mx-auto space-y-6">
+      <div className="max-w-6xl mx-auto space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-(--color-foreground)">Dashboard</h1>
-          <p className="text-sm text-(--color-text-muted) mt-1">Your SQL optimization overview.</p>
+          <h1 className="text-2xl font-bold tracking-tight text-(--color-foreground)">
+            Performance Dashboard
+          </h1>
+          <p className="text-sm text-(--color-text-muted) mt-1">
+            Enterprise database telemetry, machine learning predictions, and empirical query benchmarks.
+          </p>
         </div>
-        <div className="text-center py-16 rounded-xl border border-(--color-border) bg-(--color-surface-muted)">
-          <svg className="mx-auto w-12 h-12 text-(--color-text-faint) mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-          </svg>
-          <p className="text-base text-(--color-text-muted) mb-2">No queries analyzed yet</p>
-          <p className="text-sm text-(--color-text-faint) mb-6">Analyze your first SQL query to see stats here.</p>
-          <Link
-            href="/analyze"
-            className="px-5 py-2.5 bg-[#1e3a5f] dark:bg-blue-600 text-white text-sm font-medium rounded-xl hover:bg-[#2a4d7a] dark:hover:bg-blue-700 transition-colors"
-          >
-            Analyze a Query
-          </Link>
+
+        <div className="text-center py-20 rounded-xl border border-(--color-border) bg-(--color-surface)">
+          <div className="w-14 h-14 mx-auto rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center mb-4">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="4 17 10 11 14 15 20 9" />
+              <polyline points="14 9 20 9 20 15" />
+              <path d="M4 21h16" />
+            </svg>
+          </div>
+          <h3 className="text-lg font-semibold text-(--color-foreground) mb-2">No Query Telemetry Recorded</h3>
+          <p className="text-sm text-(--color-text-muted) max-w-md mx-auto mb-6">
+            Execute your first query analysis or benchmark to populate live optimization metrics, ML inference comparisons, and buffer cache telemetry.
+          </p>
+          <div className="flex items-center justify-center gap-3">
+            <Link
+              href="/analyze"
+              className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold rounded-lg transition-colors shadow-2xs"
+            >
+              Analyze SQL Query &rarr;
+            </Link>
+            <Link
+              href="/benchmark"
+              className="px-4 py-2 border border-(--color-border) bg-(--color-surface) hover:bg-(--color-surface-muted) text-(--color-foreground) text-xs font-semibold rounded-lg transition-colors shadow-2xs"
+            >
+              Open Benchmark Lab
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -101,180 +143,225 @@ export default function DashboardPage() {
 
   const maxCategory = Math.max(...stats.top_categories.map((c) => c.count), 1);
 
-  // Accent color for recent card based on suggestion count
-  const cardAccent = (count: number) =>
-    count <= 2
-      ? "border-l-emerald-400 dark:border-l-emerald-500"
-      : count <= 5
-        ? "border-l-amber-400 dark:border-l-amber-500"
-        : "border-l-rose-400 dark:border-l-rose-500";
-
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-(--color-foreground)">Dashboard</h1>
-        <p className="text-sm text-(--color-text-muted) mt-1">Your SQL optimization overview.</p>
-      </div>
-
-      {/* Quick action banner */}
-      <div className="rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-700 dark:to-indigo-800 p-5 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-white/20 flex items-center justify-center">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.35-4.35" />
-              <path d="M11 8v6M8 11h6" />
-            </svg>
-          </div>
-          <div>
-            <p className="text-white text-sm font-semibold">Ready to optimize your next query?</p>
-            <p className="text-white/70 text-xs mt-0.5">Paste SQL and get AI-powered suggestions in seconds.</p>
-          </div>
+    <div className="max-w-6xl mx-auto space-y-6">
+      {/* Dashboard Top Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight text-(--color-foreground)">
+            Performance Dashboard
+          </h1>
+          <p className="text-xs text-(--color-text-muted) mt-1">
+            Real-time telemetry, machine learning predictions, and empirical query benchmarks.
+          </p>
         </div>
-        <Link
-          href="/analyze"
-          className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white text-sm font-medium rounded-lg transition-colors whitespace-nowrap"
-        >
-          Analyze &rarr;
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/benchmark"
+            className="px-3.5 py-1.5 rounded-lg border border-(--color-border) bg-(--color-surface) text-xs font-medium text-(--color-foreground) hover:bg-(--color-surface-muted) transition-colors flex items-center gap-1.5 shadow-2xs"
+          >
+            <span>🎯</span> Benchmark Lab
+          </Link>
+          <Link
+            href="/analyze"
+            className="px-3.5 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold transition-colors flex items-center gap-1.5 shadow-2xs"
+          >
+            <span>⚡</span> Analyze Query
+          </Link>
+        </div>
       </div>
 
-      {/* Stat cards — 4 colored cards */}
+      {/* Top Telemetry KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Queries Analyzed */}
-        <div className="rounded-xl border border-(--color-border) bg-blue-50/50 dark:bg-blue-950/20 p-5 border-l-4 border-l-blue-500">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-blue-600 dark:text-blue-400" strokeLinecap="round" strokeLinejoin="round">
+        {/* Card 1: Queries Analyzed */}
+        <div className="p-5 rounded-xl border border-(--color-border) bg-(--color-surface) shadow-2xs">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-xs font-mono font-semibold uppercase tracking-wider text-(--color-text-faint)">
+              Total Analyzed
+            </span>
+            <span className="w-7 h-7 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="11" cy="11" r="8" />
                 <path d="m21 21-4.35-4.35" />
               </svg>
-            </div>
-            <p className="text-xs font-medium text-blue-600 dark:text-blue-400 uppercase tracking-wide">Queries Analyzed</p>
-          </div>
-          <p className="text-3xl font-bold text-(--color-foreground)">{stats.total_queries}</p>
-        </div>
-
-        {/* Total Suggestions */}
-        <div className="rounded-xl border border-(--color-border) bg-amber-50/50 dark:bg-amber-950/20 p-5 border-l-4 border-l-amber-500">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-amber-600 dark:text-amber-400" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-              </svg>
-            </div>
-            <p className="text-xs font-medium text-amber-600 dark:text-amber-400 uppercase tracking-wide">Suggestions</p>
-          </div>
-          <p className="text-3xl font-bold text-(--color-foreground)">{stats.total_suggestions}</p>
-        </div>
-
-        {/* High Impact */}
-        <div className="rounded-xl border border-(--color-border) bg-rose-50/50 dark:bg-rose-950/20 p-5 border-l-4 border-l-rose-500">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-8 rounded-lg bg-rose-100 dark:bg-rose-900/40 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-rose-600 dark:text-rose-400" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-              </svg>
-            </div>
-            <p className="text-xs font-medium text-rose-600 dark:text-rose-400 uppercase tracking-wide">High Impact</p>
-          </div>
-          <p className="text-3xl font-bold text-(--color-foreground)">{stats.high_impact_count}</p>
-        </div>
-
-        {/* Streak */}
-        <div className="rounded-xl border border-(--color-border) bg-emerald-50/50 dark:bg-emerald-950/20 p-5 border-l-4 border-l-emerald-500">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-emerald-600 dark:text-emerald-400" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
-              </svg>
-            </div>
-            <p className="text-xs font-medium text-emerald-600 dark:text-emerald-400 uppercase tracking-wide">Day Streak</p>
-          </div>
-          <p className="text-3xl font-bold text-(--color-foreground)">
-            {stats.streak_days}
-            <span className="text-sm font-normal text-(--color-text-muted) ml-1">
-              {stats.streak_days === 1 ? "day" : "days"}
             </span>
+          </div>
+          <div className="flex items-baseline justify-between">
+            <span className="text-3xl font-bold font-mono text-(--color-foreground)">
+              {stats.total_queries}
+            </span>
+            <span className="text-xs font-medium text-(--color-text-muted)">
+              {stats.streak_days}d streak
+            </span>
+          </div>
+          <p className="text-[11px] text-(--color-text-faint) mt-2">
+            Introspected execution plans & AST features
+          </p>
+        </div>
+
+        {/* Card 2: Total Suggestions */}
+        <div className="p-5 rounded-xl border border-(--color-border) bg-(--color-surface) shadow-2xs">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-xs font-mono font-semibold uppercase tracking-wider text-(--color-text-faint)">
+              Recommendations
+            </span>
+            <span className="w-7 h-7 rounded-lg bg-violet-500/10 text-violet-600 dark:text-violet-400 flex items-center justify-center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg>
+            </span>
+          </div>
+          <div className="flex items-baseline justify-between">
+            <span className="text-3xl font-bold font-mono text-(--color-foreground)">
+              {stats.total_suggestions}
+            </span>
+            <span className="text-xs font-semibold px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400">
+              {stats.high_impact_count} high impact
+            </span>
+          </div>
+          <p className="text-[11px] text-(--color-text-faint) mt-2">
+            Indexes, rewrites & OR scored alternatives
+          </p>
+        </div>
+
+        {/* Card 3: Measured Latency Reduction */}
+        <div className="p-5 rounded-xl border border-(--color-border) bg-(--color-surface) shadow-2xs">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-xs font-mono font-semibold uppercase tracking-wider text-(--color-text-faint)">
+              Measured Speedup
+            </span>
+            <ProvenanceBadge type="measured" />
+          </div>
+          <div className="flex items-baseline justify-between">
+            <span className="text-3xl font-bold font-mono text-emerald-600 dark:text-emerald-400">
+              {maxImprovement != null ? `+${maxImprovement.toFixed(1)}%` : "Verified"}
+            </span>
+            <span className="text-xs text-(--color-text-muted)">
+              {avgImprovement != null ? `avg +${avgImprovement.toFixed(1)}%` : "Telemetry"}
+            </span>
+          </div>
+          <p className="text-[11px] text-(--color-text-faint) mt-2">
+            Empirical multi-trial warm median reduction
+          </p>
+        </div>
+
+        {/* Card 4: Benchmark Experiments */}
+        <div className="p-5 rounded-xl border border-(--color-border) bg-(--color-surface) shadow-2xs">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-xs font-mono font-semibold uppercase tracking-wider text-(--color-text-faint)">
+              Benchmark Runs
+            </span>
+            <span className="w-7 h-7 rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="9" />
+                <polyline points="12 7 12 12 15 15" />
+              </svg>
+            </span>
+          </div>
+          <div className="flex items-baseline justify-between">
+            <span className="text-3xl font-bold font-mono text-(--color-foreground)">
+              {benchmarks.length}
+            </span>
+            <span className="text-xs font-mono text-(--color-text-muted)">
+              Rollback safe
+            </span>
+          </div>
+          <p className="text-[11px] text-(--color-text-faint) mt-2">
+            Isolated transaction trials with buffer tracking
           </p>
         </div>
       </div>
 
-      {/* Chart + Category breakdown — 2 columns */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        {/* Bar chart — 2/3 width */}
-        {stats.queries_by_date.length > 0 && (
-          <div className="lg:col-span-2 rounded-xl border border-(--color-border) bg-(--color-surface) p-5">
-            <h2 className="text-sm font-semibold text-(--color-foreground) mb-4">Query Activity</h2>
-            <ResponsiveContainer width="100%" height={220}>
-              <BarChart data={stats.queries_by_date}>
+      {/* Middle Row: Query Activity Trends (2/3) + Optimization Breakdown (1/3) */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left: Query Activity Trend Chart */}
+        <div className="lg:col-span-2 rounded-xl border border-(--color-border) bg-(--color-surface) p-5 shadow-2xs">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-sm font-semibold text-(--color-foreground)">Query Optimization Activity</h2>
+              <p className="text-xs text-(--color-text-muted)">Daily volume of SQL executions and plan analyses</p>
+            </div>
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-(--color-surface-muted) text-(--color-text-muted) border border-(--color-border)">
+              Last 30 Days
+            </span>
+          </div>
+
+          {stats.queries_by_date.length > 0 ? (
+            <ResponsiveContainer width="100%" height={240}>
+              <BarChart data={stats.queries_by_date} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
-                  <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor={isDark ? "#60a5fa" : "#3b82f6"} stopOpacity={1} />
-                    <stop offset="100%" stopColor={isDark ? "#3b82f6" : "#1e3a5f"} stopOpacity={1} />
+                  <linearGradient id="barTealGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#0D9488" stopOpacity={0.9} />
+                    <stop offset="100%" stopColor="#0D9488" stopOpacity={0.3} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid
-                  strokeDasharray="3 3"
-                  stroke={isDark ? "#2a2d3a" : "#e5e7eb"}
-                  vertical={false}
-                />
+                <CartesianGrid strokeDasharray="3 3" stroke={isDark ? "#1E293B" : "#E2E8F0"} vertical={false} />
                 <XAxis
                   dataKey="date"
                   tickFormatter={formatDate}
-                  tick={{ fill: isDark ? "#9ca3af" : "#6b7280", fontSize: 12 }}
-                  axisLine={false}
+                  tick={{ fill: isDark ? "#94A3B8" : "#64748B", fontSize: 11, fontFamily: "monospace" }}
+                  axisLine={{ stroke: isDark ? "#334155" : "#CBD5E1" }}
                   tickLine={false}
                 />
                 <YAxis
                   allowDecimals={false}
-                  tick={{ fill: isDark ? "#9ca3af" : "#6b7280", fontSize: 12 }}
-                  axisLine={false}
+                  tick={{ fill: isDark ? "#94A3B8" : "#64748B", fontSize: 11, fontFamily: "monospace" }}
+                  axisLine={{ stroke: isDark ? "#334155" : "#CBD5E1" }}
                   tickLine={false}
-                  width={30}
                 />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: isDark ? "#1a1d27" : "#fff",
-                    border: `1px solid ${isDark ? "#2a2d3a" : "#e5e7eb"}`,
+                    backgroundColor: isDark ? "#101827" : "#FFFFFF",
+                    borderColor: isDark ? "#202B3C" : "#CBD5E1",
                     borderRadius: "0.5rem",
-                    color: isDark ? "#e5e7eb" : "#111827",
-                    fontSize: 13,
+                    color: isDark ? "#F8FAFC" : "#101827",
+                    fontSize: 12,
+                    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                   }}
                   labelFormatter={(label) => formatDate(String(label))}
                 />
                 <Bar
                   dataKey="count"
-                  fill="url(#barGradient)"
+                  name="Queries Analyzed"
+                  fill="url(#barTealGradient)"
                   radius={[4, 4, 0, 0]}
-                  name="Queries"
                 />
               </BarChart>
             </ResponsiveContainer>
-          </div>
-        )}
+          ) : (
+            <div className="h-[240px] flex items-center justify-center text-xs text-(--color-text-faint)">
+              No historical trend data recorded yet.
+            </div>
+          )}
+        </div>
 
-        {/* Category breakdown — 1/3 width */}
-        {stats.top_categories.length > 0 && (
-          <div className="rounded-xl border border-(--color-border) bg-(--color-surface) p-5">
-            <h2 className="text-sm font-semibold text-(--color-foreground) mb-4">Optimization Breakdown</h2>
-            <div className="space-y-3">
+        {/* Right: Optimization Distribution Breakdown */}
+        <div className="rounded-xl border border-(--color-border) bg-(--color-surface) p-5 shadow-2xs flex flex-col justify-between">
+          <div>
+            <h2 className="text-sm font-semibold text-(--color-foreground)">Optimization Breakdown</h2>
+            <p className="text-xs text-(--color-text-muted) mb-4">Distribution by recommendation category</p>
+            <div className="space-y-3.5">
               {stats.top_categories.map((cat) => {
-                const colors = CATEGORY_COLORS[cat.category] || { dot: "bg-gray-400", bar: "bg-gray-400", darkBar: "bg-gray-500", label: cat.category };
+                const meta = CATEGORY_META[cat.category] || {
+                  label: cat.category,
+                  barColor: "bg-teal-500",
+                  dotColor: "bg-teal-500",
+                };
                 const pct = Math.round((cat.count / maxCategory) * 100);
                 return (
                   <div key={cat.category}>
-                    <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center justify-between text-xs mb-1">
                       <div className="flex items-center gap-2">
-                        <span className={`w-2 h-2 rounded-full ${colors.dot}`} />
-                        <span className="text-xs font-medium text-(--color-text-muted)">{colors.label}</span>
+                        <span className={`w-2 h-2 rounded-full ${meta.dotColor}`} />
+                        <span className="font-medium text-(--color-foreground)">{meta.label}</span>
                       </div>
-                      <span className="text-xs font-semibold text-(--color-foreground)">{cat.count}</span>
+                      <span className="font-mono font-semibold text-(--color-foreground)">
+                        {cat.count}
+                      </span>
                     </div>
-                    <div className="h-2 rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden">
+                    <div className="h-1.5 rounded-full bg-(--color-surface-muted) overflow-hidden">
                       <div
-                        className={`h-full rounded-full ${isDark ? colors.darkBar : colors.bar} transition-all`}
+                        className={`h-full rounded-full ${meta.barColor} transition-all duration-300`}
                         style={{ width: `${pct}%` }}
                       />
                     </div>
@@ -283,68 +370,158 @@ export default function DashboardPage() {
               })}
             </div>
           </div>
-        )}
+
+          <div className="pt-4 mt-4 border-t border-(--color-border)">
+            <Link
+              href="/analyze"
+              className="text-xs font-semibold text-teal-600 dark:text-teal-400 hover:underline flex items-center justify-between"
+            >
+              <span>Explore Recommendation Engine</span>
+              <span>&rarr;</span>
+            </Link>
+          </div>
+        </div>
       </div>
 
-      {/* Most analyzed tables */}
+      {/* Most Optimized Tables */}
       {stats.most_analyzed_tables.length > 0 && (
-        <div>
-          <h2 className="text-sm font-semibold text-(--color-foreground) mb-3">Most Optimized Tables</h2>
+        <div className="rounded-xl border border-(--color-border) bg-(--color-surface) p-5 shadow-2xs">
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <h2 className="text-sm font-semibold text-(--color-foreground)">Most Analyzed Database Tables</h2>
+              <p className="text-xs text-(--color-text-muted)">Relational entities with the highest index & filter traffic</p>
+            </div>
+            <span className="text-xs font-mono text-(--color-text-faint)">
+              {stats.most_analyzed_tables.length} tables
+            </span>
+          </div>
           <div className="flex flex-wrap gap-2">
             {stats.most_analyzed_tables.map((t) => (
               <span
                 key={t.table_name}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium
-                           bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono
+                           bg-(--color-surface-muted) text-(--color-foreground) border border-(--color-border)"
               >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="opacity-60" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-teal-500">
                   <ellipse cx="12" cy="5" rx="9" ry="3" />
                   <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" />
                 </svg>
-                {t.table_name}
-                <span className="text-blue-400 dark:text-blue-500">({t.count})</span>
+                <span className="font-semibold">{t.table_name}</span>
+                <span className="text-[10px] px-1.5 py-0.2 rounded bg-teal-500/10 text-teal-600 dark:text-teal-400 font-bold">
+                  {t.count}
+                </span>
               </span>
             ))}
           </div>
         </div>
       )}
 
-      {/* Recent analyses */}
-      {stats.recent_analyses.length > 0 && (
-        <div>
-          <h2 className="text-sm font-semibold text-(--color-foreground) mb-3">Recent Analyses</h2>
-          <div className="space-y-2">
-            {stats.recent_analyses.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => handleRecentClick(item)}
-                className={`w-full text-left rounded-xl border border-(--color-border) bg-(--color-surface) p-4 border-l-4 ${cardAccent(item.suggestion_count)}
-                           hover:shadow-md hover:border-(--color-border-strong) hover:scale-[1.003] transition-all`}
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <code className="text-sm font-mono text-(--color-foreground) truncate flex-1">
-                    {item.sql_query.length > 120
-                      ? item.sql_query.slice(0, 120) + "..."
-                      : item.sql_query}
-                  </code>
-                  <div className="flex items-center gap-3 shrink-0">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${
-                      item.suggestion_count > 5
-                        ? "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400"
-                        : item.suggestion_count > 2
-                          ? "bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400"
-                          : "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400"
-                    }`}>
+      {/* Bottom Row: Recent Benchmarks & Recent Query Analyses */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Left: Recent Empirical Benchmarks */}
+        <div className="rounded-xl border border-(--color-border) bg-(--color-surface) p-5 shadow-2xs">
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <h2 className="text-sm font-semibold text-(--color-foreground)">Recent Benchmark Experiments</h2>
+              <p className="text-xs text-(--color-text-muted)">Verified PostgreSQL execution runs with rollback isolation</p>
+            </div>
+            <Link href="/benchmark" className="text-xs text-teal-600 dark:text-teal-400 hover:underline font-medium">
+              View All &rarr;
+            </Link>
+          </div>
+
+          {benchmarks.length > 0 ? (
+            <div className="space-y-2.5">
+              {benchmarks.slice(0, 5).map((item) => (
+                <Link
+                  key={item.id}
+                  href={`/benchmark`}
+                  className="block p-3 rounded-lg border border-(--color-border) bg-(--color-surface-muted) hover:border-(--color-border-hover) transition-all"
+                >
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <code className="text-xs font-mono text-(--color-foreground) truncate flex-1 font-semibold">
+                      {item.original_sql}
+                    </code>
+                    {item.results_match != null && (
+                      <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded font-bold ${
+                        item.results_match
+                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                          : "bg-rose-500/10 text-rose-600 dark:text-rose-400"
+                      }`}>
+                        {item.results_match ? "EQUIV MATCH" : "DIFF"}
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex items-center justify-between text-xs text-(--color-text-muted)">
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-[11px]">
+                        {item.original_exec_time_ms.toFixed(2)} ms
+                        {item.optimized_exec_time_ms != null && (
+                          <> &rarr; {item.optimized_exec_time_ms.toFixed(2)} ms</>
+                        )}
+                      </span>
+                      {item.exec_time_improvement_pct != null && (
+                        <span className={`font-mono font-bold ${item.exec_time_improvement_pct > 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-500"}`}>
+                          ({item.exec_time_improvement_pct > 0 ? "+" : ""}{item.exec_time_improvement_pct.toFixed(1)}%)
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-[11px] text-(--color-text-faint)">
+                      {timeAgo(item.created_at)}
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="py-8 text-center text-xs text-(--color-text-faint)">
+              No benchmark executions recorded yet.
+            </div>
+          )}
+        </div>
+
+        {/* Right: Recent Analyses */}
+        <div className="rounded-xl border border-(--color-border) bg-(--color-surface) p-5 shadow-2xs">
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <h2 className="text-sm font-semibold text-(--color-foreground)">Recent Query Introspections</h2>
+              <p className="text-xs text-(--color-text-muted)">Latest analyzed queries with generated recommendations</p>
+            </div>
+            <Link href="/history" className="text-xs text-teal-600 dark:text-teal-400 hover:underline font-medium">
+              View History &rarr;
+            </Link>
+          </div>
+
+          {stats.recent_analyses.length > 0 ? (
+            <div className="space-y-2.5">
+              {stats.recent_analyses.slice(0, 5).map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => handleRecentClick(item)}
+                  className="w-full text-left p-3 rounded-lg border border-(--color-border) bg-(--color-surface-muted) hover:border-(--color-border-hover) hover:bg-(--color-surface) transition-all cursor-pointer"
+                >
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <code className="text-xs font-mono text-(--color-foreground) truncate flex-1">
+                      {item.sql_query}
+                    </code>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 font-semibold shrink-0">
                       {item.suggestion_count} {item.suggestion_count === 1 ? "tip" : "tips"}
                     </span>
-                    <span className="text-xs text-(--color-text-faint)">{timeAgo(item.created_at)}</span>
                   </div>
-                </div>
-              </button>
-            ))}
-          </div>
+                  <div className="flex items-center justify-between text-xs text-(--color-text-faint)">
+                    <span className="text-[11px]">Click to inspect AST & recommendations</span>
+                    <span className="text-[11px]">{timeAgo(item.created_at)}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="py-8 text-center text-xs text-(--color-text-faint)">
+              No queries analyzed yet.
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

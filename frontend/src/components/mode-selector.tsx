@@ -45,9 +45,9 @@ export default function ModeSelector({ mode, onChange }: ModeSelectorProps) {
         <button
           key={m.value}
           onClick={() => onChange(m.value)}
-          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all ${
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
             mode === m.value
-              ? "bg-[#1e3a5f] text-white shadow-sm"
+              ? "bg-teal-600 text-white font-semibold shadow-2xs"
               : "text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-bg-tertiary)]"
           }`}
         >

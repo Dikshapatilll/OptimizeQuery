@@ -9,24 +9,24 @@ interface LLMConfigListProps {
 }
 
 const providerLabels: Record<string, string> = {
-  anthropic:  "Anthropic (Claude)",
-  openai:     "OpenAI",
-  gemini:     "Google Gemini",
-  deepseek:   "DeepSeek",
-  xai:        "xAI (Grok)",
+  anthropic:  "Anthropic (Claude 3.5 Sonnet)",
+  openai:     "OpenAI (GPT-4o)",
+  gemini:     "Google Gemini (Gemini 1.5 Pro)",
+  deepseek:   "DeepSeek (DeepSeek-V3 / R1)",
+  xai:        "xAI (Grok 2)",
   qwen:       "Qwen (Alibaba)",
-  meta:       "Meta Llama",
+  meta:       "Meta (Llama 3.3)",
   kimi:       "Kimi / Moonshot",
-  openrouter: "OpenRouter",
+  openrouter: "OpenRouter Gateway",
 };
 
 export function LLMConfigList({ configs, onRefresh }: LLMConfigListProps) {
   if (configs.length === 0) {
     return (
-      <div className="text-center py-12">
-        <p className="text-sm text-gray-400">No LLM configurations yet.</p>
-        <p className="text-xs text-gray-300 mt-1">
-          Add one to start using a custom LLM provider.
+      <div className="text-center py-10 rounded-xl border border-(--color-border) bg-(--color-surface)">
+        <p className="text-xs text-(--color-text-muted)">No external LLM providers configured.</p>
+        <p className="text-[11px] text-(--color-text-faint) mt-1">
+          OptimizeQL operates with built-in ML and OR optimization models by default. Add an LLM provider for natural language query advice.
         </p>
       </div>
     );
@@ -55,28 +55,30 @@ export function LLMConfigList({ configs, onRefresh }: LLMConfigListProps) {
       {configs.map((config) => (
         <div
           key={config.id}
-          className={`rounded-xl border p-5 transition-shadow hover:shadow-sm ${
+          className={`rounded-xl border p-4 transition-all shadow-2xs ${
             config.is_active
-              ? "border-blue-200 dark:border-blue-800 bg-blue-50/30 dark:bg-blue-950/20"
+              ? "border-teal-500/40 bg-teal-500/5"
               : "border-(--color-border) bg-(--color-surface)"
           }`}
         >
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2.5 mb-1">
-                <h4 className="text-base font-semibold text-(--color-foreground) truncate">
+                <h4 className="text-xs font-semibold text-(--color-foreground) truncate">
                   {config.name}
                 </h4>
                 {config.is_active && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-800">
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    Active
+                    ACTIVE PROVIDER
                   </span>
                 )}
               </div>
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-(--color-text-muted)">
-                <span>{providerLabels[config.provider] || config.provider}</span>
-                <span className="font-mono text-xs text-(--color-text-faint)">{config.api_key_preview}</span>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-(--color-text-muted)">
+                <span className="font-medium">{providerLabels[config.provider] || config.provider}</span>
+                <span className="font-mono text-[11px] text-(--color-text-faint)">
+                  Key: {config.api_key_preview}
+                </span>
               </div>
             </div>
 
@@ -84,16 +86,14 @@ export function LLMConfigList({ configs, onRefresh }: LLMConfigListProps) {
               {!config.is_active && (
                 <button
                   onClick={() => handleActivate(config.id)}
-                  className="px-3 py-1.5 text-xs font-medium text-[#1e3a5f] dark:text-blue-400 bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-800
-                             rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors"
+                  className="px-3 py-1.5 text-xs font-semibold text-teal-700 dark:text-teal-300 bg-teal-500/10 border border-teal-500/20 rounded-lg hover:bg-teal-500/20 transition-colors cursor-pointer"
                 >
                   Set Active
                 </button>
               )}
               <button
                 onClick={() => handleDelete(config.id)}
-                className="px-3 py-1.5 text-xs font-medium text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 border border-red-100 dark:border-red-800
-                           rounded-lg hover:bg-red-100 dark:hover:bg-red-900/50 transition-colors"
+                className="px-3 py-1.5 text-xs font-medium text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors cursor-pointer"
               >
                 Delete
               </button>
@@ -104,3 +104,5 @@ export function LLMConfigList({ configs, onRefresh }: LLMConfigListProps) {
     </div>
   );
 }
+
+export default LLMConfigList;

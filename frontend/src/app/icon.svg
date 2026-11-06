@@ -1,12 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 80 80" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48" fill="none">
   <defs>
-    <linearGradient id="bg" x1="10" y1="8" x2="70" y2="72" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#1e3a5f"/>
-      <stop offset="1" stop-color="#2D5B8E"/>
+    <linearGradient id="optql-node-bg" x1="4" y1="4" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#101827" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+    <linearGradient id="optql-opt-vector" x1="14" y1="14" x2="42" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0D9488" />
+      <stop offset="50%" stop-color="#14B8A6" />
+      <stop offset="100%" stop-color="#7567D8" />
     </linearGradient>
   </defs>
-  <rect x="4" y="4" width="72" height="72" rx="22" fill="url(#bg)"/>
-  <circle cx="39" cy="38" r="16" fill="none" stroke="white" stroke-width="3.5"/>
-  <circle cx="53" cy="30" r="4.5" fill="#F6D2B8"/>
-  <path d="M50 49L59 58" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+  <rect x="2" y="2" width="44" height="44" rx="12" fill="url(#optql-node-bg)" stroke="#202B3C" stroke-width="1.5" />
+  <circle cx="22" cy="21" r="12.5" stroke="#334155" stroke-width="2" stroke-dasharray="3 3" />
+  <path d="M22 8.5L34.5 21" stroke="#475569" stroke-width="1.5" stroke-linecap="round" />
+  <path d="M34.5 21L22 33.5" stroke="#475569" stroke-width="1.5" stroke-linecap="round" />
+  <path d="M22 33.5L9.5 21" stroke="#475569" stroke-width="1.5" stroke-linecap="round" />
+  <path d="M9.5 21L22 8.5" stroke="#475569" stroke-width="1.5" stroke-linecap="round" />
+  <circle cx="22" cy="8.5" r="3" fill="#0D9488" />
+  <circle cx="22" cy="8.5" r="1.2" fill="#FFFFFF" />
+  <circle cx="34.5" cy="21" r="2.8" fill="#7567D8" />
+  <circle cx="34.5" cy="21" r="1" fill="#FFFFFF" />
+  <circle cx="22" cy="33.5" r="2.8" fill="#0D9488" />
+  <circle cx="22" cy="33.5" r="1" fill="#FFFFFF" />
+  <circle cx="9.5" cy="21" r="2.8" fill="#38BDF8" />
+  <circle cx="9.5" cy="21" r="1" fill="#FFFFFF" />
+  <path d="M17 16L27 26L38 37" stroke="url(#optql-opt-vector)" stroke-width="3.2" stroke-linecap="round" />
+  <path d="M31 37H38V30" stroke="url(#optql-opt-vector)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="22" cy="21" r="2" fill="#F8FAFC" />
 </svg>
